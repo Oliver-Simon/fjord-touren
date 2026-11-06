@@ -1,0 +1,2161 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fjord-Touren Nesttun</title>
+<meta name="description" content="Fjord-, Fähr- und Busrunden ab Apeltunvegen 36 (Nesttun, Bergen) mit echten Entur-Fahrplänen, Karte, GPX und Entur-Links.">
+<meta name="theme-color" content="#0b4f7c" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1620" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b4f7c'/%3E%3Cpath d='M8 46 L24 22 L34 36 L42 26 L56 46 Z' fill='%23e6f2fa'/%3E%3Cpath d='M8 48 Q20 42 32 48 T56 48 V56 H8 Z' fill='%2338bdf8'/%3E%3C/svg%3E">
+<style>/*LEAFLET_CSS*/</style>
+<style>
+:root{
+  --bg:#f3f6f9; --surface:#ffffff; --surface-2:#eef3f7; --surface-3:#e3ebf2;
+  --text:#0f1b26; --text-2:#3d4f60; --muted:#6b7c8c; --border:#d8e1e9;
+  --accent:#0b6aa2; --accent-ink:#ffffff; --accent-soft:#dcecf7;
+  --ok:#15803d; --ok-soft:#dcfce7; --warn:#b45309; --warn-soft:#fef3c7; --bad:#b91c1c; --bad-soft:#fee2e2;
+  --bus:#d4373f; --tram:#e07b00; --rail:#7c3aed; --water:#0284c7; --foot:#64748b; --coach:#be185d;
+  --c-express:#d97706; --c-maritim:#0284c7; --c-natur:#15803d;
+  --shadow:0 1px 2px rgba(15,27,38,.06),0 4px 16px rgba(15,27,38,.06);
+  --radius:16px; --map-h:42vh;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b131b; --surface:#121d27; --surface-2:#182633; --surface-3:#1f3141;
+    --text:#e6eef5; --text-2:#b6c6d4; --muted:#8a9cad; --border:#26384a;
+    --accent:#4fb3ea; --accent-ink:#06121c; --accent-soft:#16344a;
+    --ok:#4ade80; --ok-soft:#12321f; --warn:#fbbf24; --warn-soft:#3a2c0b; --bad:#f87171; --bad-soft:#3b1414;
+    --bus:#f0606a; --tram:#ff9d3a; --rail:#a78bfa; --water:#38bdf8; --foot:#94a3b8; --coach:#f472b6;
+    --c-express:#fbbf24; --c-maritim:#38bdf8; --c-natur:#4ade80;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b131b; --surface:#121d27; --surface-2:#182633; --surface-3:#1f3141;
+  --text:#e6eef5; --text-2:#b6c6d4; --muted:#8a9cad; --border:#26384a;
+  --accent:#4fb3ea; --accent-ink:#06121c; --accent-soft:#16344a;
+  --ok:#4ade80; --ok-soft:#12321f; --warn:#fbbf24; --warn-soft:#3a2c0b; --bad:#f87171; --bad-soft:#3b1414;
+  --bus:#f0606a; --tram:#ff9d3a; --rail:#a78bfa; --water:#38bdf8; --foot:#94a3b8; --coach:#f472b6;
+  --c-express:#fbbf24; --c-maritim:#38bdf8; --c-natur:#4ade80;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+.app{max-width:1280px;margin:0 auto}
+/* header */
+.top{position:sticky;top:0;z-index:1200;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:10px 16px 8px;padding-top:max(10px,env(safe-area-inset-top))}
+.top-row{display:flex;align-items:center;gap:10px}
+.brand{flex:1;min-width:0}
+.brand h1{font-size:18px;line-height:1.15;margin:0;letter-spacing:-.01em}
+.brand p{margin:2px 0 0;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.home-chip{display:inline-flex;align-items:center;gap:3px;font-weight:600;color:var(--text);background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:1px 6px;cursor:pointer;transition:all .15s}
+.home-chip:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.modal-backdrop{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,0.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:16px}
+.modal-backdrop.show{display:flex;animation:fadeUp .2s ease}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow), 0 20px 40px rgba(0,0,0,.25);padding:20px;display:flex;flex-direction:column;gap:14px}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.modal-head h3{margin:0;font-size:18px}
+.modal-head .close-btn{border:0;background:none;font-size:22px;cursor:pointer;color:var(--muted);padding:4px 8px;border-radius:8px}
+.home-presets{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.home-preset-btn{border:1px solid var(--border);background:var(--surface-2);color:var(--text);border-radius:10px;padding:6px 10px;font-size:12px;cursor:pointer;transition:all .15s}
+.home-preset-btn:hover,.home-preset-btn:active{background:var(--accent-soft);border-color:var(--accent)}
+.home-preset-btn.active{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.home-input-group{display:flex;flex-direction:column;gap:6px}
+.home-input-group label{font-size:12px;font-weight:600;color:var(--text-2)}
+.home-input-group input{border:1px solid var(--border);background:var(--bg);color:var(--text);border-radius:10px;padding:9px 12px;font-size:14px;outline:none}
+.home-input-group input:focus{border-color:var(--accent)}
+.geo-results{max-height:160px;overflow-y:auto;border:1px solid var(--border);border-radius:10px;background:var(--surface-2);display:none;margin-top:4px}
+.geo-results.show{display:block}
+.geo-item{padding:8px 12px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--border);color:var(--text)}
+.geo-item:last-child{border-bottom:none}
+.geo-item:hover{background:var(--accent-soft)}
+.modal-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.modal-actions .act{flex:1;min-width:120px;text-align:center;justify-content:center}
+.lang-btn{width:auto;min-width:44px;padding:0 8px;font-size:12px;font-weight:700;letter-spacing:.02em}
+.icon-btn{width:40px;height:40px;border-radius:12px;border:1px solid var(--border);background:var(--surface);display:inline-flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;flex:none;transition:transform .12s ease,background .2s}
+.icon-btn:active{transform:scale(.94)}
+.back-btn{display:none}
+.detail-open .back-btn{display:inline-flex}
+.controls{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.search{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0 12px;height:40px}
+.search input{flex:1;border:0;background:transparent;color:var(--text);font-size:15px;outline:none;min-width:0}
+.search .clear{border:0;background:none;color:var(--muted);font-size:18px;cursor:pointer;display:none}
+.search.has-text .clear{display:block}
+.pills{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.pills::-webkit-scrollbar{display:none}
+.pill{flex:none;border:1px solid var(--border);background:var(--surface);color:var(--text-2);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer;white-space:nowrap;transition:all .15s}
+.pill[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.pill:active{transform:scale(.96)}
+.seg{display:inline-flex;background:var(--surface-2);border-radius:10px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;padding:5px 11px;border-radius:8px;font-size:13px;color:var(--text-2);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--text);box-shadow:var(--shadow);font-weight:600}
+.row-between{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.day-hint{font-size:12px;color:var(--muted)}
+/* layout */
+.layout{display:block}
+.map-wrap{position:relative;z-index:500;height:var(--map-h);background:var(--surface-3);border-bottom:1px solid var(--border);transition:height .25s ease}
+.map-jump{position:fixed;right:16px;bottom:max(18px,env(safe-area-inset-bottom));z-index:1500;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:999px;padding:10px 14px;font-size:14px;font-weight:600;box-shadow:var(--shadow);cursor:pointer;display:none}
+.map-jump.show{display:inline-flex;align-items:center;gap:6px;animation:fadeUp .2s ease}
+.map-jump.hint{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.chip,.chips .chip{white-space:normal}
+.layout,.content,.detail,.hero,.box{min-width:0;max-width:100vw}
+.map-wrap.mini{height:110px}
+.map-wrap.full{position:fixed;inset:0;top:0;height:100vh;height:100dvh;z-index:2000}
+#map{position:absolute;inset:0}
+.map-tools{position:absolute;right:10px;top:10px;z-index:800;display:flex;flex-direction:column;gap:8px}
+.map-tools .home-chip{display:inline-flex;align-items:center;gap:3px;font-weight:600;color:var(--text);background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:1px 6px;cursor:pointer;transition:all .15s}
+.home-chip:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.modal-backdrop{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,0.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:16px}
+.modal-backdrop.show{display:flex;animation:fadeUp .2s ease}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow), 0 20px 40px rgba(0,0,0,.25);padding:20px;display:flex;flex-direction:column;gap:14px}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.modal-head h3{margin:0;font-size:18px}
+.modal-head .close-btn{border:0;background:none;font-size:22px;cursor:pointer;color:var(--muted);padding:4px 8px;border-radius:8px}
+.home-presets{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.home-preset-btn{border:1px solid var(--border);background:var(--surface-2);color:var(--text);border-radius:10px;padding:6px 10px;font-size:12px;cursor:pointer;transition:all .15s}
+.home-preset-btn:hover,.home-preset-btn:active{background:var(--accent-soft);border-color:var(--accent)}
+.home-preset-btn.active{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.home-input-group{display:flex;flex-direction:column;gap:6px}
+.home-input-group label{font-size:12px;font-weight:600;color:var(--text-2)}
+.home-input-group input{border:1px solid var(--border);background:var(--bg);color:var(--text);border-radius:10px;padding:9px 12px;font-size:14px;outline:none}
+.home-input-group input:focus{border-color:var(--accent)}
+.geo-results{max-height:160px;overflow-y:auto;border:1px solid var(--border);border-radius:10px;background:var(--surface-2);display:none;margin-top:4px}
+.geo-results.show{display:block}
+.geo-item{padding:8px 12px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--border);color:var(--text)}
+.geo-item:last-child{border-bottom:none}
+.geo-item:hover{background:var(--accent-soft)}
+.modal-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.modal-actions .act{flex:1;min-width:120px;text-align:center;justify-content:center}
+.lang-btn{width:auto;min-width:44px;padding:0 8px;font-size:12px;font-weight:700;letter-spacing:.02em}
+.icon-btn{box-shadow:var(--shadow)}
+.map-tools .icon-btn.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.map-status{position:absolute;left:10px;right:62px;bottom:10px;z-index:800;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px 10px;font-size:13px;box-shadow:var(--shadow);display:none}
+.map-status.show{display:block;animation:fadeUp .25s ease}
+.map-mode{position:absolute;left:10px;top:10px;z-index:800;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:5px 10px;font-size:12px;font-weight:600;box-shadow:var(--shadow);max-width:60%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.layer-menu{position:absolute;right:58px;top:10px;z-index:900;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:6px;display:none;min-width:210px}
+.layer-menu.show{display:block;animation:fadeUp .2s ease}
+.layer-menu button{display:flex;width:100%;align-items:center;gap:8px;border:0;background:none;padding:8px 10px;border-radius:9px;cursor:pointer;text-align:left;font-size:14px}
+.layer-menu button[aria-pressed="true"]{background:var(--accent-soft);font-weight:600}
+.layer-menu hr{border:0;border-top:1px solid var(--border);margin:4px 0}
+.offline-note{position:absolute;left:10px;top:44px;z-index:800;background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:4px 9px;font-size:12px;display:none}
+.offline .offline-note{display:block}
+.content{padding:14px 16px 90px}
+@media (min-width:960px){
+  .layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(380px,.85fr);align-items:start}
+  .map-wrap{position:sticky;top:var(--top-h,150px);height:calc(100vh - var(--top-h,150px));border-right:1px solid var(--border);border-bottom:0}
+  .map-jump{display:none!important}
+  .map-wrap.mini{height:calc(100vh - var(--top-h,150px))}
+  .content{max-height:none}
+}
+/* stats */
+.stats{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 0 12px}
+.stat{flex:none;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:6px 12px;font-size:12px;color:var(--muted)}
+.stat b{display:block;font-size:17px;color:var(--text)}
+/* cards */
+.cat-h{display:flex;align-items:center;gap:8px;margin:18px 2px 8px;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.cat-h i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 14px 12px;margin:0 0 10px;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s ease,box-shadow .2s;animation:fadeUp .3s ease both;overflow:hidden}
+.card:active{transform:scale(.985)}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--cc)}
+.card h3{margin:0 0 3px;font-size:16px;line-height:1.25}
+.card-img{display:block;width:calc(100% + 28px);max-width:none;margin:-14px -14px 10px;aspect-ratio:16/9;max-height:170px;object-fit:cover;background:var(--surface-3)}
+.hero-img{display:block;width:calc(100% + 32px);max-width:none;margin:-16px -16px 8px;aspect-ratio:16/9;max-height:240px;object-fit:cover;background:var(--surface-3)}
+.credit{font-size:10.5px;color:var(--muted);margin:0 0 8px;line-height:1.35}
+.credit a{color:var(--muted)}
+.live{border-left:4px solid var(--muted)}
+.live.ok{border-left-color:var(--ok)}
+.live.warn{border-left-color:var(--warn)}
+.live.bad{border-left-color:var(--bad)}
+.live-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.live ul{margin:6px 0 0;padding-left:18px;font-size:12.5px;color:var(--text-2)}
+.sit{margin-top:6px;font-size:12.5px;color:var(--warn);background:var(--warn-soft);border-radius:8px;padding:6px 8px}
+.chip.info{background:var(--accent-soft);color:var(--text)}
+.pulse-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--bad);margin-right:4px;animation:pulse2 1.6s infinite}
+@keyframes pulse2{0%,100%{opacity:1}50%{opacity:.25}}
+.card .sub{margin:0;color:var(--text-2);font-size:13px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.chip{display:inline-flex;align-items:center;gap:4px;max-width:100%;background:var(--surface-2);color:var(--text-2);border-radius:8px;padding:3px 8px;font-size:12px;white-space:nowrap}
+.chip.strong{background:var(--accent-soft);color:var(--text);font-weight:600}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.days{display:flex;gap:4px;margin-top:8px;font-size:11px;color:var(--muted);align-items:center}
+.days span{padding:1px 6px;border-radius:6px;border:1px solid var(--border)}
+.days span.no{text-decoration:line-through;opacity:.55}
+.card-actions{display:flex;gap:6px;margin-top:10px}
+.mini-btn{border:1px solid var(--border);background:var(--surface-2);border-radius:10px;padding:6px 10px;font-size:12.5px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;text-decoration:none;color:var(--text)}
+.mini-btn:active{transform:scale(.96)}
+.empty{text-align:center;color:var(--muted);padding:40px 10px}
+/* detail */
+.detail{display:none}
+.detail-open .detail{display:block}
+.detail-open .list{display:none}
+.hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden;animation:fadeUp .25s ease}
+.hero::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--cc)}
+.hero .kicker{font-size:12px;font-weight:700;color:var(--cc);text-transform:uppercase;letter-spacing:.05em}
+.hero h2{margin:4px 0 4px;font-size:21px;line-height:1.2}
+.hero p{margin:0;color:var(--text-2);font-size:14px}
+.actions{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:12px}
+.act{border:1px solid var(--border);background:var(--surface-2);border-radius:12px;padding:9px 10px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:7px;text-decoration:none;color:var(--text);transition:transform .12s}
+.act:active{transform:scale(.96)}
+.act.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-top:12px;box-shadow:var(--shadow)}
+.box h4{margin:0 0 8px;font-size:14px}
+.sunrow{display:flex;gap:8px;flex-wrap:wrap;font-size:13px}
+.banner{border-radius:12px;padding:10px 12px;font-size:13px;margin-top:12px}
+.banner.warn{background:var(--warn-soft);color:var(--warn)}
+.banner.info{background:var(--accent-soft);color:var(--text)}
+.dirbox{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.freq{width:100%;border-collapse:collapse;font-size:13px}
+.freq th,.freq td{text-align:left;padding:6px 4px;border-top:1px solid var(--border);vertical-align:top}
+.freq th{font-weight:600;color:var(--muted);font-size:12px;border-top:0}
+.freq details summary{cursor:pointer;color:var(--accent);font-size:12px}
+.freq .times{font-variant-numeric:tabular-nums;color:var(--text-2);font-size:12px;margin-top:4px;line-height:1.6}
+/* timeline */
+.tl{position:relative;margin-top:14px;padding-left:22px}
+.tl::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--border);border-radius:2px}
+.st{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:11px 12px;margin-bottom:10px;transition:box-shadow .25s,border-color .25s,transform .2s;cursor:pointer}
+.st::before{content:"";position:absolute;left:-19px;top:15px;width:12px;height:12px;border-radius:50%;background:var(--mc,var(--foot));border:2px solid var(--surface);box-shadow:0 0 0 2px var(--mc,var(--foot))}
+.st.walk{background:transparent;border-style:dashed}
+.st.flash{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 30%,transparent)}
+.st.here{border-color:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 30%,transparent)}
+.st-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.time{font-weight:700;font-variant-numeric:tabular-nums;font-size:15px}
+.lb{display:inline-flex;align-items:center;gap:4px;color:#fff;background:var(--mc);border-radius:7px;padding:2px 8px;font-size:12.5px;font-weight:700}
+.dur{font-size:12px;color:var(--muted);margin-left:auto}
+.route{margin-top:5px;font-weight:600;font-size:14px}
+.route small{font-weight:500;color:var(--muted)}
+.note{margin-top:4px;color:var(--text-2);font-size:13px}
+.st .chips{margin-top:7px}
+.st-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.stay{position:relative;margin:-2px 0 10px;padding:9px 12px;border-radius:12px;background:var(--surface-2);font-size:13px;color:var(--text-2)}
+.stay::before{content:"";position:absolute;left:-17px;top:13px;width:8px;height:8px;border-radius:2px;background:var(--muted)}
+.stay b{color:var(--text)}
+.tips{margin:0;padding-left:18px;font-size:13.5px;color:var(--text-2)}
+.foot{font-size:12px;color:var(--muted);margin-top:18px;line-height:1.5}
+.toast{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:9px 14px;border-radius:12px;font-size:13px;opacity:0;pointer-events:none;transition:all .25s;z-index:3000;max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* leaflet theming */
+.leaflet-container{background:var(--surface-3);font:inherit}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:var(--surface);color:var(--text)}
+.leaflet-popup-content{margin:10px 12px;font-size:13px}
+.leaflet-bar a{background:var(--surface);color:var(--text);border-color:var(--border)}
+.leaflet-control-attribution{background:color-mix(in srgb,var(--surface) 80%,transparent)!important;color:var(--muted)!important;font-size:10px}
+.leaflet-control-attribution a{color:var(--muted)!important}
+.dark-tiles .leaflet-tile-pane{filter:brightness(.72) contrast(1.08) saturate(.85)}
+.num-ic{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.poi-ic{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;font-size:15px;border:2px solid var(--accent);box-shadow:0 1px 5px rgba(0,0,0,.35)}
+.home-ic{font-size:22px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.4))}
+.me-ic{width:18px;height:18px;border-radius:50%;background:#0ea5e9;border:3px solid #fff;box-shadow:0 0 0 0 rgba(14,165,233,.6);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(14,165,233,.55)}70%{box-shadow:0 0 0 16px rgba(14,165,233,0)}100%{box-shadow:0 0 0 0 rgba(14,165,233,0)}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <header class="top" id="top">
+    <div class="top-row">
+      <button class="icon-btn back-btn" id="backBtn" aria-label="Zurück zur Übersicht">←</button>
+      <div class="brand">
+        <h1 id="brandTitle">Fjord-Touren ab Nesttun</h1>
+        <p id="brandSub">Apeltunvegen 36 · echte Entur-Fahrpläne</p>
+      </div>
+      <button class="icon-btn lang-btn" id="langBtn" aria-label="Switch to English" title="Switch to English">🇬🇧 EN</button>
+      <button class="icon-btn" id="themeBtn" aria-label="Farbschema wechseln">◐</button>
+    </div>
+    <div class="controls" id="listControls">
+      <label class="search" id="searchBox"><span aria-hidden="true">🔍</span>
+        <input id="q" type="search" placeholder="Ort suchen: Askøy, Osterøy, Milde …" autocomplete="off">
+        <button class="clear" id="qClear" aria-label="Suche löschen">×</button>
+      </label>
+      <div class="pills" id="pills"></div>
+      <div class="row-between">
+        <div class="seg" id="daySeg" role="group" aria-label="Wochentag"></div>
+        <span class="day-hint" id="dayHint"></span>
+      </div>
+    </div>
+  </header>
+  <div class="layout">
+    <div class="map-wrap" id="mapWrap">
+      <div id="map" aria-label="Karte"></div>
+      <div class="map-mode" id="mapMode">Alle Touren</div>
+      <div class="offline-note">Offline – Kartenkacheln fehlen, Routen bleiben sichtbar</div>
+      <div class="map-tools">
+        <button class="icon-btn" id="gpsBtn" title="Wo bin ich auf der Route?" aria-label="GPS-Standort">📍</button>
+        <button class="icon-btn" id="layerBtn" title="Kartenebenen" aria-label="Kartenebenen">🗺️</button>
+        <button class="icon-btn" id="fitBtn" title="Route einpassen" aria-label="Route einpassen">⤢</button>
+        <button class="icon-btn" id="fullBtn" title="Vollbild" aria-label="Karte Vollbild">⛶</button>
+        <button class="icon-btn" id="miniBtn" title="Karte verkleinern" aria-label="Karte verkleinern">▴</button>
+      </div>
+      <div class="layer-menu" id="layerMenu"></div>
+      <div class="map-status" id="mapStatus"></div>
+    </div>
+    <main class="content">
+      <section class="list" id="list"></section>
+      <section class="detail" id="detail"></section>
+    </main>
+  </div>
+</div>
+<button class="map-jump" id="mapJump" aria-label="Zur Karte">🗺️ <span id="mapJumpTxt">Karte</span></button>
+<div class="modal-backdrop" id="homeModal" role="dialog" aria-modal="true" aria-labelledby="homeModalTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="homeModalTitle">🏠 Heimatort festlegen</h3>
+      <button class="close-btn" id="closeHomeModal" aria-label="Schließen">×</button>
+    </div>
+    <p class="note" id="homeModalDesc" style="margin:0">Legt deinen Start- und Zielort für Karten, Navigation und Entur-Routenlinks fest.</p>
+    <div class="home-input-group">
+      <label id="homeSearchLabel" for="homeSearchInput">Adresse oder Ort in Bergen / Vestland suchen:</label>
+      <input type="search" id="homeSearchInput" placeholder="z. B. Fantoft, Torget, Lagunen, Damsgård …" autocomplete="off">
+      <div class="geo-results" id="geoResults"></div>
+    </div>
+    <button class="mini-btn" id="homeGpsBtn" style="align-self:flex-start">📍 Meinen GPS-Standort verwenden</button>
+    <div>
+      <label class="home-input-group" style="font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:6px" id="homePresetLabel">Schnellauswahl in Bergen:</label>
+      <div class="home-presets" id="homePresets"></div>
+    </div>
+    <details style="margin-top:2px">
+      <summary style="font-size:13px;color:var(--muted);cursor:pointer" id="homeCustomToggle">Koordinaten manuell anpassen</summary>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+        <div class="home-input-group">
+          <label id="homeNameLabel" for="customHomeName">Bezeichnung / Adresse:</label>
+          <input type="text" id="customHomeName">
+        </div>
+        <div style="display:flex;gap:8px">
+          <div class="home-input-group" style="flex:1">
+            <label id="homeLatLabel" for="customHomeLat">Breitengrad (Lat):</label>
+            <input type="number" step="0.000001" id="customHomeLat">
+          </div>
+          <div class="home-input-group" style="flex:1">
+            <label id="homeLonLabel" for="customHomeLon">Längengrad (Lon):</label>
+            <input type="number" step="0.000001" id="customHomeLon">
+          </div>
+        </div>
+      </div>
+    </details>
+    <div class="modal-actions">
+      <button class="act primary" id="saveHomeBtn">💾 Als Heimatort speichern</button>
+      <button class="act" id="resetHomeBtn">↺ Standard (Apeltunvegen 36)</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>/*LEAFLET_JS*/</script>
+<script>
+const DATA = /*DATA*/;
+</script>
+<script>
+"use strict";
+/* ---------- constants ---------- */
+const DEFAULT_HOME = {lat:60.310052, lon:5.353696, name:"Apeltunvegen 36"};
+let HOME = DEFAULT_HOME;
+const HOME_PRESETS = [
+  {name: "Apeltunvegen 36 (Nesttun)", lat: 60.310052, lon: 5.353696},
+  {name: "Skjoldskiftet", lat: 60.3119, lon: 5.3496},
+  {name: "Nesttun Terminal", lat: 60.3168, lon: 5.3506},
+  {name: "Fantoft Studentby", lat: 60.3423, lon: 5.3582},
+  {name: "Bergen Sentrum (Byparken)", lat: 60.3913, lon: 5.3242},
+  {name: "Lagunen Terminal", lat: 60.2977, lon: 5.3283},
+  {name: "Haukeland Sjukehus", lat: 60.3732, lon: 5.3584},
+  {name: "Torget / Bryggen", lat: 60.3965, lon: 5.3275},
+  {name: "Kleppestø (Askøy)", lat: 60.4076, lon: 5.2307},
+  {name: "Osøyro Terminal", lat: 60.1832, lon: 5.4674}
+];
+const CATS = {
+  express:{label:"Kurze Express-Runden", sub:"Ziel 1,5–2,5 Std.", color:"var(--c-express)"},
+  maritim:{label:"Maritime Schären & Brücken", sub:"Ziel 2,5–4 Std.", color:"var(--c-maritim)"},
+  natur:{label:"Natur- & Panoramatouren", sub:"Tagesausflüge", color:"var(--c-natur)"}
+};
+const MODE = {
+  bus:{icon:"🚌", label:"Bus", col:"--bus"}, coach:{icon:"🚌", label:"Bus", col:"--coach"},
+  tram:{icon:"🚋", label:"Bybanen", col:"--tram"}, rail:{icon:"🚆", label:"Zug", col:"--rail"},
+  water:{icon:"⛴️", label:"Fähre/Boot", col:"--water"}, foot:{icon:"🚶", label:"Fußweg", col:"--foot"}
+};
+const DAYS = [["wd","Mo–Fr"],["sa","Sa"],["so","So"]];
+const DAYLONG = {wd:"Werktag (Mo–Fr)", sa:"Samstag", so:"Sonntag"};
+const FILTERS = [
+  ["short","⚡ < 2,5 Std."],["ferry","⛴️ Mit Boot/Fähre"],["bus","🚌 100 % Bus"],
+  ["bridge","🌉 Brücken-Highlights"],["home","🏠 Ab Haustür"],["ring","🔄 Rundkurs"]
+];
+const LAYERS = {
+  topo:{name:"Kartverket Topo", url:"https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png", attr:"© Kartverket", max:18},
+  toporaster:{name:"Kartverket Toporaster (Relief)", url:"https://cache.kartverket.no/v1/wmts/1.0.0/toporaster/default/webmercator/{z}/{y}/{x}.png", attr:"© Kartverket", max:18},
+  sjokart:{name:"Sjøkart – Fjordtiefen", url:"https://cache.kartverket.no/v1/wmts/1.0.0/sjokartraster/default/webmercator/{z}/{y}/{x}.png", attr:"© Kartverket Sjøkart", max:18},
+  osm:{name:"OpenStreetMap", url:"https://tile.openstreetmap.org/{z}/{x}/{y}.png", attr:"© OpenStreetMap-Mitwirkende", max:19}
+};
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem("fjord:"+k); return v === null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem("fjord:"+k, JSON.stringify(v)); }catch(e){} }
+};
+HOME = store.get("home", DEFAULT_HOME);
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const toMin = hm => { const [h,m] = hm.split(":").map(Number); return h*60+m; };
+const fmtDur = m => { const t = T(); return m < 60 ? t.durMin(m) : t.durHoursMin(Math.floor(m/60), m%60); };
+const fmtDurShort = m => { const t = T(); return t.durShort(m, Math.floor(m/60), m%60); };
+const fmtKm = d => d >= 1000 ? `${(d/1000).toFixed(1).replace(".",",")} km` : `${Math.round(d/10)*10} m`;
+function haversine(a, b){
+  const R = 6371000, r = Math.PI/180;
+  const dLat = (b.lat-a.lat)*r, dLon = (b.lon-a.lon)*r;
+  const x = Math.sin(dLat/2)**2 + Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dLon/2)**2;
+  return 2*R*Math.asin(Math.sqrt(x));
+}
+function decodePoly(str){
+  let i=0, lat=0, lng=0; const out=[];
+  while(i < str.length){
+    for(let k=0;k<2;k++){
+      let shift=0, res=0, b;
+      do{ b = str.charCodeAt(i++)-63; res |= (b&31)<<shift; shift+=5; }while(b >= 32);
+      const d = (res&1) ? ~(res>>1) : (res>>1);
+      if(k===0) lat += d; else lng += d;
+    }
+    out.push([lat/1e5, lng/1e5]);
+  }
+  return out;
+}
+const polyCache = new Map();
+const polyPts = i => { if(!polyCache.has(i)) polyCache.set(i, decodePoly(DATA.polys[i])); return polyCache.get(i); };
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toast._t); toast._t=setTimeout(()=>t.classList.remove("show"), 2600); }
+
+/* ---------- sun (after SunCalc, simplified) ---------- */
+const SUN = (()=>{
+  const rad=Math.PI/180, dayMs=864e5, J1970=2440588, J2000=2451545, e=rad*23.4397, J0=0.0009;
+  const toDays = d => d.valueOf()/dayMs - 0.5 + J1970 - J2000;
+  const fromJ = j => new Date((j + 0.5 - J1970)*dayMs);
+  const M = d => rad*(357.5291 + 0.98560028*d);
+  const L = m => m + rad*(1.9148*Math.sin(m) + 0.02*Math.sin(2*m) + 0.0003*Math.sin(3*m)) + rad*102.9372 + Math.PI;
+  const dec = l => Math.asin(Math.sin(e)*Math.sin(l));
+  const ra = l => Math.atan2(Math.sin(l)*Math.cos(e), Math.cos(l));
+  function altitude(date, lat, lng){
+    const lw = rad*-lng, phi = rad*lat, d = toDays(date), m = M(d), l = L(m);
+    const H = rad*(280.16 + 360.9856235*d) - lw - ra(l);
+    return Math.asin(Math.sin(phi)*Math.sin(dec(l)) + Math.cos(phi)*Math.cos(dec(l))*Math.cos(H))/rad;
+  }
+  function times(date, lat, lng){
+    const lw = rad*-lng, phi = rad*lat, d = toDays(date);
+    const n = Math.round(d - J0 - lw/(2*Math.PI)), ds = J0 + lw/(2*Math.PI) + n;
+    const m = M(ds), l = L(m), dc = dec(l), Jnoon = J2000 + ds + 0.0053*Math.sin(m) - 0.0069*Math.sin(2*l);
+    const out = {noon: fromJ(Jnoon)};
+    for(const [h, rise, set] of [[-0.833,"sunrise","sunset"],[6,"goldenMorningEnd","golden"],[-6,"dawn","dusk"]]){
+      const w = Math.acos((Math.sin(h*rad) - Math.sin(phi)*Math.sin(dc))/(Math.cos(phi)*Math.cos(dc)));
+      const a = J0 + (w + lw)/(2*Math.PI) + n;
+      const Jset = J2000 + a + 0.0053*Math.sin(m) - 0.0069*Math.sin(2*l);
+      out[set] = fromJ(Jset); out[rise] = fromJ(Jnoon - (Jset - Jnoon));
+    }
+    return out;
+  }
+  return {altitude, times};
+})();
+const hhmm = d => d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});
+
+/* ---------- i18n dictionaries ---------- */
+const I18N_TOURS_EN = {
+  troldhaugen: {
+    title: "Troldhaugen & Fantoft",
+    subtitle: "Edvard Grieg's villa on Nordåsvannet and the pine forest Stave Church – cozy tour from your doorstep",
+    tariff: "Skyss Zone A (included in monthly pass)",
+    tips: ["Troldhaugen: Museum admission separate, grounds freely accessible.", "In rainy weather: Museum café and Troldsalen concert hall."]
+  },
+  hjellestad: {
+    title: "Hjellestad & Bjelkarøy Island Hopper",
+    subtitle: "Car ferry 1035 through the Korsfjord archipelago to Klokkarvik and back – ideal for sunset",
+    tariff: "Skyss Zone A (included in monthly pass, car ferry free for pedestrians!)"
+  },
+  fana_krokeide: {
+    title: "Fana Church & Krokeide Peninsula",
+    subtitle: "Medieval stone church, serene Fanafjord shoreline and the Krokeide ferry port",
+    tariff: "Skyss Zone A (included in monthly pass)"
+  },
+  milde: {
+    title: "Milde & The Norwegian Arboretum",
+    subtitle: "Norway's largest botanical arboretum by Fanafjorden, rhododendron slopes and coastal trails",
+    tariff: "Skyss Zone A (included in monthly pass)"
+  },
+  alvoen: {
+    title: "Alvøen Manor & Vatlestraumen Straits",
+    subtitle: "White wooden heritage houses of Norway's oldest paper mill, Alvøen Manor and rushing tidal currents",
+    tariff: "Skyss Zone A (included in monthly pass)"
+  },
+  askoy: {
+    title: "Askøy Express Boat & Strusshamn Harbor",
+    subtitle: "Catamaran 490 across Byfjorden, wooden historic harbor in Strusshamn, return across Askøy Bridge",
+    tariff: "Skyss Zone A (included in monthly pass)"
+  },
+  herdla: {
+    title: "Herdla – Open Atlantic Ocean Outpost",
+    subtitle: "Northernmost tip of Askøy: Bird sanctuary, WWII coastal fortress, and pebble beaches on Hjeltefjorden",
+    tariff: "Skyss Zone A (included in monthly pass)"
+  },
+  nordhordland: {
+    title: "Nordhordland Fjord Triangle",
+    subtitle: "Weekdays catamaran across Salhusfjorden, or scenic bus across floating Nordhordland Bridge – Knarvik & Frekhaug",
+    tariff: "Skyss Zone A (included in monthly pass)"
+  },
+  sotra: {
+    title: "Sotra – Straume & Fjell Fortress",
+    subtitle: "Across Sotra suspension bridge to Western Norway's largest coastal fortress with open ocean panorama",
+    tariff: "Skyss Zone A (included in monthly pass)"
+  },
+  glesvaer: {
+    title: "Glesvær – Sotra's Outer Archipelago Village",
+    subtitle: "Across Sotra bridge into historic fishing village Glesvær: Wooden quayside houses, footbridges, Atlantic breakers",
+    tariff: "Skyss Zone A (included in monthly pass)"
+  },
+  korsfjord_ring: {
+    title: "Korsfjord Circular: Ferry & Sotra",
+    subtitle: "Doorstep circular tour: Ferry Hjellestad → Klokkarvik, then scenic bus across Sotra and the Sotra Bridge",
+    tariff: "Skyss Zone A (entirely included in monthly pass!)"
+  },
+  knarvik_salhus: {
+    title: "Knarvik & Salhus Heritage Village",
+    subtitle: "Across Nordhordland Bridge to Knarvik, then historic textile village Salhus on the fjord",
+    tariff: "Skyss Zone A (included in monthly pass)"
+  },
+  osteroy: {
+    title: "Grand Osterøy Circular Tour",
+    subtitle: "Across Osterøy suspension bridge to Lonevåg, across the fjord island, and ferry return across Sørfjorden",
+    tariff: "Skyss Zone A (all buses and ferry Breistein–Valestrand in Zone A)"
+  },
+  radoy: {
+    title: "Radøy Island & Manger",
+    subtitle: "Across Nordhordland Bridge and Alversund Bridge into the open archipelagos of Radøy to Manger",
+    tariff: "Skyss Zone A (included in monthly pass)"
+  },
+  samnanger: {
+    title: "Samnangerfjord Ring",
+    subtitle: "Via Arna to Bjørkheim, bus 934 along the precipitous Samnangerfjord cliffs to Eikelandsosen, back via Os",
+    tariff: "Skyss Zones A + C (Zones A+C single/supplement)"
+  },
+  dale_vaksdal: {
+    title: "Dale & Vaksdal – Sørfjord Railway Line",
+    subtitle: "Regional train R40 directly along Sørfjorden cliffs: Dale knitwear mills and historic Vaksdal grain harbor",
+    tariff: "Skyss Zone A (train R40 within Bergen/Vaksdal Zone A)"
+  },
+  sonnen: {
+    title: "Bergen Sun & Panorama Circuit",
+    subtitle: "100% bus, zero tunnels: Sunny west slopes, Bryggen, Byfjord shoreline, Arna and back into the sun",
+    tariff: "Skyss Zone A (included in monthly pass)"
+  },
+  lysekloster: {
+    title: "Fanafjell, Lysekloster Abbey & Os",
+    subtitle: "Bus 62 over panoramic Fanafjell pass, 1146 AD Cistercian Abbey ruins, and along Bjørnafjorden to Os harbor",
+    tariff: "Skyss Zone A (included in monthly pass)"
+  },
+  hardanger: {
+    title: "Norheimsund Ring: Kvamskogen & Hardangerfjord",
+    subtitle: "Express bus 930 across alpine Kvamskogen pass to Steinsdalsfossen waterfall, return along Hardangerfjord via Os",
+    tariff: "Skyss Zones A + D (Zone D supplement)"
+  },
+  tysnes: {
+    title: "Tysnes Ring: Ferry & Catamaran",
+    subtitle: "Large car ferry across Bjørnafjorden to Våge (Tysnes), catamaran directly back to Os harbor",
+    tariff: "Skyss Zones A + B (Ferry free for pedestrians, catamaran Skyss Zone B)"
+  },
+  fjord_dreieck: {
+    title: "Maritime 3-Ferry Island Circuit",
+    subtitle: "Three ferries in one day: Krokeide → Austevoll → Husavik → Stord → Halhjem",
+    tariff: "Skyss Zones A + B (Ferries 1022 & 1018 free for pedestrians)"
+  },
+  rosendal: {
+    title: "Rosendal – Hardangerfjord Catamaran",
+    subtitle: "High-speed catamaran from Os to Baroniet Rosendal: 1665 AD Renaissance manor, rose gardens & glacier views",
+    tariff: "Norled Hardangerfjord express boat (Zone D/Norled boat ticket)"
+  },
+  fusa_express: {
+    title: "Fusa & Eikelandsosen – Ferry & Fjord Express",
+    subtitle: "Bus 740 onto car ferry Hatvik–Venjaneset and along the fjord shore to Eikelandsosen – half-day fjord tour",
+    tariff: "Skyss Zones A + C (Ferry Hatvik–Venjaneset free for pedestrians)"
+  },
+  fusa_direkt: {
+    title: "Fusa Direct Express from Doorstep (16:18)",
+    subtitle: "Rare direct service: Weekdays at 16:18 from Skjoldskiftet without transfers via fjord ferry to Eikelandsosen",
+    tariff: "Skyss Zones A + C"
+  },
+  holdhus: {
+    title: "Holdhus Church & Lake Skogseidvatnet",
+    subtitle: "Heritage & mountain lake tour: Historic 1706 wooden church and pristine lake beneath 1300m alpine peaks",
+    tariff: "Skyss Zones A + C"
+  },
+  hardanger_kreuzung: {
+    title: "Grand Hardanger Crossing: Bus 740, Rosendal & Catamaran",
+    subtitle: "The Royal Fjord Circuit: Bus 740 across TWO major ferries to Årsnes, Baroniet Rosendal and catamaran back",
+    tariff: "Skyss Zones A + C + D + boat ticket"
+  },
+  varaldsoy: {
+    title: "Varaldsøy – Orchard Island in Hardangerfjord",
+    subtitle: "Bus 740 to Gjermundshamn, fjord ferry to green Varaldsøy island with Folgefonna glacier panoramas",
+    tariff: "Skyss Zones A + C + D"
+  },
+  fusa_samnanger: {
+    title: "Fusa-Samnanger Fjord Ring (South → North)",
+    subtitle: "Morning bus 740 via Hatvik ferry to Eikelandsosen, midday bus 934 along Samnangerfjord cliffs to Bjørkheim",
+    tariff: "Skyss Zones A + C"
+  },
+  norheimsund_740: {
+    title: "Norheimsund Ring via Fusa (South → East)",
+    subtitle: "Morning bus 740 via Fusa to Mundheim, sunny Hardangerfjord shore to Steinsdalsfossen, return via Tokagjelet",
+    tariff: "Skyss Zones A + C + D"
+  },
+  tysnes_lukksund: {
+    title: "Grand Tysnes-Lukksund Ring: Two Fjords & Fjord Bridge",
+    subtitle: "Bjørnafjord ferry to Våge, bus 654 across Lukksund Bridge to Gjermundshamn, return via bus 740 & Hatvik ferry",
+    tariff: "Skyss Zones A + B + C"
+  },
+  odda_express: {
+    title: "Odda & Folgefonn Express: Ferry & Glacier Ring",
+    subtitle: "Bus 930 onto car ferry Tørvikbygd–Jondal to Odda at Sørfjorden, returning via bus 740 across two large ferries",
+    tariff: "Skyss Zones A + C + D"
+  },
+  hardanger_voss: {
+    title: "Hardanger 360° Royal Stage: Train, Hardanger Bridge & Bus 740",
+    subtitle: "Ultimate 10am–7pm fjord epic: Train to Voss, spectacular Hardanger suspension bridge, return via 2 ferries",
+    tariff: "Skyss Zones A + D + E"
+  },
+  utne_ring: {
+    title: "Hardanger Fjord Triangle: Utne, Hardanger Bridge & Bus 925",
+    subtitle: "Train to Voss, bus 990 over Hardanger Bridge, 2 fjord ferries to Utne & Kvanndal, return via bus 925",
+    tariff: "Skyss Zones A + D + E"
+  },
+  fedje: {
+    title: "Fedje – 'Village in the Sea': North Atlantic Outpost",
+    subtitle: "Bus 300 & feeder shuttles to Sævrøyna car ferry, landing on the tempestuous North Atlantic ocean island Fedje",
+    tariff: "Skyss Zones A + E (Ferry 1028 free for pedestrians)"
+  },
+  bekkjarvik_stolmen: {
+    title: "Bekkjarvik & Stolmen: World Record Stolma Bridge",
+    subtitle: "Catamaran 2080 to Austevoll, cross the world's longest box-girder bridge Stolmabrua, ferry 1022 return",
+    tariff: "Skyss Catamaran 2080 + Zones A + B"
+  },
+  hellesoy: {
+    title: "Hellesøy – End of the Road on the Open Ocean",
+    subtitle: "Cross dozens of island bridges all the way north to Øygarden's rugged Atlantic boundary",
+    tariff: "Skyss Zone A (100% included in monthly pass!)"
+  },
+  modalen_eksingedalen: {
+    title: "Modalen & Eksingedalen Fjord Canyon Circuit",
+    subtitle: "Bergensbanen train to Dale, bus 923 through breathtaking Eksingedalen canyon to Mo on Mofjorden",
+    tariff: "Skyss Zones A + E"
+  },
+  ulvik_siderstien: {
+    title: "Ulvik & Siderstien: Hardanger Orchard Cider Trail",
+    subtitle: "Bergensbanen to Voss, bus 945 to Ulvik – hike Norway's only dedicated fruit and cider trail",
+    tariff: "Skyss Zones A + E"
+  },
+  eidfjord: {
+    title: "Eidfjord & Hardanger Bridge: Gate to Hardangervidda",
+    subtitle: "Train to Voss, bus 990 across towering Hardanger Bridge, and scenic bus 991 along the shore to Eidfjord",
+    tariff: "Skyss Zones A + D + E"
+  },
+  sunnhordland_leirvik: {
+    title: "Sunnhordland & Stord: Catamaran, Fitjar & Halhjem Ferry",
+    subtitle: "Catamaran 2080 to Leirvik harbor on Stord, lunch by the boats, island bus 671 via Fitjar, ferry 1018 return",
+    tariff: "Skyss Catamaran 2080 + Zones A + C (Ferry 1018 free for pedestrians)"
+  },
+  lygra: {
+    title: "Lygra & Heathland Center: UNESCO Landscape by Catamaran",
+    subtitle: "Sognefjord express catamaran 190 from Bergen to Lygra, hike the 5,000-year-old coastal heathland, bus return",
+    tariff: "Skyss Catamaran 190 + Zone A"
+  },
+  gudvangen: {
+    title: "Gudvangen & Nærøyfjord: UNESCO World Heritage Heart",
+    subtitle: "Train R40 to Voss, scenic coach through Nærøydalen canyon to Gudvangen, Viking village & steep fjord walls",
+    tariff: "Skyss Zones A + E (Train R40 + Bus 950/VY456)"
+  },
+  flamsbana: {
+    title: "Flåm & Flåmsbana: Legendary Mountain Railway to the Fjord",
+    subtitle: "Bergensbanen to 866m mountain station Myrdal, steep Flåmsbana descent to Flåm, return by scenic coach",
+    tariff: "Vy Bergensbanen + Flåmsbana R45 + VY450 coach"
+  },
+  hausdalen_gullfjellet: {
+    title: "Hausdalen & Gullfjellet: Alpine Gate from Kalandseidet",
+    subtitle: "Bus 610 & bus 74 directly from doorstep into the wild mountain valley at the foot of Gullfjellet",
+    tariff: "Skyss Zone A (100% included in monthly pass!)"
+  },
+  gullbotn: {
+    title: "Gullbotn & Gullfjellstoppen: Plateau & Summit Hike",
+    subtitle: "Express bus 930 to Gullbotn pass on the plateau – mountain hike up Bergen's highest peak (987m)",
+    tariff: "Skyss Zones A + D"
+  },
+  strono_ervikane: {
+    title: "Strøno & Ervikane: Coastal Archipelago & Pine Inlets",
+    subtitle: "Bus 610 & 602 across Strøno bridge into the idyllic marine nature park Ervikane with sandy coves",
+    tariff: "Skyss Zone A (100% included in monthly pass!)"
+  },
+  masfjorden_matre: {
+    title: "Masfjorden & Matre: Fjord Gorge & Stølsheimen Gateway",
+    subtitle: "Express bus NW431 along the dramatic northern fjords to Matre – gateway to the mountains of Stølsheimen",
+    tariff: "Skyss Zones A + E / Nor-Way Expressbus"
+  }
+};
+
+const I18N = {
+  de: {
+    brandTitle: "Fjord-Touren ab Nesttun",
+    brandSub: (homeName, n) => `<span class="home-chip" id="homeEditBtn" title="Heimatort ändern">🏠 <span id="homeNameTxt">${esc(homeName)}</span> ▾</span> · ${n} Touren · echte Entur-Fahrpläne`,
+    brandSubDetail: (homeName, catLabel, dayLong) => `<span class="home-chip" id="homeEditBtn" title="Heimatort ändern">🏠 <span id="homeNameTxt">${esc(homeName)}</span> ▾</span> · ${catLabel} · ${dayLong}`,
+    homeModalTitle: "🏠 Heimatort festlegen",
+    homeModalDesc: "Legt deinen Start- und Zielort für Karten, Navigation und Entur-Routenlinks fest.",
+    homeSearchLabel: "Adresse oder Ort in Bergen / Vestland suchen:",
+    homeSearchPh: "z. B. Fantoft, Torget, Lagunen, Damsgård …",
+    homePresetLabel: "Schnellauswahl in Bergen:",
+    homeGpsBtn: "📍 Meinen GPS-Standort verwenden",
+    homeSearching: "Suche Adressen …",
+    homeNoResults: "Keine Treffer gefunden",
+    homeGeoError: "Standort konnte nicht ermittelt werden",
+    homeCustomToggle: "Koordinaten manuell anpassen",
+    homeNameLabel: "Bezeichnung / Adresse:",
+    homeLatLabel: "Breitengrad (Lat):",
+    homeLonLabel: "Längengrad (Lon):",
+    homeSaveBtn: "💾 Als Heimatort speichern",
+    homeResetBtn: "↺ Standard (Apeltunvegen 36)",
+    homeResetToast: "Standard-Heimatort wiederhergestellt (Apeltunvegen 36)",
+    homeSavedToast: name => `Heimatort gespeichert: ${name}`,
+    homeChangeBtn: "Heimatort ändern",
+    backBtn: "Zurück zur Übersicht",
+    searchPlaceholder: "Ort suchen: Askøy, Osterøy, Milde …",
+    clearSearch: "Suche löschen",
+    colorScheme: "Farbschema wechseln",
+    langToggle: "Switch to English",
+    allPill: "Alle",
+    filters: {
+      short: "⚡ < 2,5 Std.",
+      ferry: "⛴️ Mit Boot/Fähre",
+      bus: "🚌 100 % Bus",
+      bridge: "🌉 Brücken-Highlights",
+      home: "🏠 Ab Haustür",
+      ring: "🔄 Rundkurs"
+    },
+    days: [["wd","Mo–Fr"],["sa","Sa"],["so","So"]],
+    dayLong: {wd:"Werktag (Mo–Fr)", sa:"Samstag", so:"Sonntag"},
+    dayHint: d => `Zeiten für ${d}`,
+    cats: {
+      express: {label:"Kurze Express-Runden", sub:"Ziel 1,5–2,5 Std."},
+      maritim: {label:"Maritime Schären & Brücken", sub:"Ziel 2,5–4 Std."},
+      natur: {label:"Natur- & Panoramatouren", sub:"Tagesausflüge"}
+    },
+    stats: (vis, ferries, bridges, homes, rings) => `
+      <div class="stat"><b>${vis}</b>Touren</div>
+      <div class="stat"><b>${ferries}</b>mit Fähre/Boot</div>
+      <div class="stat"><b>${bridges}</b>mit Brücke</div>
+      <div class="stat"><b>${homes}</b>ab Haustür</div>
+      <div class="stat"><b>${rings}</b>Rundkurse</div>`,
+    empty: `Keine Tour passt zu Filter und Suche.<br><button class="mini-btn" id="resetF" style="margin-top:10px">Filter zurücksetzen</button>`,
+    runs: "fährt: ",
+    openDetails: "Details & Fahrplan",
+    onlyOnMap: "🗺️ Nur diese Tour auf der Karte",
+    notOperable: "nicht fahrbar",
+    fromDoorstep: "🏠 ab Haustür",
+    circular: "🔄 Rundkurs",
+    bridge: "🌉 Brücke",
+    altRoute: "Ersatzroute",
+    sunChip: {vormittag:"🌤 vormittags", mittag:"☀️ mittags", nachmittag:"🌇 nachmittags", golden:"🌅 Golden Hour"},
+    listFoot: d => `Fahrplandaten: Entur Journey Planner, abgefragt am ${d} für die Stichtage Mi 28.10., Sa 31.10. und So 1.11.2026 (Mindestumstieg 4 Min.). Zeiten gelten als wöchentliches Muster – kurz vor der Fahrt mit dem Entur-Link prüfen (Ferien, Feiertage, Fahrplanwechsel).`,
+    mapModeAll: "Alle Touren (Filter)",
+    mapModeSingle: title => `Einzelansicht: ${title}`,
+    mapJump: "Karte",
+    offlineNote: "Offline – Kartenkacheln fehlen, Routen bleiben sichtbar",
+    gpsBtn: "Wo bin ich auf der Route?",
+    layerBtn: "Kartenebenen",
+    fitBtn: "Route einpassen",
+    fullBtn: "Vollbild",
+    miniBtn: "Karte verkleinern",
+    notOperableBanner: (day, ok) => `${day}: Diese Tour ist mit den benötigten Linien nicht fahrbar.${ok ? " Fahrbar: "+ok+"." : ""}`,
+    rides: n => `${n} Fahrten`,
+    walkDist: d => `🚶 ${d} zu Fuß`,
+    gpxBtn: "⬇️ GPX (Komoot/OsmAnd)",
+    enturFull: "🎫 Ganze Tour in Entur",
+    enturFwd: "🎫 Entur Hinfahrt",
+    enturOut: "🎫 Entur Hinweg",
+    enturBack: "🎫 Entur Rückweg",
+    gmapsBtn: "🗺️ Google Maps",
+    shareBtn: "📤 Teilen",
+    androidNote: "🎫-Links öffnen die Entur-App. Zeigt sie noch die vorige Suche, Entur kurz schließen (aus „Letzte Apps“ wischen) und den Link nochmal tippen – die App liest Links nur beim Start.",
+    dirTitle: "🔄 Richtung",
+    dirNormal: "Normal",
+    dirRev: "Andersrum",
+    dirHintBoth: "Beide Richtungen gleich lang.",
+    dirHintDiff: (diff, rStart, rEnd, rDur, isCurRev, fStart, fEnd, fDur) => {
+      if(!isCurRev) return `Andersrum: ${rStart}–${rEnd} (${rDur}) – ${Math.abs(diff)} Min. ${diff < 0 ? "kürzer ✅" : "länger"}.`;
+      return `Normal: ${fStart}–${fEnd} (${fDur}) – ${Math.abs(diff)} Min. ${diff < 0 ? "länger" : "kürzer ✅"}.`;
+    },
+    dirHintNoRev: day => `Andersrum ist ${day.toLowerCase()} nicht fahrbar (Linien fahren zu den nötigen Zeiten nur in eine Richtung).`,
+    dirHintOnlyRev: day => `${day}: nur andersrum fahrbar (in der normalen Richtung fehlt ein Anschluss) – deshalb automatisch umgedreht.`,
+    depTitle: n => `<h4>🕘 Alle Abfahrten (${n})</h4>`,
+    depSub: "Antippen, um eine andere Abfahrt zu wählen.",
+    depThDep: "Abfahrt", depThDur: "Dauer", depThRides: "Fahrten",
+    depBestSun: "☀️ sonnenbeste", depShortest: "kürzeste",
+    tightTransferWarn: "⚠️ Ein Umstieg ist kürzer als 4 Minuten.",
+    fallbackWarn: day => `⚠️ ${day}: Die Hauptroute ist an diesem Tag nicht fahrbar – angezeigt wird die Ersatzroute.`,
+    stayIn: (dur, name, note) => `Aufenthalt ${dur} in ${name}${note ? " – "+note : ""}`,
+    walkSeg: "🚶 Fußweg",
+    stops: n => ` · ${n} Halte`,
+    gmapsWalk: "🧭 Fußweg in Google Maps",
+    enturStep: "🎫 Entur (Live & Preis)",
+    toPlatform: "📍 Zum Steig",
+    platform: "Steig",
+    towards: "Richtung",
+    transferChip: (min, tight) => `🔁 Umstieg ${min} Min.${tight ? " – knapp!" : ""}`,
+    sunHead: d => `<h4>☀️ Sonnenstand · ${d}</h4>`,
+    sunrise: "🌄 Aufgang", goldenFrom: "🌅 Golden Hour ab", sunset: "🌇 Untergang", duskFrom: "🌆 dunkel ab",
+    sunDaylight: (dep, arr, alt) => `☀️ Tageslicht auf dem Highlight-Abschnitt (${dep}–${arr}, Sonne ${alt}° hoch)`,
+    sunGolden: (dep, arr) => `🌅 Golden Hour auf dem Highlight-Abschnitt (${dep}–${arr})`,
+    sunTwilight: (dep, arr) => `🌆 Dämmerung auf dem Highlight-Abschnitt (${dep}–${arr})`,
+    sunDark: (dep, arr) => `🌙 Highlight-Abschnitt (${dep}–${arr}) liegt im Dunkeln – früher starten oder Sommer abwarten`,
+    darkReturn: dusk => `<div class="chip warn">Rückkehr nach Einbruch der Dunkelheit (ab ${dusk})</div>`,
+    sunBestLabel: {
+      vormittag: "Vormittags am schönsten",
+      mittag: "Mittags am schönsten",
+      nachmittag: "Nachmittags am schönsten",
+      golden: "Zum Sonnenuntergang (Golden Hour) am schönsten"
+    },
+    wxHead: "🌦️ Wetter (48 h, MET Norway)",
+    wxLoading: "Lade Prognose …",
+    wxNone: "Keine Prognose verfügbar.",
+    wxErr: err => `Wetter konnte nicht geladen werden (${err}).`,
+    wxRec: (time, isNow) => `Empfehlung: <b>${time}</b> – wenig Regen und Wind an der Route.${isNow ? " (jetzt schon gut)" : ""}`,
+    wxThTime: "Zeit", wxThWx: "Wetter", wxThTemp: "Temp.", wxThWind: "Wind", wxThRain: "Regen",
+    wxFoot: "Vorhersage an der Routenmitte; Prognose für die nächsten 48 Stunden.",
+    freqHead: "<h4>🕑 Taktung (Abfahrten zwischen 6 und 22:30 Uhr)</h4>",
+    freqThLine: "Linie", freqThWd: "Mo–Fr", freqThSa: "Sa", freqThSo: "So",
+    freqFrom: "ab", freqDepartures: "Abfahrten",
+    tariffHead: "🎫 Tarif",
+    skyssNote: "Skyss 2026: 1 Zone 51 kr · 2 Zonen 78 kr · 3 Zonen 134 kr (Erwachsene, Einzelticket 60 Min. + 30 Min. je Zusatzzone; gültig beim Einsteigen). Deine Studententickets: 2 Zonen 47 kr, 3 Zonen 77 kr. Den exakten Preis zeigt jeder 🎫-Entur-Link.",
+    tipsHead: "💡 Tipps",
+    detailFoot: (day, genDate, viewDate) => `Fahrplan ${day} laut Entur (Stichtag ${genDate}), angezeigt für ${viewDate}. Antippen eines Abschnitts zeigt ihn auf der Karte; Antippen einer Linie auf der Karte springt zum Schritt.`,
+    liveCheckTitle: d => `Live-Check · ${d}`,
+    liveBtn: "🔄 Live prüfen",
+    durMinUnit: "Min.",
+    durMin: m => `${m} Min.`,
+    durHoursMin: (h, m) => `${h} Std.${m ? " "+String(m).padStart(2,"0")+" Min." : ""}`,
+    durShort: (m, h, min) => m < 60 ? `${m} min` : `${h}:${String(min).padStart(2,"0")} h`
+  },
+  en: {
+    brandTitle: "Fjord Tours from Nesttun",
+    brandSub: (homeName, n) => `<span class="home-chip" id="homeEditBtn" title="Change Home Location">🏠 <span id="homeNameTxt">${esc(homeName)}</span> ▾</span> · ${n} tours · real Entur timetables`,
+    brandSubDetail: (homeName, catLabel, dayLong) => `<span class="home-chip" id="homeEditBtn" title="Change Home Location">🏠 <span id="homeNameTxt">${esc(homeName)}</span> ▾</span> · ${catLabel} · ${dayLong}`,
+    homeModalTitle: "🏠 Set Home Location",
+    homeModalDesc: "Sets your start and end location for maps, navigation, and Entur routing links.",
+    homeSearchLabel: "Search address or place in Bergen / Vestland:",
+    homeSearchPh: "e.g. Fantoft, Torget, Lagunen, Damsgård …",
+    homePresetLabel: "Quick presets in Bergen:",
+    homeGpsBtn: "📍 Use my current GPS location",
+    homeSearching: "Searching addresses …",
+    homeNoResults: "No matches found",
+    homeGeoError: "Could not retrieve location",
+    homeCustomToggle: "Adjust coordinates manually",
+    homeNameLabel: "Label / Address:",
+    homeLatLabel: "Latitude:",
+    homeLonLabel: "Longitude:",
+    homeSaveBtn: "💾 Save as Home Location",
+    homeResetBtn: "↺ Reset to default (Apeltunvegen 36)",
+    homeResetToast: "Default home restored (Apeltunvegen 36)",
+    homeSavedToast: name => `Home location saved: ${name}`,
+    homeChangeBtn: "Change Home Location",
+    backBtn: "Back to overview",
+    searchPlaceholder: "Search place: Askøy, Osterøy, Milde …",
+    clearSearch: "Clear search",
+    colorScheme: "Toggle color theme",
+    langToggle: "Auf Deutsch wechseln",
+    allPill: "All",
+    filters: {
+      short: "⚡ < 2.5 hrs",
+      ferry: "⛴️ Boat/Ferry",
+      bus: "🚌 100% Bus",
+      bridge: "🌉 Bridge Highlights",
+      home: "🏠 From Doorstep",
+      ring: "🔄 Circular Route"
+    },
+    days: [["wd","Mon–Fri"],["sa","Sat"],["so","Sun"]],
+    dayLong: {wd:"Weekday (Mon–Fri)", sa:"Saturday", so:"Sunday"},
+    dayHint: d => `Times for ${d}`,
+    cats: {
+      express: {label:"Short Express Circuits", sub:"Target 1.5–2.5 hrs"},
+      maritim: {label:"Maritime Islands & Bridges", sub:"Target 2.5–4 hrs"},
+      natur: {label:"Nature & Panoramic Tours", sub:"Day trips"}
+    },
+    stats: (vis, ferries, bridges, homes, rings) => `
+      <div class="stat"><b>${vis}</b>Tours</div>
+      <div class="stat"><b>${ferries}</b>with Ferry/Boat</div>
+      <div class="stat"><b>${bridges}</b>with Bridge</div>
+      <div class="stat"><b>${homes}</b>from Doorstep</div>
+      <div class="stat"><b>${rings}</b>Circular</div>`,
+    empty: `No tour matches filter and search.<br><button class="mini-btn" id="resetF" style="margin-top:10px">Reset filters</button>`,
+    runs: "runs: ",
+    openDetails: "Details & Schedule",
+    onlyOnMap: "🗺️ Show only on map",
+    notOperable: "not operable",
+    fromDoorstep: "🏠 from doorstep",
+    circular: "🔄 circular route",
+    bridge: "🌉 bridge",
+    altRoute: "Alternative route",
+    sunChip: {vormittag:"🌤 mornings", mittag:"☀️ midday", nachmittag:"🌇 afternoons", golden:"🌅 Golden Hour"},
+    listFoot: d => `Timetable data: Entur Journey Planner, retrieved on ${d} for dates Wed Oct 28, Sat Oct 31, and Sun Nov 1, 2026 (min. transfer 4 min). Timetables serve as a weekly pattern – verify before travel using the Entur links (holidays, schedule revisions).`,
+    mapModeAll: "All Tours (Filtered)",
+    mapModeSingle: title => `Tour View: ${title}`,
+    mapJump: "Map",
+    offlineNote: "Offline – map tiles missing, routes remain visible",
+    gpsBtn: "Where am I on the route?",
+    layerBtn: "Map layers",
+    fitBtn: "Fit route",
+    fullBtn: "Fullscreen",
+    miniBtn: "Minimize map",
+    notOperableBanner: (day, ok) => `${day}: This tour does not operate with the required transit lines.${ok ? " Operates: "+ok+"." : ""}`,
+    rides: n => `${n} rides`,
+    walkDist: d => `🚶 ${d} walk`,
+    gpxBtn: "⬇️ GPX (Komoot/OsmAnd)",
+    enturFull: "🎫 Entire tour in Entur",
+    enturFwd: "🎫 Entur outbound",
+    enturOut: "🎫 Entur outbound",
+    enturBack: "🎫 Entur return",
+    gmapsBtn: "🗺️ Google Maps",
+    shareBtn: "📤 Share",
+    androidNote: "🎫 links open the Entur app. If it still shows your previous search, close Entur (swipe away in App Switcher) and tap the link again – Entur only loads query params on fresh launch.",
+    dirTitle: "🔄 Direction",
+    dirNormal: "Normal",
+    dirRev: "Reverse",
+    dirHintBoth: "Both directions have identical travel times.",
+    dirHintDiff: (diff, rStart, rEnd, rDur, isCurRev, fStart, fEnd, fDur) => {
+      if(!isCurRev) return `Reverse: ${rStart}–${rEnd} (${rDur}) – ${Math.abs(diff)} min ${diff < 0 ? "faster ✅" : "longer"}.`;
+      return `Normal: ${fStart}–${fEnd} (${fDur}) – ${Math.abs(diff)} min ${diff < 0 ? "longer" : "faster ✅"}.`;
+    },
+    dirHintNoRev: day => `Reverse is not operable on ${day.toLowerCase()} (transit runs in only one direction at needed hours).`,
+    dirHintOnlyRev: day => `${day}: only operable in reverse (missing connection in normal direction) – reversed automatically.`,
+    depTitle: n => `<h4>🕘 All Departures (${n})</h4>`,
+    depSub: "Tap any row to select a different departure time.",
+    depThDep: "Departure", depThDur: "Duration", depThRides: "Rides",
+    depBestSun: "☀️ best sunlight", depShortest: "shortest",
+    tightTransferWarn: "⚠️ A transfer time is under 4 minutes.",
+    fallbackWarn: day => `⚠️ ${day}: The main route does not run on this day – alternative route is displayed.`,
+    stayIn: (dur, name, note) => `Stay ${dur} in ${name}${note ? " – "+note : ""}`,
+    walkSeg: "🚶 Walk",
+    stops: n => ` · ${n} stops`,
+    gmapsWalk: "🧭 Walk route in Google Maps",
+    enturStep: "🎫 Entur (Live & Fare)",
+    toPlatform: "📍 To platform",
+    platform: "Platf.",
+    towards: "Towards",
+    transferChip: (min, tight) => `🔁 Transfer ${min} min${tight ? " – tight!" : ""}`,
+    sunHead: d => `<h4>☀️ Sun Position · ${d}</h4>`,
+    sunrise: "🌄 Sunrise", goldenFrom: "🌅 Golden Hour from", sunset: "🌇 Sunset", duskFrom: "🌆 dark from",
+    sunDaylight: (dep, arr, alt) => `☀️ Daylight on highlight section (${dep}–${arr}, sun ${alt}° elevation)`,
+    sunGolden: (dep, arr) => `🌅 Golden Hour on highlight section (${dep}–${arr})`,
+    sunTwilight: (dep, arr) => `🌆 Twilight on highlight section (${dep}–${arr})`,
+    sunDark: (dep, arr) => `🌙 Highlight section (${dep}–${arr}) is in the dark – start earlier or await summer`,
+    darkReturn: dusk => `<div class="chip warn">Return after nightfall (from ${dusk})</div>`,
+    sunBestLabel: {
+      vormittag: "Best in the morning",
+      mittag: "Best around midday",
+      nachmittag: "Best in the afternoon",
+      golden: "Best around sunset (Golden Hour)"
+    },
+    wxHead: "🌦️ Weather (48 h, MET Norway)",
+    wxLoading: "Loading forecast …",
+    wxNone: "No forecast available.",
+    wxErr: err => `Weather could not be loaded (${err}).`,
+    wxRec: (time, isNow) => `Recommended: <b>${time}</b> – low rain and wind along the route.${isNow ? " (already good now)" : ""}`,
+    wxThTime: "Time", wxThWx: "Weather", wxThTemp: "Temp", wxThWind: "Wind", wxThRain: "Rain",
+    wxFoot: "Forecast at route midpoint; weather outlook for next 48 hours.",
+    freqHead: "<h4>🕑 Frequency (Departures between 06:00 and 22:30)</h4>",
+    freqThLine: "Line", freqThWd: "Mon–Fri", freqThSa: "Sat", freqThSo: "Sun",
+    freqFrom: "from", freqDepartures: "Departures",
+    tariffHead: "🎫 Fares & Tickets",
+    skyssNote: "Skyss 2026: 1 zone 51 NOK · 2 zones 78 NOK · 3 zones 134 NOK (Adult single ticket 60 min + 30 min per extra zone; valid upon boarding). Your student fares: 2 zones 47 NOK, 3 zones 77 NOK. Check exact live price via each 🎫 Entur link.",
+    tipsHead: "💡 Tips",
+    detailFoot: (day, genDate, viewDate) => `Timetable for ${day} via Entur (as of ${genDate}), shown for ${viewDate}. Tap any step to show on map; tap route on map to jump to step.`,
+    liveCheckTitle: d => `Live Check · ${d}`,
+    liveBtn: "🔄 Check live",
+    durMinUnit: "min",
+    durMin: m => `${m} min`,
+    durHoursMin: (h, m) => `${h} h${m ? " "+String(m).padStart(2,"0")+" min" : ""}`,
+    durShort: (m, h, min) => m < 60 ? `${m} min` : `${h}:${String(min).padStart(2,"0")} h`
+  }
+};
+
+const T = () => I18N[state.lang] || I18N.de;
+const tourTitle = t => (state.lang === "en" && I18N_TOURS_EN[t.id]?.title) || t.title;
+const tourSub = t => (state.lang === "en" && I18N_TOURS_EN[t.id]?.subtitle) || t.subtitle;
+const tourTariff = t => (state.lang === "en" && I18N_TOURS_EN[t.id]?.tariff) || t.tariff;
+const tourTips = t => (state.lang === "en" && I18N_TOURS_EN[t.id]?.tips) || t.tips;
+
+/* ---------- state ---------- */
+function todayKey(){ const g = new Date().getDay(); return g===0 ? "so" : g===6 ? "sa" : "wd"; }
+const state = {
+  lang: store.get("lang", "de"),
+  day: todayKey(),
+  filters: new Set(store.get("filters", [])),
+  q: "",
+  sel: null,
+  dir: store.get("dir", {}),
+  abf: store.get("abf", {}),
+  layer: store.get("layer", "topo"),
+  seamarks: store.get("seamarks", false),
+  theme: store.get("theme", "auto")
+};
+function refDate(day){
+  const d = new Date(); d.setHours(0,0,0,0);
+  for(let i=0;i<8;i++){
+    const g = d.getDay(), k = g===0 ? "so" : g===6 ? "sa" : "wd";
+    if(k === day) return d;
+    d.setDate(d.getDate()+1);
+  }
+  return d;
+}
+function at(day, hm){ const d = refDate(day); const [h,m] = hm.split(":").map(Number); d.setHours(h, m, 0, 0); return d; }
+// for links: the next moment with this day type and time that is not in the past
+function nextAt(day, hm){
+  const d = at(day, hm), now = new Date();
+  const key = x => { const g = x.getDay(); return g === 0 ? "so" : g === 6 ? "sa" : "wd"; };
+  while(d < now || key(d) !== day) d.setDate(d.getDate() + 1);
+  return d;
+}
+const dateLabel = d => d.toLocaleDateString(state.lang === "en" ? "en-GB" : "de-DE", {weekday:"short", day:"numeric", month:"numeric"});
+
+/* ---------- tour model ---------- */
+const TOURS = DATA.tours;
+// tour photos are embedded as data URIs; turn them into blob URLs once (cheap to re-render)
+const IMG = {};
+for(const t of TOURS){
+  if(!t.img) continue;
+  try{
+    const [head, b64] = t.img.split(",");
+    const bin = atob(b64), arr = new Uint8Array(bin.length);
+    for(let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+    IMG[t.id] = URL.createObjectURL(new Blob([arr], {type: head.slice(5, head.indexOf(";"))}));
+  }catch(e){ IMG[t.id] = t.img; }
+}
+function creditHTML(t){
+  const c = t.imgCredit; if(!c) return "";
+  const who = c.artist ? esc(c.artist) : "Wikimedia Commons";
+  return `<p class="credit">Foto: <a href="${esc(c.page)}" target="_blank" rel="noopener">${who}</a> · ${c.licenseUrl ? `<a href="${esc(c.licenseUrl)}" target="_blank" rel="noopener">${esc(c.license)}</a>` : esc(c.license)} · Wikimedia Commons</p>`;
+}
+const BY_ID = Object.fromEntries(TOURS.map(t => [t.id, t]));
+const abfKey = (t, day, dir) => `${DATA.generated}|${t.id}|${day}|${dir}`;
+function dirOf(t, day){
+  const p = t.plans[day]; if(!p) return "fwd";
+  let want = state.dir[t.id];
+  if(!want){
+    // no manual choice: take the clearly shorter direction (≥ 45 min difference)
+    const len = s => s && s.length ? (toMin(s[s.length-1].arr) - toMin(s[0].dep)) : Infinity;
+    want = p.fwd && p.rev && len(p.rev) + 45 <= len(p.fwd) ? "rev" : "fwd";
+  }
+  if(want === "rev" && p.rev) return "rev";
+  if(want === "fwd" && !p.fwd && p.rev) return "rev";
+  return "fwd";
+}
+function planOf(t, day, dir){
+  const p = t.plans[day]; if(!p) return null;
+  const d = dir || dirOf(t, day);
+  const alts = d === "rev" ? (p.alts_rev || []) : (p.alts_fwd || []);
+  const pick = state.abf[abfKey(t, day, d)];
+  if(alts.length && pick != null && alts[pick]) return alts[pick];
+  return d === "rev" ? p.rev : p.fwd;
+}
+// index of the sun-best departure: the one whose highlight segment has the highest sun altitude
+function sunBestIdx(t, day, dir){
+  const p = t.plans[day]; if(!p) return -1;
+  const alts = dir === "rev" ? (p.alts_rev || []) : (p.alts_fwd || []);
+  let best = -1, bestAlt = -999;
+  alts.forEach((segs, i) => {
+    const sc = segs.find(s => s.scenic) || segs.find(s => s.poi && s.kind === "ride") || segs.find(s => s.kind === "ride");
+    if(!sc) return;
+    const mid = new Date((at(day, sc.dep).getTime() + at(day, sc.arr).getTime())/2);
+    const alt = SUN.altitude(mid, (sc.from.lat + sc.to.lat)/2, (sc.from.lon + sc.to.lon)/2);
+    if(alt > bestAlt){ bestAlt = alt; best = i; }
+  });
+  return best;
+}
+const runs = (t, day) => !!(t.plans[day] && (t.plans[day].fwd || t.plans[day].rev));
+function metrics(segs){
+  if(!segs || !segs.length) return null;
+  let dur = toMin(segs[segs.length-1].arr) - toMin(segs[0].dep); if(dur < 0) dur += 1440;
+  const rides = segs.filter(s => s.kind === "ride");
+  const modes = [...new Set(rides.map(s => s.mode))];
+  const walk = segs.filter(s => s.kind === "walk").reduce((a,s) => a + s.dist, 0);
+  const firstRide = rides[0];
+  const home = firstRide ? haversine(HOME, firstRide.from) < 450 : false;
+  const minTransfer = Math.min(...segs.filter(s => s.transfer != null).map(s => s.transfer), 99);
+  return {dur, rides: rides.length, modes, walk, home, start: segs[0].dep, end: segs[segs.length-1].arr,
+          ferry: modes.includes("water"), busOnly: rides.length > 0 && modes.every(m => m === "bus" || m === "coach"), minTransfer};
+}
+function tourInfo(t){
+  const segs = planOf(t, state.day);
+  const m = metrics(segs);
+  return {segs, m};
+}
+function anyMetrics(t){ for(const [d] of DAYS){ const s = planOf(t, d); if(s) return metrics(s); } return null; }
+function matches(t){
+  const info = tourInfo(t); const m = info.m || anyMetrics(t);
+  if(!m) return false;
+  for(const f of state.filters){
+    if(f === "short" && !(m.dur < 150)) return false;
+    if(f === "ferry" && !m.ferry) return false;
+    if(f === "bus" && !m.busOnly) return false;
+    if(f === "bridge" && !t.bridge) return false;
+    if(f === "home" && !m.home) return false;
+    if(f === "ring" && !t.ring) return false;
+  }
+  if(state.q){
+    const segs = info.segs || [];
+    const en = I18N_TOURS_EN[t.id] || {};
+    const hay = (t.title+" "+(en.title||"")+" "+t.subtitle+" "+(en.subtitle||"")+" "+t.places+" "+segs.map(s => s.from.name+" "+s.to.name+" "+(s.line||"")).join(" ")).toLowerCase();
+    const terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
+    if(!terms.every(w => hay.includes(w))) return false;
+  }
+  return true;
+}
+function segLabel(s){
+  if(s.kind === "walk") return T().walkSeg;
+  const isEn = state.lang === "en";
+  if(s.mode === "tram") return `Bybanen ${s.line}`;
+  if(s.mode === "rail") return `${isEn ? "Train" : "Zug"} ${s.line}`;
+  if(s.mode === "water"){
+    const isFerry = /^\d{4}$/.test(s.line) && +s.line < 2000;
+    return `${isEn ? (isFerry ? "Ferry" : "Boat") : (isFerry ? "Fähre" : "Boot")} ${s.line}`;
+  }
+  const md = MODE[s.mode] || MODE.bus;
+  return `${isEn && s.mode === "coach" ? "Coach" : md.label} ${s.line}`;
+}
+function modeColor(m){ return css((MODE[m] || MODE.bus).col); }
+
+/* ---------- links ---------- */
+// Entur links: reiseresultater needs a start stop id (the destination may be plain coordinates);
+// without a start id we use /reiselenke, which resolves coordinates itself. One optional via point.
+const ENTUR_PKG = "no.entur";
+const IS_ANDROID = /Android/i.test(navigator.userAgent);
+function enturUrl(from, to, date, via){
+  const p = new URLSearchParams();
+  const res = !!from.id;
+  if(res) p.set("startId", from.id);
+  p.set("startLabel", from.name); p.set("startLat", from.lat); p.set("startLon", from.lon);
+  if(res && to.id) p.set("stopId", to.id);
+  p.set("stopLabel", to.name); p.set("stopLat", to.lat); p.set("stopLon", to.lon);
+  if(via){
+    if(via.id) p.set("viaId", via.id);
+    p.set("viaLabel", via.name); p.set("viaLat", via.lat); p.set("viaLon", via.lon);
+    p.set("viaType", via.type || "visit");
+  }
+  p.set("transportModes", "rail,tram,bus,coach,water,car_ferry,metro");
+  p.set("date", String(date.getTime()));
+  p.set("timepickerMode", "departAfter");
+  if(res){ p.set("walkSpeed", "1.3"); p.set("minimumTransferTime", "240"); }
+  return enturApp(`https://entur.no/${res ? "reiseresultater" : "reiselenke"}?${p}`);
+}
+// On Android open the Entur app directly; Chrome falls back to the web page if the app does not take the link.
+function enturApp(url){
+  if(!IS_ANDROID) return url;
+  return `intent://${url.replace(/^https:\/\//, "")}#Intent;scheme=https;package=${ENTUR_PKG};S.browser_fallback_url=${encodeURIComponent(url)};end`;
+}
+function gmapsDir(from, to, mode){
+  const q = new URLSearchParams({api:"1", destination:`${to.lat},${to.lon}`, travelmode: mode || "transit"});
+  if(from) q.set("origin", `${from.lat},${from.lon}`);
+  return `https://www.google.com/maps/dir/?${q}`;
+}
+const gmapsPin = p => `https://www.google.com/maps/search/?api=1&query=${p.lat},${p.lon}`;
+function turnIndex(segs){
+  let best = -1, bd = -1;
+  segs.forEach((s,i) => { const d = haversine(HOME, s.to); if(d > bd && i < segs.length-1){ bd = d; best = i; } });
+  return best;
+}
+function homePlace(){ return {name:HOME.name, lat:HOME.lat, lon:HOME.lon, id:""}; }
+
+/* ---------- GPX ---------- */
+function gpxFor(t, segs){
+  const day = state.day, x = s => esc(s);
+  const iso = hm => at(day, hm).toISOString();
+  let w = "", trk = "";
+  const seen = new Set();
+  const addW = (p, name, time, sym) => { const k = p.lat.toFixed(5)+","+p.lon.toFixed(5); if(seen.has(k)) return; seen.add(k);
+    w += `  <wpt lat="${p.lat}" lon="${p.lon}"><time>${iso(time)}</time><name>${x(name)}</name><sym>${sym}</sym></wpt>\n`; };
+  segs.forEach((s,i) => {
+    addW(s.from, `${s.dep} ${s.from.name}${s.from.quay ? " (Steig "+s.from.quay+")" : ""}`, s.dep, i===0 ? "Flag, Green" : "Waypoint");
+    if(i === segs.length-1) addW(s.to, `${s.arr} ${s.to.name}`, s.arr, "Flag, Red");
+    const pts = s.legs.flatMap(l => polyPts(l.p));
+    trk += `    <trkseg>\n${pts.map(p => `      <trkpt lat="${p[0]}" lon="${p[1]}"/>`).join("\n")}\n    </trkseg>\n`;
+  });
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Fjord-Touren Nesttun" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata><name>${x(t.title)}</name><desc>${x(t.subtitle)} – ${DAYLONG[day]}, Start ${segs[0].dep}</desc><time>${new Date().toISOString()}</time></metadata>
+${w}  <trk><name>${x(t.title)}</name><desc>${x(segs.map(s => segLabel(s)+" "+s.dep).join(" · "))}</desc>
+${trk}  </trk>
+</gpx>`;
+}
+async function downloadGPX(t){
+  const segs = planOf(t, state.day); if(!segs) return;
+  const blob = new Blob([gpxFor(t, segs)], {type:"application/gpx+xml"});
+  const name = `fjordtour_${t.id}_${state.day}.gpx`;
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  toast("GPX gespeichert: "+name);
+}
+async function shareTour(t){
+  const segs = planOf(t, state.day); const m = metrics(segs);
+  const text = `${t.title}\n${t.subtitle}\n${DAYLONG[state.day]}: ${m.start}–${m.end} (${fmtDur(m.dur)})\n` +
+    segs.filter(s => s.kind === "ride").map(s => `${s.dep} ${segLabel(s)} ${s.from.name} → ${s.to.name}`).join("\n");
+  try{ if(navigator.share){ await navigator.share({title:t.title, text}); return; } }catch(e){ return; }
+  try{ await navigator.clipboard.writeText(text); toast("Tour in die Zwischenablage kopiert"); }catch(e){ toast("Teilen nicht möglich"); }
+}
+
+/* ---------- map ---------- */
+const map = L.map("map", {zoomControl:false, attributionControl:true}).setView([60.36, 5.35], 9);
+L.control.zoom({position:"bottomright"}).addTo(map);
+let base = null, seamarks = null, tileErrors = 0, tileOk = 0;
+function setLayer(k){
+  if(!LAYERS[k]) k = "topo";
+  state.layer = k; store.set("layer", k);
+  if(base) map.removeLayer(base);
+  const L0 = LAYERS[k];
+  base = L.tileLayer(L0.url, {maxZoom:L0.max, attribution:L0.attr, crossOrigin:true});
+  base.on("tileerror", () => { tileErrors++; if(tileErrors > 3 && tileOk === 0) $("#mapWrap").classList.add("offline"); });
+  base.on("tileload", () => { tileOk++; $("#mapWrap").classList.remove("offline"); });
+  base.addTo(map); base.bringToBack();
+  renderLayerMenu();
+}
+function setSeamarks(on){
+  state.seamarks = on; store.set("seamarks", on);
+  if(on && !seamarks) seamarks = L.tileLayer("https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png", {maxZoom:18, attribution:"© OpenSeaMap", crossOrigin:true});
+  if(on) seamarks.addTo(map); else if(seamarks) map.removeLayer(seamarks);
+  renderLayerMenu();
+}
+function renderLayerMenu(){
+  const m = $("#layerMenu");
+  m.innerHTML = Object.entries(LAYERS).map(([k,v]) => `<button data-layer="${k}" aria-pressed="${state.layer===k}">${k==="sjokart"?"⚓":k==="osm"?"🗺️":"⛰️"} ${esc(v.name)}</button>`).join("") +
+    `<hr><button data-sea="1" aria-pressed="${state.seamarks}">🛟 Seezeichen (OpenSeaMap)</button>`;
+}
+$("#layerMenu").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  if(b.dataset.layer) setLayer(b.dataset.layer);
+  if(b.dataset.sea) setSeamarks(!state.seamarks);
+});
+$("#layerBtn").addEventListener("click", e => { e.stopPropagation(); $("#layerMenu").classList.toggle("show"); });
+map.on("click", () => $("#layerMenu").classList.remove("show"));
+
+let homeMarker = null;
+function updateHomeMarker(){
+  const isEn = state.lang === "en";
+  const popupHtml = `<b>${esc(HOME.name)}</b><br>${isEn ? "Your home location" : "Dein Heimatort / Startpunkt"}<br><button class="mini-btn" id="mapChangeHome" style="margin-top:8px">🏠 ${isEn ? "Change Home Location" : "Heimatort ändern"}</button>`;
+  if(!homeMarker){
+    homeMarker = L.marker([HOME.lat, HOME.lon], {icon:L.divIcon({className:"", html:'<div class="home-ic">🏠</div>', iconSize:[26,26], iconAnchor:[13,13]}), zIndexOffset:900}).addTo(map);
+  } else {
+    homeMarker.setLatLng([HOME.lat, HOME.lon]);
+  }
+  homeMarker.bindPopup(popupHtml);
+  homeMarker.on("popupopen", ev => {
+    const btn = ev.popup.getElement()?.querySelector("#mapChangeHome");
+    if(btn) btn.onclick = e => { e.preventDefault(); openHomeModal(); };
+  });
+}
+updateHomeMarker();
+
+const overview = L.layerGroup().addTo(map);
+const single = L.layerGroup().addTo(map);
+let segLayers = [];   // per segment polylines in single mode
+let overviewBounds = null;
+
+function drawOverview(){
+  overview.clearLayers(); overviewBounds = L.latLngBounds([[HOME.lat, HOME.lon]]);
+  const vis = TOURS.filter(matches);
+  vis.forEach(t => {
+    const segs = planOf(t, state.day) || planOf(t, "wd") || planOf(t, "sa") || planOf(t, "so");
+    if(!segs) return;
+    const col = css(CATS[t.cat].color.slice(4,-1));
+    const pts = segs.flatMap(s => s.legs.flatMap(l => polyPts(l.p)));
+    if(!pts.length) return;
+    const casing = L.polyline(pts, {color:"#fff", weight:6, opacity:.7, interactive:false});
+    const line = L.polyline(pts, {color:col, weight:3.5, opacity:.9});
+    line.bindTooltip(esc(t.title), {sticky:true});
+    line.on("click", () => openTour(t.id));
+    overview.addLayer(casing); overview.addLayer(line);
+    overviewBounds.extend(line.getBounds());
+  });
+}
+function drawSingle(t){
+  single.clearLayers(); segLayers = [];
+  const segs = planOf(t, state.day); if(!segs) return;
+  const bounds = L.latLngBounds([[HOME.lat, HOME.lon]]);
+  segs.forEach((s, i) => {
+    const group = [];
+    s.legs.forEach(l => {
+      const pts = polyPts(l.p); if(pts.length < 2) return;
+      const m = l.m === "foot" ? "foot" : (s.kind === "ride" ? s.mode : l.m);
+      const col = modeColor(m);
+      const cas = L.polyline(pts, {color:"#ffffff", weight: m==="foot" ? 5 : 8, opacity:.85, interactive:false});
+      const ln = L.polyline(pts, {color:col, weight: m==="foot" ? 3 : 5, opacity:.95, dashArray: m==="water" ? "9 7" : m==="foot" ? "2 6" : null, lineCap:"round"});
+      ln.on("click", ev => { L.DomEvent.stopPropagation(ev); focusStep(i, true); });
+      ln.bindTooltip(`${esc(segLabel(s))} · ${s.dep}–${s.arr}`, {sticky:true});
+      single.addLayer(cas); single.addLayer(ln); group.push(ln, cas);
+      bounds.extend(ln.getBounds());
+    });
+    segLayers[i] = group;
+  });
+  // markers: transfer points numbered, POIs starred
+  const places = [];
+  segs.forEach((s,i) => {
+    if(i === 0) return;
+    const p = s.from; const prev = segs[i-1];
+    if(haversine(HOME, p) < 60) return;
+    if(places.some(q => haversine(q.p, p) < 40)) return;
+    places.push({p, i, poi: !!prev.poi});
+  });
+  places.forEach((pl, n) => {
+    const s = segs[pl.i];
+    const html = pl.poi ? `<div class="poi-ic">★</div>` : `<div class="num-ic" style="background:${modeColor(s.kind==="ride"?s.mode:"foot")}">${n+1}</div>`;
+    const mk = L.marker([pl.p.lat, pl.p.lon], {icon:L.divIcon({className:"", html, iconSize:[28,28], iconAnchor:[14,14]}), zIndexOffset: pl.poi ? 700 : 600});
+    mk.bindPopup(`<b>${esc(pl.p.name)}</b>${pl.p.quay ? " · Steig "+esc(pl.p.quay) : ""}<br>${s.dep} ${esc(segLabel(s))}${s.dest ? " → "+esc(s.dest) : ""}<br>
+      <a href="${gmapsPin(pl.p)}" target="_blank" rel="noopener">Google Maps</a> · <a href="#" data-step="${pl.i}">Zum Schritt</a>`);
+    mk.on("popupopen", ev => { const a = ev.popup.getElement().querySelector("[data-step]"); if(a) a.onclick = e => { e.preventDefault(); focusStep(+a.dataset.step, true); }; });
+    single.addLayer(mk);
+  });
+  single._bounds = bounds;
+}
+function fitCurrent(){
+  const b = state.sel ? single._bounds : overviewBounds;
+  if(b && b.isValid()) map.fitBounds(b, {padding:[28,28], maxZoom:15});
+}
+function highlightSeg(i){
+  segLayers.forEach((g, j) => g && g.forEach(l => { if(l.options.interactive !== false) l.setStyle({opacity: i==null || j===i ? .95 : .35, weight: j===i ? 8 : (l.options.dashArray==="2 6" ? 3 : 5)}); }));
+}
+$("#fitBtn").addEventListener("click", fitCurrent);
+$("#fullBtn").addEventListener("click", () => { const w = $("#mapWrap"); w.classList.toggle("full"); w.classList.remove("mini"); setTimeout(() => map.invalidateSize(), 260); });
+$("#miniBtn").addEventListener("click", () => { const w = $("#mapWrap"); w.classList.toggle("mini"); w.classList.remove("full"); $("#miniBtn").textContent = w.classList.contains("mini") ? "▾" : "▴"; setTimeout(() => map.invalidateSize(), 260); });
+
+/* ---------- GPS ---------- */
+let watchId = null, meMarker = null, meCircle = null;
+function nearestOnRoute(pos, segs){
+  // returns {i, dist} – nearest segment index and metres to the route
+  const kx = 111320*Math.cos(pos.lat*Math.PI/180), ky = 110540;
+  let best = {i:-1, dist:Infinity};
+  segs.forEach((s, i) => s.legs.forEach(l => {
+    const pts = polyPts(l.p);
+    for(let k=1;k<pts.length;k++){
+      const ax=(pts[k-1][1]-pos.lon)*kx, ay=(pts[k-1][0]-pos.lat)*ky, bx=(pts[k][1]-pos.lon)*kx, by=(pts[k][0]-pos.lat)*ky;
+      const dx=bx-ax, dy=by-ay, len=dx*dx+dy*dy;
+      let tt = len ? -(ax*dx+ay*dy)/len : 0; tt = Math.max(0, Math.min(1, tt));
+      const d = Math.hypot(ax+tt*dx, ay+tt*dy);
+      if(d < best.dist) best = {i, dist:d};
+    }
+  }));
+  return best;
+}
+function onPosition(p){
+  const pos = {lat:p.coords.latitude, lon:p.coords.longitude}, acc = Math.round(p.coords.accuracy || 50);
+  const ll = [pos.lat, pos.lon];
+  if(!meMarker){
+    meMarker = L.marker(ll, {icon:L.divIcon({className:"", html:'<div class="me-ic"></div>', iconSize:[18,18], iconAnchor:[9,9]}), zIndexOffset:1000}).addTo(map);
+    meCircle = L.circle(ll, {radius:acc, color:"#0ea5e9", weight:1, fillOpacity:.1, interactive:false}).addTo(map);
+    map.setView(ll, Math.max(map.getZoom(), 13));
+  } else { meMarker.setLatLng(ll); meCircle.setLatLng(ll).setRadius(acc); }
+  const st = $("#mapStatus");
+  const t = state.sel && BY_ID[state.sel];
+  if(t){
+    const segs = planOf(t, state.day);
+    const n = nearestOnRoute(pos, segs);
+    const s = segs[n.i];
+    const on = n.dist < Math.max(150, acc);
+    const nextStop = s.kind === "ride" ? `nächster Ausstieg: <b>${esc(s.to.name)}</b> (${s.arr})` : `Ziel: <b>${esc(s.to.name)}</b> (${s.arr})`;
+    st.innerHTML = `${on ? "✅ Auf der Route" : `↔️ ${fmtKm(n.dist)} neben der Route`} · Schritt ${n.i+1}: ${esc(segLabel(s))}<br>${nextStop} · ±${acc} m`;
+    document.querySelectorAll(".st.here").forEach(e => e.classList.remove("here"));
+    const el = document.getElementById("step-"+n.i); if(el){ el.classList.add("here"); if(!onPosition._scrolled){ el.scrollIntoView({behavior:"smooth", block:"center"}); onPosition._scrolled = true; } }
+  } else {
+    let best = null;
+    TOURS.filter(matches).forEach(tt => { const sg = planOf(tt, state.day); if(!sg) return; const n = nearestOnRoute(pos, sg); if(!best || n.dist < best.d) best = {t:tt, d:n.dist}; });
+    st.innerHTML = best ? `📍 ±${acc} m · nächste Tour: <b>${esc(best.t.title)}</b> (${fmtKm(best.d)} entfernt) <a href="#" id="gpsOpen">öffnen</a>` : `📍 Standort ±${acc} m`;
+    const a = $("#gpsOpen"); if(a) a.onclick = e => { e.preventDefault(); openTour(best.t.id); };
+  }
+  st.classList.add("show");
+}
+function toggleGPS(){
+  const b = $("#gpsBtn");
+  if(watchId != null){
+    navigator.geolocation.clearWatch(watchId); watchId = null; b.classList.remove("on");
+    $("#mapStatus").classList.remove("show");
+    if(meMarker){ map.removeLayer(meMarker); map.removeLayer(meCircle); meMarker = meCircle = null; }
+    document.querySelectorAll(".st.here").forEach(e => e.classList.remove("here"));
+    return;
+  }
+  if(!navigator.geolocation){ toast("Standort wird von diesem Browser nicht unterstützt"); return; }
+  b.classList.add("on"); onPosition._scrolled = false; toast("Suche Standort …");
+  watchId = navigator.geolocation.watchPosition(onPosition, err => {
+    toast(err.code === 1 ? "Standortzugriff verweigert – in den Browser-Einstellungen erlauben" : "Standort nicht verfügbar");
+    if(watchId != null){ navigator.geolocation.clearWatch(watchId); watchId = null; } b.classList.remove("on");
+  }, {enableHighAccuracy:true, maximumAge:10000, timeout:20000});
+}
+$("#gpsBtn").addEventListener("click", toggleGPS);
+
+/* ---------- list ---------- */
+function renderPills(){
+  const tDict = T();
+  $("#pills").innerHTML = `<button class="pill" data-f="all" aria-pressed="${state.filters.size===0}">${tDict.allPill}</button>` +
+    FILTERS.map(([k]) => `<button class="pill" data-f="${k}" aria-pressed="${state.filters.has(k)}">${tDict.filters[k] || k}</button>`).join("");
+}
+$("#pills").addEventListener("click", e => {
+  const b = e.target.closest(".pill"); if(!b) return;
+  const f = b.dataset.f;
+  if(f === "all") state.filters.clear(); else state.filters.has(f) ? state.filters.delete(f) : state.filters.add(f);
+  store.set("filters", [...state.filters]);
+  renderPills(); renderList(); drawOverview(); if(!state.sel) fitCurrent();
+});
+function renderDays(){
+  const tDict = T();
+  $("#daySeg").innerHTML = tDict.days.map(([k,l]) => `<button data-d="${k}" aria-pressed="${state.day===k}">${l}</button>`).join("");
+  $("#dayHint").textContent = tDict.dayHint(dateLabel(refDate(state.day)));
+}
+$("#daySeg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  state.day = b.dataset.d; renderDays(); renderList(); drawOverview();
+  if(state.sel){ renderDetail(BY_ID[state.sel]); drawSingle(BY_ID[state.sel]); fitCurrent(); startLive(BY_ID[state.sel]); }
+});
+let qTimer = null;
+$("#q").addEventListener("input", e => {
+  clearTimeout(qTimer);
+  $("#searchBox").classList.toggle("has-text", !!e.target.value);
+  qTimer = setTimeout(() => { state.q = e.target.value.trim(); renderList(); drawOverview(); }, 140);
+});
+$("#qClear").addEventListener("click", e => { e.preventDefault(); $("#q").value = ""; state.q = ""; $("#searchBox").classList.remove("has-text"); renderList(); drawOverview(); });
+
+function cardHTML(t, idx){
+  const {segs, m} = tourInfo(t);
+  const mm = m || anyMetrics(t);
+  const tDict = T();
+  const avail = tDict.days.map(([k,l]) => `<span class="${runs(t, k) ? "" : "no"}">${l}</span>`).join("");
+  const modes = mm ? mm.modes.map(x => (MODE[x]||MODE.bus).icon).join(" ") : "";
+  const chips = [];
+  if(m){ chips.push(`<span class="chip strong">⏱ ${fmtDurShort(m.dur)}</span>`, `<span class="chip">🕘 ${m.start}–${m.end}</span>`); }
+  else chips.push(`<span class="chip bad">${tDict.dayLong[state.day]}: ${tDict.notOperable}</span>`);
+  if(modes) chips.push(`<span class="chip">${modes}</span>`);
+  if(mm && mm.home) chips.push(`<span class="chip ok">${tDict.fromDoorstep}</span>`);
+  if(t.ring) chips.push(`<span class="chip">${tDict.circular}</span>`);
+  if(t.bridge) chips.push(`<span class="chip">${tDict.bridge}</span>`);
+  const sunIc = tDict.sunChip[t.sun.best] || t.sun.best;
+  chips.push(`<span class="chip">${sunIc}</span>`);
+  if(state.day && t.plans[state.day] && t.plans[state.day].fallback) chips.push(`<span class="chip warn">${tDict.altRoute}</span>`);
+  return `<article class="card" data-id="${t.id}" style="--cc:${CATS[t.cat].color};animation-delay:${Math.min(idx*25,300)}ms" tabindex="0">
+    ${IMG[t.id] ? `<img class="card-img" src="${IMG[t.id]}" alt="" loading="lazy" decoding="async">` : ""}
+    <h3>${esc(tourTitle(t))}</h3><p class="sub">${esc(tourSub(t))}</p>
+    <div class="chips">${chips.join("")}</div>
+    <div class="days">${tDict.runs}${avail}</div>
+    <div class="card-actions">
+      <button class="mini-btn" data-act="open">${tDict.openDetails}</button>
+      <button class="mini-btn" data-act="map">${tDict.onlyOnMap}</button>
+    </div>
+  </article>`;
+}
+function renderList(){
+  const tDict = T();
+  const vis = TOURS.filter(matches);
+  const ferries = vis.filter(t => (anyMetrics(t)||{}).ferry).length;
+  const homes = vis.filter(t => (tourInfo(t).m||{}).home).length;
+  let html = `<div class="stats">${tDict.stats(vis.length, ferries, vis.filter(t=>t.bridge).length, homes, vis.filter(t=>t.ring).length)}</div>`;
+  if(!vis.length) html += `<div class="empty">${tDict.empty}</div>`;
+  let i = 0;
+  for(const [ck, c] of Object.entries(CATS)){
+    const catInfo = tDict.cats[ck] || c;
+    const ts = vis.filter(t => t.cat === ck).sort((a,b) => ((tourInfo(a).m||{dur:999}).dur) - ((tourInfo(b).m||{dur:999}).dur));
+    if(!ts.length) continue;
+    html += `<div class="cat-h"><i style="background:${c.color}"></i>${catInfo.label} <span style="font-weight:500;text-transform:none;letter-spacing:0">· ${catInfo.sub}</span></div>`;
+    html += ts.map(t => cardHTML(t, i++)).join("");
+  }
+  const dateStr = esc(DATA.generated.slice(0,10).split("-").reverse().join("."));
+  html += `<p class="foot">${tDict.listFoot(dateStr)}</p>`;
+  $("#list").innerHTML = html;
+  const r = $("#resetF"); if(r) r.onclick = () => { state.filters.clear(); state.q = ""; $("#q").value = ""; store.set("filters", []); renderPills(); renderList(); drawOverview(); };
+}
+$("#list").addEventListener("click", e => {
+  const card = e.target.closest(".card"); if(!card) return;
+  const act = e.target.closest("[data-act]");
+  openTour(card.dataset.id, act && act.dataset.act === "map");
+});
+$("#list").addEventListener("keydown", e => { if(e.key === "Enter"){ const c = e.target.closest(".card"); if(c) openTour(c.dataset.id); } });
+
+/* ---------- detail ---------- */
+function sunBox(t, segs){
+  const tDict = T();
+  const d = refDate(state.day);
+  const st = SUN.times(new Date(d.getTime() + 12*3600e3), 60.39, 5.32);
+  const sc = segs.find(s => s.scenic) || segs.find(s => s.poi && s.kind === "ride") || segs.find(s => s.kind === "ride");
+  let cls = "", txt = "";
+  if(sc){
+    const mid = new Date((at(state.day, sc.dep).getTime() + at(state.day, sc.arr).getTime())/2);
+    const lat = (sc.from.lat + sc.to.lat)/2, lon = (sc.from.lon + sc.to.lon)/2;
+    const alt = SUN.altitude(mid, lat, lon);
+    if(alt > 6){ cls = "ok"; txt = tDict.sunDaylight(sc.dep, sc.arr, alt.toFixed(0)); }
+    else if(alt > -0.8){ cls = "warn"; txt = tDict.sunGolden(sc.dep, sc.arr); }
+    else if(alt > -6){ cls = "warn"; txt = tDict.sunTwilight(sc.dep, sc.arr); }
+    else { cls = "bad"; txt = tDict.sunDark(sc.dep, sc.arr); }
+  }
+  const end = at(state.day, segs[segs.length-1].arr);
+  const darkBack = end > st.dusk ? tDict.darkReturn(hhmm(st.dusk)) : "";
+  const best = tDict.sunBestLabel[t.sun.best] || t.sun.best;
+  return `<div class="box">${tDict.sunHead(dateLabel(d))}
+    <div class="sunrow"><span class="chip">${tDict.sunrise} ${hhmm(st.sunrise)}</span><span class="chip">${tDict.goldenFrom} ${hhmm(st.golden)}</span><span class="chip">${tDict.sunset} ${hhmm(st.sunset)}</span><span class="chip">${tDict.duskFrom} ${hhmm(st.dusk)}</span></div>
+    <p class="note" style="margin-top:8px"><b>${best}:</b> ${esc(t.sun.text)}</p>
+    ${txt ? `<div class="chips"><span class="chip ${cls}">${txt}</span>${darkBack}</div>` : ""}</div>`;
+}
+function freqBox(segs){
+  const tDict = T();
+  const rows = [];
+  const seen = new Set();
+  segs.filter(s => s.kind === "ride").forEach(s => {
+    const k = `${s.from.qid}|${s.lineId}`; if(seen.has(k)) return; seen.add(k);
+    const f = DATA.freq[k]; if(!f) return;
+    const cell = d => { const x = f[d]; if(!x) return "–"; const strong = d === state.day ? "b" : "span";
+      return `<${strong}>${esc(x.text)}</${strong}>` + (x.times && x.times.length && x.times.length <= 30 ? `<details><summary>${tDict.freqDepartures}</summary><div class="times">${x.times.join(" · ")}</div></details>` : ""); };
+    rows.push(`<tr><td><span class="lb" style="--mc:${modeColor(s.mode)}">${(MODE[s.mode]||MODE.bus).icon} ${esc(s.line)}</span><div class="times">${tDict.freqFrom} ${esc(s.from.name)}${s.from.quay ? " · "+tDict.platform+" "+esc(s.from.quay) : ""}</div></td><td>${cell("wd")}</td><td>${cell("sa")}</td><td>${cell("so")}</td></tr>`);
+  });
+  return `<div class="box">${tDict.freqHead}<table class="freq"><tr><th>${tDict.freqThLine}</th><th>${tDict.freqThWd}</th><th>${tDict.freqThSa}</th><th>${tDict.freqThSo}</th></tr>${rows.join("")}</table></div>`;
+}
+function stepHTML(s, i, segs){
+  const tDict = T();
+  const color = modeColor(s.kind === "ride" ? s.mode : "foot");
+  const legDur = toMin(s.arr) - toMin(s.dep);
+  const date = nextAt(state.day, s.dep); date.setMinutes(date.getMinutes() - 2);
+  let pre = "";
+  if(i > 0 && s.wait >= 10 && (s.stayNote || s.minStay)){
+    pre = `<div class="stay"><b>${tDict.stayIn(fmtDur(s.wait), esc(s.from.name), s.stayNote ? esc(s.stayNote) : "")}</b></div>`;
+  } else if(i > 0 && s.stayNote){
+    pre = `<div class="stay">${esc(s.stayNote)}</div>`;
+  }
+  if(s.kind === "walk"){
+    return pre + `<div class="st walk" id="step-${i}" data-i="${i}" style="--mc:${color}">
+      <div class="st-head"><span class="time">${s.dep} → ${s.arr}</span><span class="lb" style="--mc:${color}">${tDict.walkSeg}</span><span class="dur">${fmtKm(s.dist)} · ${legDur} ${tDict.durMinUnit}</span></div>
+      <div class="route">${esc(s.from.name)} → ${esc(s.to.name)}</div>
+      ${s.note ? `<div class="note">${esc(s.note)}</div>` : ""}
+      <div class="st-actions"><a class="mini-btn" target="_blank" rel="noopener" href="${gmapsDir(s.from, s.to, "walking")}">${tDict.gmapsWalk}</a></div>
+    </div>`;
+  }
+  const md = MODE[s.mode] || MODE.bus;
+  const tr = s.transfer != null ? `<span class="chip ${s.transfer >= 4 ? "ok" : "warn"}">${tDict.transferChip(s.transfer, s.transfer < 4)}</span>` : "";
+  const f = DATA.freq[`${s.from.qid}|${s.lineId}`];
+  const fq = f && f[state.day] ? `<span class="chip">🕑 ${esc(f[state.day].text)}</span>` : "";
+  const note = s.note || `${segLabel(s)} ${tDict.towards} ${s.dest || s.to.name}.`;
+  return pre + `<div class="st" id="step-${i}" data-i="${i}" style="--mc:${color}">
+    <div class="st-head"><span class="time">${s.dep} → ${s.arr}</span><span class="lb" style="--mc:${color}">${md.icon} ${esc(s.line)}</span><span class="dur">${legDur} ${tDict.durMinUnit}${s.stops ? tDict.stops(s.stops) : ""}</span></div>
+    <div class="route">${esc(s.from.name)}${s.from.quay ? ` <small>${tDict.platform} ${esc(s.from.quay)}</small>` : ""} → ${esc(s.to.name)}${s.to.quay ? ` <small>${tDict.platform} ${esc(s.to.quay)}</small>` : ""}</div>
+    <div class="note">${s.dest ? `<b>${tDict.towards} ${esc(s.dest)}</b> · ` : ""}${esc(note)}</div>
+    <div class="chips">${liveChips(i)}${tr}${fq}${s.op ? `<span class="chip">${esc(s.op)}</span>` : ""}</div>${liveSituations(i)}
+    <div class="st-actions">
+      <a class="mini-btn" target="_blank" rel="noopener" href="${enturUrl(s.from, s.to, date)}">${tDict.enturStep}</a>
+      <a class="mini-btn" target="_blank" rel="noopener" href="${gmapsDir(null, s.from, i > 0 && segs[i-1].kind === "walk" ? "walking" : "transit")}">${tDict.toPlatform}</a>
+    </div>
+  </div>`;
+}
+function departuresBox(t, p){
+  const tDict = T();
+  const dir = dirOf(t, state.day);
+  const alts = dir === "rev" ? (p.alts_rev || []) : (p.alts_fwd || []);
+  if(!alts.length) return "";
+  const cur = state.abf[abfKey(t, state.day, dir)];
+  const best = sunBestIdx(t, state.day, dir);
+  const main = dir === "rev" ? p.rev : p.fwd;
+  const mainIdx = main ? alts.findIndex(a => a[0].dep === main[0].dep && a[a.length-1].arr === main[main.length-1].arr) : -1;
+  const rows = alts.map((segs, i) => {
+    const m = metrics(segs);
+    const tag = (i === best ? ` <span class="chip ok">${tDict.depBestSun}</span>` : "") + (i === mainIdx ? ` <span class="chip">${tDict.depShortest}</span>` : "");
+    const sel = (cur === i) || (cur == null && i === mainIdx) ? "true" : "false";
+    return `<tr data-abf="${i}" aria-pressed="${sel}" class="${sel === "true" ? "cur" : ""}"><td><b>${m.start}</b> – ${m.end}</td><td>${fmtDur(m.dur)}</td><td>${tDict.rides(m.rides)}</td><td>${tag}</td></tr>`;
+  }).join("");
+  return `<div class="box">${tDict.depTitle(alts.length)}
+    <p class="note" style="margin:0 0 6px">${tDict.depSub}</p>
+    <table class="freq"><tr><th>${tDict.depThDep}</th><th>${tDict.depThDur}</th><th>${tDict.depThRides}</th><th></th></tr>${rows}</table></div>`;
+}
+function renderDetail(t){
+  const tDict = T();
+  const segs = planOf(t, state.day);
+  const p = t.plans[state.day];
+  const c = CATS[t.cat];
+  const catInfo = tDict.cats[t.cat] || c;
+  const title = tourTitle(t);
+  const sub = tourSub(t);
+  let html = `<div class="hero" style="--cc:${c.color}">${IMG[t.id] ? `<img class="hero-img" src="${IMG[t.id]}" alt="${esc(title)}" decoding="async">${creditHTML(t)}` : ""}<div class="kicker">${esc(catInfo.label)}</div><h2>${esc(title)}</h2><p>${esc(sub)}</p>`;
+  if(!segs){
+    const ok = tDict.days.filter(([k]) => runs(t, k)).map(([,l]) => l).join(", ");
+    html += `<div class="banner warn">${tDict.notOperableBanner(tDict.dayLong[state.day], ok)}</div></div>`;
+    $("#detail").innerHTML = html; return;
+  }
+  const m = metrics(segs);
+  html += `<div class="chips" style="margin-top:10px">
+      <span class="chip strong">⏱ ${fmtDur(m.dur)}</span><span class="chip strong">🕘 ${m.start} – ${m.end}</span>
+      <span class="chip">${tDict.rides(m.rides)} · ${m.modes.map(x => (MODE[x]||MODE.bus).icon).join(" ")}</span>
+      <span class="chip">${tDict.walkDist(fmtKm(m.walk))}</span>
+      ${m.home ? `<span class="chip ok">${tDict.fromDoorstep}</span>` : ""}${t.ring ? `<span class="chip">${tDict.circular}</span>` : ""}${t.bridge ? `<span class="chip">${tDict.bridge}</span>` : ""}
+    </div>`;
+  // actions
+  const ti = turnIndex(segs);
+  const d0 = nextAt(state.day, segs[0].dep); d0.setMinutes(d0.getMinutes()-2);
+  let acts = `<button class="act primary" data-a="gpx">${tDict.gpxBtn}</button>`;
+  const rideSegs = segs.filter(s => s.kind === "ride");
+  const firstRide = rideSegs[0];
+  const dirKey = dirOf(t, state.day);
+  const df = firstRide ? nextAt(state.day, firstRide.dep) : null; if(df) df.setMinutes(df.getMinutes()-2);
+  const viaPick = p["via_" + dirKey];
+  if(!IS_ANDROID && firstRide && viaPick && viaPick.score >= 0.75 && viaPick.id !== firstRide.from.id){
+    const via = {id:viaPick.id, name:viaPick.name, lat:viaPick.lat, lon:viaPick.lon, type:"visit"};
+    acts += `<a class="act" target="_blank" rel="noopener" href="${enturUrl(firstRide.from, homePlace(), df, via)}">${tDict.enturFull}</a>`;
+  }
+  if(t.ring && ti >= 0){
+    const turn = segs[ti].to;
+    const back = segs.slice(ti+1).find(s => s.kind === "ride") || segs[ti+1];
+    const db = nextAt(state.day, back.dep); db.setMinutes(db.getMinutes()-2);
+    acts += `<a class="act" target="_blank" rel="noopener" href="${enturUrl(firstRide ? firstRide.from : homePlace(), turn, df || d0)}">${tDict.enturOut}</a>`;
+    acts += `<a class="act" target="_blank" rel="noopener" href="${enturUrl(back.from && back.from.id ? back.from : turn, homePlace(), db)}">${tDict.enturBack}</a>`;
+  } else if(ti >= 0){
+    const turn = segs[ti].to;
+    acts += `<a class="act" target="_blank" rel="noopener" href="${enturUrl(firstRide ? firstRide.from : homePlace(), turn, df || d0)}">${tDict.enturFwd}</a>`;
+  }
+  acts += `<a class="act" target="_blank" rel="noopener" href="${gmapsDir(HOME, segs[ti >= 0 ? ti : 0].to, "transit")}">${tDict.gmapsBtn}</a>`;
+  acts += `<button class="act" data-a="share">${tDict.shareBtn}</button>`;
+  html += `<div class="actions">${acts}</div>`;
+  if(IS_ANDROID) html += `<p class="note" style="margin:8px 2px 0;font-size:12px">${tDict.androidNote}</p>`;
+  html += `</div>`;
+  // direction toggle
+  if(t.ring){
+    const f = p.fwd ? metrics(p.fwd) : null, r = p.rev ? metrics(p.rev) : null;
+    const cur = dirOf(t, state.day);
+    let hint;
+    if(!r) hint = tDict.dirHintNoRev(tDict.dayLong[state.day]);
+    else if(!f) hint = tDict.dirHintOnlyRev(tDict.dayLong[state.day]);
+    else {
+      const diff = r.dur - f.dur;
+      if(diff === 0) hint = tDict.dirHintBoth;
+      else hint = tDict.dirHintDiff(diff, r.start, r.end, fmtDur(r.dur), cur === "rev", f.start, f.end, fmtDur(f.dur));
+    }
+    html += `<div class="box dirbox"><div><h4 style="margin:0 0 2px">${tDict.dirTitle}</h4><div class="note">${hint}</div></div>
+      <div class="seg" id="dirSeg"><button data-dir="fwd" aria-pressed="${cur==="fwd"}" ${f ? "" : "disabled"}>${tDict.dirNormal}</button><button data-dir="rev" aria-pressed="${cur==="rev"}" ${r ? "" : "disabled"}>${tDict.dirRev}</button></div></div>`;
+  }
+  html += departuresBox(t, p);
+  if(p.fallback) html += `<div class="banner warn">${tDict.fallbackWarn(tDict.dayLong[state.day])}</div>`;
+  if(m.minTransfer < 4) html += `<div class="banner warn">${tDict.tightTransferWarn}</div>`;
+  html += liveBox(t, segs);
+  html += `<div class="tl" id="tl">${segs.map((s,i) => stepHTML(s, i, segs)).join("")}</div>`;
+  html += sunBox(t, segs);
+  html += `<div class="box" id="wxBox"><h4>${tDict.wxHead}</h4><p class="note" style="margin:0">${tDict.wxLoading}</p></div>`;
+  html += freqBox(segs);
+  html += `<div class="box"><h4>${tDict.tariffHead}</h4><p class="note" style="margin:0">${esc(tourTariff(t))}</p>
+    <p class="note">${tDict.skyssNote}</p></div>`;
+  const tTips = tourTips(t);
+  if(tTips && tTips.length) html += `<div class="box"><h4>${tDict.tipsHead}</h4><ul class="tips">${tTips.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`;
+  html += `<p class="foot">${tDict.detailFoot(tDict.dayLong[state.day], esc(DATA.days[state.day].split("-").reverse().join(".")), dateLabel(refDate(state.day)))}</p>`;
+  $("#detail").innerHTML = html;
+  loadWeather(t, segs);
+}
+// MET Norway locationforecast (CORS erlaubt). Ergebnis je Ort im Speicher gecacht.
+const WX_CACHE = {};
+async function fetchWx(lat, lon){
+  const key = lat.toFixed(2)+","+lon.toFixed(2);
+  if(WX_CACHE[key]) return WX_CACHE[key];
+  const r = await fetch(`https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${lat.toFixed(4)}&lon=${lon.toFixed(4)}`);
+  if(!r.ok) throw new Error("HTTP "+r.status);
+  const j = await r.json();
+  WX_CACHE[key] = j.properties.timeseries.map(s => ({t: new Date(s.time), d: s.data}));
+  return WX_CACHE[key];
+}
+// Score einer Stunde: niedriger ist besser (Regen + Wind + Bewölkung)
+function wxScore(x){
+  const det = x.d.instant.details, prec = (x.d.next_1_hours?.details?.precipitation_amount) ?? 0;
+  return prec*10 + det.wind_speed*0.6 + det.cloud_area_fraction/25;
+}
+async function loadWeather(t, segs){
+  const box = document.getElementById("wxBox"); if(!box) return;
+  const sc = segs.find(s => s.scenic) || segs.find(s => s.kind === "ride") || segs[0];
+  const lat = (sc.from.lat + sc.to.lat)/2, lon = (sc.from.lon + sc.to.lon)/2;
+  try{
+    const hourOslo = d => Number(new Intl.DateTimeFormat("en-GB",{hour:"numeric",hourCycle:"h23",timeZone:"Europe/Oslo"}).format(d));
+    const ts = (await fetchWx(lat, lon)).filter(x => x.t > new Date() && x.t < new Date(Date.now()+48*3600e3));
+    // Tourenzeit: nur Tageslicht-Stunden (7–21 Uhr Oslo) für die Empfehlung
+    const day = ts.filter(x => { const h = hourOslo(x.t); return h >= 7 && h <= 21; });
+    const tDict = T();
+    const loc = state.lang === "en" ? "en-GB" : "de-DE";
+    if(!day.length){ box.innerHTML = `<h4>${tDict.wxHead}</h4><p class="note" style="margin:0">${tDict.wxNone}</p>`; return; }
+    const now = ts[0], best = day.reduce((a,b) => wxScore(b) < wxScore(a) ? b : a);
+    const row = x => { const det = x.d.instant.details, sym = x.d.next_1_hours?.summary.symbol_code ?? x.d.next_6_hours?.summary.symbol_code ?? "";
+      return `<tr><td>${x.t.toLocaleTimeString(loc,{weekday:"short",hour:"2-digit",minute:"2-digit",timeZone:"Europe/Oslo"})}</td><td>${esc(sym.replace(/_/g," "))}</td><td>${Math.round(det.air_temperature ?? 0)} °C</td><td>${Math.round(det.wind_speed)} m/s</td><td>${(x.d.next_1_hours?.details?.precipitation_amount ?? 0).toFixed(1)} mm</td></tr>`; };
+    const pick = day.filter((_, i) => i % 2 === 0).slice(0, 8).map(row).join("");
+    const bestStr = best.t.toLocaleTimeString(loc,{weekday:"short",hour:"2-digit",minute:"2-digit",timeZone:"Europe/Oslo"});
+    box.innerHTML = `<h4>${tDict.wxHead}</h4>
+      <p class="note" style="margin:0 0 6px">${tDict.wxRec(bestStr, best === now)}</p>
+      <table class="freq"><tr><th>${tDict.wxThTime}</th><th>${tDict.wxThWx}</th><th>${tDict.wxThTemp}</th><th>${tDict.wxThWind}</th><th>${tDict.wxThRain}</th></tr>${pick}</table>
+      <p class="note">${tDict.wxFoot}</p>`;
+  }catch(err){
+    box.innerHTML = `<h4>${T().wxHead}</h4><p class="note" style="margin:0">${T().wxErr(esc(err.message))}</p>`;
+  }
+}
+$("#detail").addEventListener("click", e => {
+  const t = BY_ID[state.sel]; if(!t) return;
+  if(e.target.closest("[data-live]")){ runLive(t); return; }
+  const a = e.target.closest("[data-a]");
+  if(a){ if(a.dataset.a === "gpx") downloadGPX(t); if(a.dataset.a === "share") shareTour(t); return; }
+  const ab = e.target.closest("[data-abf]");
+  if(ab){ state.abf[abfKey(t, state.day, dirOf(t, state.day))] = +ab.dataset.abf; store.set("abf", state.abf); renderDetail(t); drawSingle(t); fitCurrent(); startLive(t); return; }
+  const d = e.target.closest("[data-dir]");
+  if(d && !d.disabled){ state.dir[t.id] = d.dataset.dir; store.set("dir", state.dir); renderDetail(t); drawSingle(t); fitCurrent(); startLive(t); return; }
+  if(e.target.closest("a,summary,details")) return;
+  const st = e.target.closest(".st"); if(st) focusStep(+st.dataset.i, false);
+});
+function focusStep(i, fromMap){
+  highlightSeg(i);
+  const el = document.getElementById("step-"+i);
+  document.querySelectorAll(".st.flash").forEach(x => x.classList.remove("flash"));
+  if(el){ el.classList.add("flash"); setTimeout(() => el.classList.remove("flash"), 2200); }
+  if(fromMap && el) el.scrollIntoView({behavior:"smooth", block:"center"});
+  const g = segLayers[i];
+  if(!fromMap && g && g.length){ const b = L.latLngBounds([]); g.forEach(l => b.extend(l.getBounds())); if(b.isValid()) map.flyToBounds(b, {padding:[40,40], maxZoom:15, duration:.6}); }
+  if(!fromMap && !mapInView) showMapJump(true);
+}
+
+/* ---------- map scrolls with the page; jump button when it is out of view ---------- */
+let mapInView = true;
+function showMapJump(hint){
+  const b = $("#mapJump");
+  $("#mapJumpTxt").textContent = hint ? "Abschnitt auf der Karte" : "Karte";
+  b.classList.toggle("hint", !!hint);
+  b.classList.toggle("show", !mapInView || !!hint);
+  clearTimeout(showMapJump._t);
+  if(hint) showMapJump._t = setTimeout(() => { b.classList.remove("hint"); $("#mapJumpTxt").textContent = "Karte"; }, 4000);
+}
+if("IntersectionObserver" in window){
+  new IntersectionObserver(es => {
+    mapInView = es[0].isIntersecting;
+    if(mapInView) $("#mapJump").classList.remove("show", "hint"); else showMapJump(false);
+  }, {threshold:0.15}).observe($("#mapWrap"));
+}
+$("#mapJump").addEventListener("click", () => {
+  const top = $("#mapWrap").getBoundingClientRect().top + window.scrollY - $("#top").offsetHeight;
+  window.scrollTo({top: Math.max(0, top), behavior:"smooth"});
+});
+
+/* ---------- live check (Entur realtime for every ride of the tour) ---------- */
+const ENTUR_API = "https://api.entur.io/journey-planner/v3/graphql";
+const LIVE = {};          // liveKey -> {state, at, date, res: {segIndex: {...}}, msg}
+let liveTimer = null;
+const p2 = n => String(n).padStart(2, "0");
+function isoLocal(d){ const o = -d.getTimezoneOffset(), a = Math.abs(o); return `${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}T${p2(d.getHours())}:${p2(d.getMinutes())}:00${o >= 0 ? "+" : "-"}${p2(Math.floor(a/60))}:${p2(a%60)}`; }
+const ymd = d => `${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`;
+const dayKeyOf = d => { const g = d.getDay(); return g === 0 ? "so" : g === 6 ? "sa" : "wd"; };
+// today while the tour is still running, otherwise the next date with the selected day type
+function liveDate(day, segs){
+  const now = new Date(), today = new Date(); today.setHours(0,0,0,0);
+  if(dayKeyOf(today) === day){
+    const end = new Date(today); const [h,m] = segs[segs.length-1].arr.split(":").map(Number); end.setHours(h, m + 30, 0, 0);
+    if(now <= end) return today;
+  }
+  const d = nextAt(day, segs[0].dep); d.setHours(0,0,0,0); return d;
+}
+function onDate(date, hm){ const d = new Date(date); const [h,m] = hm.split(":").map(Number); d.setHours(h, m, 0, 0); return d; }
+function liveKey(t){ const segs = planOf(t, state.day); return segs ? `${t.id}|${state.day}|${dirOf(t, state.day)}|${segs[0].dep}` : null; }
+async function enturGQL(query){
+  const r = await fetch(ENTUR_API, {method:"POST", headers:{"Content-Type":"application/json", "ET-Client-Name":"oliver-fjordtouren"}, body: JSON.stringify({query})});
+  if(!r.ok) throw new Error(`Entur antwortet mit HTTP ${r.status}`);
+  const j = await r.json(); if(j.errors && !j.data) throw new Error(j.errors[0].message); return j.data;
+}
+const textOf = arr => { if(!arr || !arr.length) return ""; const pick = arr.find(x => /^(no|nb|nob)$/i.test(x.language || "")) || arr.find(x => /^en/i.test(x.language || "")) || arr[0]; return pick.value || ""; };
+async function runLive(t, quiet){
+  const segs = planOf(t, state.day); if(!segs) return;
+  const key = liveKey(t), date = liveDate(state.day, segs), old = LIVE[key];
+  LIVE[key] = Object.assign({}, old || {}, {state: "loading", date});
+  if(!quiet) refreshLiveUI(t);
+  const rides = segs.map((s, i) => ({s, i})).filter(x => x.s.kind === "ride");
+  try{
+    // 1) departures of the planned line at each boarding quay around the planned time
+    const q1 = rides.map(({s, i}) => {
+      const st = new Date(onDate(date, s.dep).getTime() - 20*60000);
+      return `r${i}: quay(id:${JSON.stringify(s.from.qid)}){ estimatedCalls(startTime:${JSON.stringify(isoLocal(st))}, timeRange:4800, numberOfDepartures:10, whiteListed:{lines:[${JSON.stringify(s.lineId)}]}, includeCancelledTrips:true){ aimedDepartureTime expectedDepartureTime actualDepartureTime realtime cancellation predictionInaccurate situations{ summary{value language} description{value language} } serviceJourney{ id } } }`;
+    }).join("\n");
+    const d1 = await enturGQL(`{ ${q1} }`);
+    const res = {}, sj = {};
+    rides.forEach(({s, i}) => {
+      const calls = ((d1[`r${i}`] || {}).estimatedCalls) || [];
+      const want = onDate(date, s.dep).getTime();
+      const c = calls.find(c => new Date(c.aimedDepartureTime).getTime() === want);
+      const others = calls.filter(c => !c.cancellation).map(c => ({aimed: new Date(c.aimedDepartureTime), exp: new Date(c.expectedDepartureTime || c.aimedDepartureTime)}));
+      if(!c){ res[i] = {missing: true, others}; return; }
+      res[i] = {depA: new Date(c.aimedDepartureTime), depE: new Date(c.actualDepartureTime || c.expectedDepartureTime || c.aimedDepartureTime), departed: !!c.actualDepartureTime,
+                rt: !!c.realtime, cancelled: !!c.cancellation, inaccurate: !!c.predictionInaccurate,
+                sits: (c.situations || []).map(x => textOf(x.summary) || textOf(x.description)).filter(Boolean), others};
+      if(c.serviceJourney) sj[i] = c.serviceJourney.id;
+    });
+    // 2) expected arrival at the alighting stop for the matched journeys
+    const ids = Object.entries(sj);
+    if(ids.length){
+      const q2 = ids.map(([i, id]) => `s${i}: serviceJourney(id:${JSON.stringify(id)}){ estimatedCalls(date:${JSON.stringify(ymd(date))}){ quay{ stopPlace{ id } } aimedArrivalTime expectedArrivalTime actualArrivalTime realtime cancellation } }`).join("\n");
+      const d2 = await enturGQL(`{ ${q2} }`);
+      ids.forEach(([i]) => {
+        const s = segs[i], want = onDate(date, s.arr).getTime();
+        const calls = (((d2[`s${i}`] || {}).estimatedCalls) || []).filter(e => e.quay && e.quay.stopPlace && e.quay.stopPlace.id === s.to.id && e.aimedArrivalTime);
+        const e = calls.find(e => new Date(e.aimedArrivalTime).getTime() === want) || calls[calls.length - 1];
+        if(!e) return;
+        Object.assign(res[i], {arrA: new Date(e.aimedArrivalTime), arrE: new Date(e.actualArrivalTime || e.expectedArrivalTime || e.aimedArrivalTime), arrived: !!e.actualArrivalTime});
+        if(e.cancellation) res[i].cancelled = true;
+        if(e.realtime) res[i].rt = true;
+      });
+    }
+    // 3) connections: expected arrival + planned walking time vs. expected departure of the next ride
+    let prev = null, walk = 0;
+    segs.forEach((s, i) => {
+      if(s.kind === "walk"){ walk += toMin(s.arr) - toMin(s.dep); return; }
+      const r = res[i];
+      if(r && !r.missing){
+        let need = null;
+        if(prev != null && res[prev] && res[prev].arrE) need = res[prev].arrE.getTime() + walk*60000;
+        if(need != null) r.margin = Math.round((r.depE.getTime() - need)/60000);
+        if((r.margin != null && r.margin < 0) || r.cancelled){
+          const from = need != null ? need + 60000 : r.depA.getTime() + 60000;
+          const alt = (r.others || []).find(o => o.exp.getTime() >= from);
+          r.nextAlt = alt ? alt.exp : null;
+        }
+      }
+      prev = i; walk = 0;
+    });
+    LIVE[key] = {state: "ok", at: new Date(), date, res};
+  }catch(err){
+    LIVE[key] = Object.assign({}, old || {}, {state: "error", at: new Date(), date, msg: navigator.onLine === false ? "keine Internetverbindung" : String(err.message || err)});
+  }
+  if(state.sel === t.id && liveKey(t) === key) refreshLiveUI(t);
+}
+function refreshLiveUI(t){ const y = window.scrollY; renderDetail(t); window.scrollTo(0, y); }
+const delayMin = (e, a) => Math.round((e.getTime() - a.getTime())/60000);
+function curLive(){ const t = state.sel && BY_ID[state.sel]; if(!t) return null; const k = liveKey(t); return k ? LIVE[k] : null; }
+function liveChips(i){
+  const L = curLive(); const r = L && L.res && L.res[i]; if(!r) return "";
+  if(r.missing) return `<span class="chip warn">❓ nicht im aktuellen Fahrplan</span>`;
+  const out = [];
+  if(r.cancelled) out.push(`<span class="chip bad">🔴 fällt aus${r.nextAlt ? ` · nächste ${hhmm(r.nextAlt)}` : ""}</span>`);
+  else if(!r.rt) out.push(`<span class="chip info">⚪ nach Plan (noch keine Echtzeit)</span>`);
+  else{
+    const dd = delayMin(r.depE, r.depA);
+    const arr = r.arrE && r.arrA ? delayMin(r.arrE, r.arrA) : null;
+    out.push(dd > 1 ? `<span class="chip warn">🟠 ab ${hhmm(r.depE)} (+${dd})</span>` : dd < -1 ? `<span class="chip info">🔵 ab ${hhmm(r.depE)} (${dd})</span>` : `<span class="chip ok">🟢 ${r.departed ? "abgefahren" : "pünktlich"} ${hhmm(r.depE)}</span>`);
+    if(arr != null && Math.abs(arr) > 1) out.push(`<span class="chip ${arr > 1 ? "warn" : "info"}">an ${hhmm(r.arrE)} (${arr > 0 ? "+" : ""}${arr})</span>`);
+    if(r.inaccurate) out.push(`<span class="chip warn">Prognose unsicher</span>`);
+  }
+  if(r.margin != null){
+    if(r.margin < 0) out.push(`<span class="chip bad">❌ Anschluss verpasst${r.nextAlt ? ` · nächste ${hhmm(r.nextAlt)}` : ""}</span>`);
+    else if(r.margin < 2) out.push(`<span class="chip warn">⚠️ Anschluss knapp (${r.margin} Min.)</span>`);
+  }
+  return out.join("");
+}
+function liveSituations(i){
+  const L = curLive(); const r = L && L.res && L.res[i];
+  if(!r || !r.sits || !r.sits.length) return "";
+  return [...new Set(r.sits)].slice(0, 3).map(x => `<div class="sit">⚠️ ${esc(x.length > 220 ? x.slice(0, 217) + "…" : x)}</div>`).join("");
+}
+function liveBox(t, segs){
+  const L = LIVE[liveKey(t)];
+  const date = L ? L.date : liveDate(state.day, segs);
+  const isToday = ymd(date) === ymd(new Date());
+  const btn = `<button class="mini-btn" data-live="1">${L && L.state === "loading" ? "⏳ Prüfe …" : L && L.res ? "🔄 Aktualisieren" : "🔴 Live-Check"}</button>`;
+  let cls = "", body = "Prüft bei Entur jede Fahrt dieser Tour: Verspätungen, Ausfälle, Störungen und ob die Anschlüsse noch klappen.";
+  if(L && L.state === "error"){ cls = "warn"; body = `Live-Check nicht möglich: ${esc(L.msg)}.`; }
+  else if(L && L.res){
+    const rs = Object.values(L.res), n = rs.length;
+    const miss = rs.filter(r => r.missing).length, canc = rs.filter(r => r.cancelled).length, rt = rs.filter(r => r.rt).length;
+    const late = rs.filter(r => !r.missing && !r.cancelled && r.rt && delayMin(r.depE, r.depA) > 1).length;
+    const broken = rs.filter(r => r.margin != null && r.margin < 0).length, tight = rs.filter(r => r.margin != null && r.margin >= 0 && r.margin < 2).length;
+    const sits = rs.filter(r => (r.sits || []).length).length;
+    cls = canc || broken || miss ? "bad" : late || tight || sits ? "warn" : "ok";
+    const parts = [`${n} Fahrten geprüft`, rt ? `${rt} mit Echtzeit` : isToday ? "Echtzeit kommt ca. 1 Std. vor Abfahrt" : "für diesen Tag noch keine Echtzeit"];
+    if(late) parts.push(`${late} verspätet`);
+    if(canc) parts.push(`${canc} fällt aus`);
+    if(miss) parts.push(`${miss} nicht im Fahrplan`);
+    if(broken) parts.push(`${broken} Anschluss verpasst`); else if(tight) parts.push(`${tight} Anschluss knapp`); else if(n > 1) parts.push("alle Anschlüsse ok");
+    if(sits) parts.push(`${sits} mit Störungsmeldung`);
+    body = `<b>${cls === "ok" ? "✅ Alles nach Plan" : cls === "warn" ? "⚠️ Bitte prüfen" : "❌ Problem auf der Route"}</b> · ${parts.join(" · ")}`;
+  }
+  const when = L && L.at ? `Stand ${hhmm(L.at)}${isToday && liveTimer ? " · aktualisiert sich jede Minute" : ""}` : "";
+  return `<div class="box live ${cls}"><div class="live-head"><h4 style="margin:0">${isToday ? '<span class="pulse-dot"></span>' : ""}Live-Check · ${dateLabel(date)}</h4>${btn}</div>
+    <p class="note" style="margin:6px 0 0">${body}</p>${when ? `<p class="note" style="margin:4px 0 0;font-size:12px">${when}</p>` : ""}</div>`;
+}
+// automatic: only when the tour runs today and starts within the next 3 hours (or is under way)
+function startLive(t){
+  stopLive();
+  const segs = planOf(t, state.day); if(!segs) return;
+  const date = liveDate(state.day, segs);
+  if(ymd(date) !== ymd(new Date()) || Date.now() < onDate(date, segs[0].dep).getTime() - 3*3600e3) return;
+  liveTimer = setInterval(() => { if(document.visibilityState === "visible" && state.sel === t.id) runLive(t, true); }, 60000);
+  runLive(t, true);
+}
+function stopLive(){ if(liveTimer){ clearInterval(liveTimer); liveTimer = null; } }
+
+/* ---------- home location manager ---------- */
+function updateHomeUI(){
+  const tDict = T();
+  const sub = $("#brandSub");
+  if(!sub) return;
+  if(state.sel){
+    const t = BY_ID[state.sel];
+    sub.innerHTML = tDict.brandSubDetail(HOME.name, tDict.cats[t.cat].label, tDict.dayLong[state.day]);
+  } else {
+    sub.innerHTML = tDict.brandSub(HOME.name, TOURS.length);
+  }
+}
+
+function renderHomePresets(){
+  const box = $("#homePresets");
+  if(!box) return;
+  box.innerHTML = HOME_PRESETS.map(p => {
+    const isAct = Math.abs(p.lat - HOME.lat) < 0.0001 && Math.abs(p.lon - HOME.lon) < 0.0001;
+    return `<button class="home-preset-btn ${isAct ? "active" : ""}" data-lat="${p.lat}" data-lon="${p.lon}" data-name="${esc(p.name)}">${esc(p.name)}</button>`;
+  }).join("");
+}
+
+function openHomeModal(){
+  const m = $("#homeModal");
+  if(!m) return;
+  const tDict = T();
+  $("#homeModalTitle").textContent = tDict.homeModalTitle;
+  $("#homeModalDesc").textContent = tDict.homeModalDesc;
+  $("#homeSearchLabel").textContent = tDict.homeSearchLabel;
+  $("#homeSearchInput").placeholder = tDict.homeSearchPh;
+  $("#homeSearchInput").value = "";
+  $("#geoResults").classList.remove("show");
+  $("#geoResults").innerHTML = "";
+  $("#homeGpsBtn").textContent = tDict.homeGpsBtn;
+  $("#homePresetLabel").textContent = tDict.homePresetLabel;
+  $("#homeCustomToggle").textContent = tDict.homeCustomToggle;
+  $("#homeNameLabel").textContent = tDict.homeNameLabel;
+  $("#homeLatLabel").textContent = tDict.homeLatLabel;
+  $("#homeLonLabel").textContent = tDict.homeLonLabel;
+  $("#saveHomeBtn").textContent = tDict.homeSaveBtn;
+  $("#resetHomeBtn").textContent = tDict.homeResetBtn;
+  $("#customHomeName").value = HOME.name;
+  $("#customHomeLat").value = HOME.lat.toFixed(6);
+  $("#customHomeLon").value = HOME.lon.toFixed(6);
+  renderHomePresets();
+  m.classList.add("show");
+}
+
+function closeHomeModal(){
+  const m = $("#homeModal");
+  if(m) m.classList.remove("show");
+}
+
+function setHomeLocation(name, lat, lon){
+  HOME = {name, lat, lon};
+  store.set("home", HOME);
+  updateHomeUI();
+  updateHomeMarker();
+  if(state.sel){
+    drawSingle(BY_ID[state.sel]);
+    renderDetail(BY_ID[state.sel]);
+  } else {
+    drawOverview();
+    renderList();
+  }
+  toast(T().homeSavedToast(name));
+}
+
+let geoTimer = null;
+$("#homeSearchInput").addEventListener("input", e => {
+  clearTimeout(geoTimer);
+  const q = e.target.value.trim();
+  const resBox = $("#geoResults");
+  if(q.length < 2){ resBox.classList.remove("show"); resBox.innerHTML = ""; return; }
+  geoTimer = setTimeout(async () => {
+    resBox.classList.add("show");
+    resBox.innerHTML = `<div class="geo-item" style="color:var(--muted)">${T().homeSearching}</div>`;
+    try {
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q + ", Bergen, Vestland, Norway")}&limit=5&addressdetails=1`;
+      const res = await fetch(url, {headers:{"Accept-Language": state.lang === "en" ? "en" : "no,de"}});
+      if(!res.ok) throw new Error("HTTP " + res.status);
+      const items = await res.json();
+      if(!items.length){
+        resBox.innerHTML = `<div class="geo-item" style="color:var(--muted)">${T().homeNoResults}</div>`;
+        return;
+      }
+      resBox.innerHTML = items.map(item => {
+        const title = item.name || item.display_name.split(",")[0];
+        const sub = item.display_name.split(",").slice(1, 3).join(",").trim();
+        return `<div class="geo-item" data-lat="${item.lat}" data-lon="${item.lon}" data-name="${esc(title)}">
+          <b>${esc(title)}</b> <small style="color:var(--muted)">${esc(sub)}</small>
+        </div>`;
+      }).join("");
+    } catch(err) {
+      resBox.innerHTML = `<div class="geo-item" style="color:var(--muted)">${T().homeGeoError}</div>`;
+    }
+  }, 350);
+});
+
+$("#geoResults").addEventListener("click", e => {
+  const item = e.target.closest(".geo-item[data-lat]");
+  if(!item) return;
+  setHomeLocation(item.dataset.name, parseFloat(item.dataset.lat), parseFloat(item.dataset.lon));
+  closeHomeModal();
+});
+
+$("#homePresets").addEventListener("click", e => {
+  const b = e.target.closest(".home-preset-btn");
+  if(!b) return;
+  setHomeLocation(b.dataset.name, parseFloat(b.dataset.lat), parseFloat(b.dataset.lon));
+  closeHomeModal();
+});
+
+$("#homeGpsBtn").addEventListener("click", () => {
+  if(!navigator.geolocation){ toast(T().homeGeoError); return; }
+  toast(state.lang === "en" ? "Fetching GPS location …" : "Ermittle GPS-Standort …");
+  navigator.geolocation.getCurrentPosition(async pos => {
+    const lat = pos.coords.latitude, lon = pos.coords.longitude;
+    let name = state.lang === "en" ? "My GPS Location" : "Mein GPS-Standort";
+    try {
+      const r = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+      if(r.ok){
+        const j = await r.json();
+        const road = j.address?.road || j.address?.suburb || j.address?.neighbourhood || j.name;
+        if(road) name = road + (j.address?.house_number ? " " + j.address.house_number : "");
+      }
+    } catch(e){}
+    setHomeLocation(name, lat, lon);
+    closeHomeModal();
+  }, err => {
+    toast(err.code === 1 ? (state.lang === "en" ? "Location access denied" : "Standortzugriff verweigert") : T().homeGeoError);
+  }, {enableHighAccuracy:true, timeout:10000});
+});
+
+$("#saveHomeBtn").addEventListener("click", () => {
+  const name = $("#customHomeName").value.trim() || HOME.name;
+  const lat = parseFloat($("#customHomeLat").value) || HOME.lat;
+  const lon = parseFloat($("#customHomeLon").value) || HOME.lon;
+  setHomeLocation(name, lat, lon);
+  closeHomeModal();
+});
+
+$("#resetHomeBtn").addEventListener("click", () => {
+  setHomeLocation(DEFAULT_HOME.name, DEFAULT_HOME.lat, DEFAULT_HOME.lon);
+  closeHomeModal();
+  toast(T().homeResetToast);
+});
+
+$("#closeHomeModal").addEventListener("click", closeHomeModal);
+$("#homeModal").addEventListener("click", e => { if(e.target === $("#homeModal")) closeHomeModal(); });
+document.addEventListener("keydown", e => { if(e.key === "Escape" && $("#homeModal")?.classList.contains("show")) closeHomeModal(); });
+document.addEventListener("click", e => { if(e.target.closest("#homeEditBtn")) openHomeModal(); });
+
+/* ---------- navigation ---------- */
+function openTour(id, mapOnly){
+  const t = BY_ID[id]; if(!t) return;
+  const fresh = state.sel !== id;
+  state.sel = id;
+  document.body.classList.add("detail-open");
+  const tDict = T();
+  $("#brandTitle").textContent = tourTitle(t);
+  updateHomeUI();
+  $("#listControls").style.display = "none";
+  $("#mapMode").textContent = tDict.mapModeSingle(tourTitle(t));
+  overview.clearLayers();
+  drawSingle(t); renderDetail(t); startLive(t);
+  if(fresh && history.state?.tour !== id) history.pushState({tour:id}, "", "#"+id);
+  updateTopH();
+  setTimeout(() => { map.invalidateSize(); fitCurrent(); }, 60);
+  if(mapOnly){ $("#mapWrap").classList.remove("mini"); window.scrollTo({top:0, behavior:"smooth"}); }
+  else window.scrollTo({top:0});
+  onPosition._scrolled = false;
+}
+function closeTour(){
+  stopLive();
+  state.sel = null;
+  document.body.classList.remove("detail-open");
+  const tDict = T();
+  $("#brandTitle").textContent = tDict.brandTitle;
+  updateHomeUI();
+  $("#listControls").style.display = "";
+  $("#mapMode").textContent = tDict.mapModeAll;
+  single.clearLayers(); segLayers = [];
+  drawOverview(); renderList(); updateTopH();
+  setTimeout(() => { map.invalidateSize(); fitCurrent(); }, 60);
+}
+$("#backBtn").addEventListener("click", () => { if(history.state?.tour) history.back(); else closeTour(); });
+window.addEventListener("popstate", e => { const id = (e.state && e.state.tour) || location.hash.slice(1); if(id && BY_ID[id]) openTour(id); else closeTour(); });
+
+/* ---------- theme ---------- */
+function applyTheme(){
+  const r = document.documentElement;
+  if(state.theme === "auto") r.removeAttribute("data-theme"); else r.setAttribute("data-theme", state.theme);
+  const dark = state.theme === "dark" || (state.theme === "auto" && matchMedia("(prefers-color-scheme: dark)").matches);
+  $("#mapWrap").classList.toggle("dark-tiles", dark);
+  $("#themeBtn").textContent = state.theme === "auto" ? "◐" : dark ? "☾" : "☀";
+  $("#themeBtn").title = `Farbschema: ${state.theme === "auto" ? "automatisch" : dark ? "dunkel" : "hell"}`;
+  if(state.sel) drawSingle(BY_ID[state.sel]); else drawOverview();
+}
+$("#themeBtn").addEventListener("click", () => {
+  state.theme = {auto:"light", light:"dark", dark:"auto"}[state.theme]; store.set("theme", state.theme); applyTheme();
+  toast(`Farbschema: ${{auto:"automatisch", light:"hell", dark:"dunkel"}[state.theme]}`);
+});
+matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", applyTheme);
+function updateTopH(){ document.documentElement.style.setProperty("--top-h", $("#top").offsetHeight + "px"); }
+window.addEventListener("resize", () => { updateTopH(); map.invalidateSize(); });
+
+/* ---------- language toggle ---------- */
+function applyLang(){
+  const isEn = state.lang === "en";
+  const tDict = T();
+  document.documentElement.lang = state.lang;
+  const langBtn = $("#langBtn");
+  if(langBtn){
+    langBtn.textContent = isEn ? "🇩🇪 DE" : "🇬🇧 EN";
+    langBtn.title = isEn ? "Auf Deutsch wechseln" : "Switch to English";
+    langBtn.setAttribute("aria-label", isEn ? "Auf Deutsch wechseln" : "Switch to English");
+  }
+  const backBtn = $("#backBtn");
+  if(backBtn) backBtn.setAttribute("aria-label", tDict.backBtn);
+  const q = $("#q");
+  if(q) q.placeholder = tDict.searchPlaceholder;
+  const qClear = $("#qClear");
+  if(qClear) qClear.setAttribute("aria-label", tDict.clearSearch);
+  const gpsBtn = $("#gpsBtn");
+  if(gpsBtn){ gpsBtn.title = tDict.gpsBtn; gpsBtn.setAttribute("aria-label", tDict.gpsBtn); }
+  const layerBtn = $("#layerBtn");
+  if(layerBtn){ layerBtn.title = tDict.layerBtn; layerBtn.setAttribute("aria-label", tDict.layerBtn); }
+  const fitBtn = $("#fitBtn");
+  if(fitBtn){ fitBtn.title = tDict.fitBtn; fitBtn.setAttribute("aria-label", tDict.fitBtn); }
+  const fullBtn = $("#fullBtn");
+  if(fullBtn){ fullBtn.title = tDict.fullBtn; fullBtn.setAttribute("aria-label", tDict.fullBtn); }
+  const miniBtn = $("#miniBtn");
+  if(miniBtn){ miniBtn.title = tDict.miniBtn; miniBtn.setAttribute("aria-label", tDict.miniBtn); }
+  const mapJumpTxt = $("#mapJumpTxt");
+  if(mapJumpTxt) mapJumpTxt.textContent = tDict.mapJump;
+  
+  renderPills();
+  renderDays();
+  renderLayerMenu();
+  
+  updateHomeUI();
+  updateHomeMarker();
+  if(state.sel){
+    const t = BY_ID[state.sel];
+    $("#brandTitle").textContent = tourTitle(t);
+    $("#mapMode").textContent = tDict.mapModeSingle(tourTitle(t));
+    renderDetail(t);
+  } else {
+    $("#brandTitle").textContent = tDict.brandTitle;
+    $("#mapMode").textContent = tDict.mapModeAll;
+    renderList();
+  }
+  updateTopH();
+}
+
+$("#langBtn").addEventListener("click", () => {
+  state.lang = state.lang === "de" ? "en" : "de";
+  store.set("lang", state.lang);
+  applyLang();
+  toast(state.lang === "en" ? "Language: English" : "Sprache: Deutsch");
+});
+
+/* ---------- boot ---------- */
+setLayer(state.layer); setSeamarks(state.seamarks);
+drawOverview(); applyTheme(); applyLang(); updateTopH();
+setTimeout(fitCurrent, 50);
+const startId = location.hash.slice(1);
+if(startId && BY_ID[startId]){ history.replaceState({tour:startId}, "", "#"+startId); openTour(startId); }
+</script>
+</body>
+</html>
