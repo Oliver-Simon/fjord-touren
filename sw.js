@@ -1,5 +1,5 @@
 // Fjord-Touren service worker: app shell offline, visited map tiles cached.
-const VERSION = "fjord-20261106-194008";
+const VERSION = "fjord-20261108-164716";
 const SHELL = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png", "./icon-maskable-512.png"];
 const TILE_CACHE = "fjord-tiles-v1";
 const TILE_HOSTS = ["cache.kartverket.no", "tile.openstreetmap.org", "tiles.openseamap.org"];

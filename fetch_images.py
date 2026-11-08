@@ -36,6 +36,15 @@ CANDIDATES = {  # tour id -> list of (wiki, article) tried in order
     "odda_express": [("no", "Odda"), ("en", "Odda")],
     "hardanger_voss": [("no", "Hardangerbrua"), ("en", "Hardanger Bridge")],
     "utne_ring": [("no", "Utne"), ("no", "Utne Hotel"), ("nn", "Utne"), ("no", "Hardanger Folkemuseum")],
+    "fyllingsdalen_bones": [("no", "Nordåsvannet"), ("no", "Straume bru (Bergen)"), ("no", "Fyllingsdalen")],
+    "fyllingsdalen_loddefjord": [("no", "Damsgård hovedgård"), ("no", "Laksevåg"), ("no", "Loddefjord")],
+    "lovstakken_ring": [("no", "Løvstakken"), ("en", "Løvstakken"), ("no", "Fyllingsdalen terminal")],
+    "olsvik_godvik_ring": [("no", "Puddefjorden"), ("no", "Askøybroen"), ("no", "Olsvik")],
+    "kokstad_soreide_ring": [("no", "Siljustøl"), ("no", "Birkeland kirke"), ("no", "Rådal")],
+    "helldalsasen_fyllingsdalen": [("no", "Stadsporten"), ("no", "Nattland"), ("no", "Sandviken (Bergen)")],
+    "arna_asane_fyllingsdalen": [("no", "Ytre Arna"), ("no", "Gamle Bergen Museum"), ("no", "Åsane")],
+    "sotra_straume_express": [("no", "Sotrabrua"), ("no", "Straume (Øygarden)"), ("en", "Sotra Bridge")],
+    "bjoroy_fyllingsdalen": [("no", "Bjorøyna"), ("no", "Bjorøytunnelen"), ("no", "Haakonsvern")],
 }
 def get(url):
     for attempt in range(6):

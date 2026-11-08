@@ -1,470 +1,560 @@
 {
-  "troldhaugen": {
-    "file": "Troldhaugen_in_Bergen.jpg",
-    "article": "no:Troldhaugen",
-    "artist": "Andreas Sandberg",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
-    "page": "https://commons.wikimedia.org/wiki/File:Troldhaugen_in_Bergen.jpg",
-    "w": 960,
-    "h": 1280
-  },
-  "hjellestad": {
-    "file": "Bjelkarøy_ferjekai.jpg",
-    "article": "no:Bjelkarøyna",
-    "artist": "Huldraspelet4",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Bjelkar%C3%B8y_ferjekai.jpg",
-    "w": 960,
-    "h": 720
-  },
-  "fana_krokeide": {
-    "file": "HPIM1072.jpg",
-    "article": "no:Fana kirke",
-    "artist": "No machine-readable author provided. Landmo~commonswiki assumed (based on copyri",
-    "license": "Public domain",
-    "licenseUrl": "",
-    "page": "https://commons.wikimedia.org/wiki/File:HPIM1072.jpg",
-    "w": 960,
-    "h": 1273
-  },
-  "milde": {
-    "file": "ArboretumMilde13.JPG",
-    "article": "commons-search",
-    "artist": "Frode Inge Helland",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "page": "https://commons.wikimedia.org/wiki/File:ArboretumMilde13.JPG",
-    "w": 960,
-    "h": 720
-  },
-  "alvoen": {
-    "file": "Hovedbygningen på Alvøen.jpg",
-    "article": "commons-search",
-    "artist": "Vibekeseldal",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Hovedbygningen_p%C3%A5_Alv%C3%B8en.jpg",
-    "w": 960,
-    "h": 640
-  },
-  "askoy": {
-    "file": "Strusshamn.jpg",
-    "article": "no:Strusshamn",
-    "artist": "Marviks",
-    "license": "Public domain",
-    "licenseUrl": "",
-    "page": "https://commons.wikimedia.org/wiki/File:Strusshamn.jpg",
-    "w": 960,
-    "h": 720
-  },
-  "herdla": {
-    "file": "Herdla-2019.jpg",
-    "article": "no:Herdla",
-    "artist": "Bjørn Christian Tørrissen",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Herdla-2019.jpg",
-    "w": 960,
-    "h": 640
-  },
-  "nordhordland": {
-    "file": "Nordhordalandsbrua_towards_north.jpg",
-    "article": "no:Nordhordlandsbrua",
-    "artist": "Nordhordalandsbrua_4.JPG: Ovesen derivative work: Arsenikk (talk)",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Nordhordalandsbrua_towards_north.jpg",
-    "w": 960,
-    "h": 861
-  },
-  "sotra": {
-    "file": "Fjell festning S446 and R633.jpg",
-    "article": "commons-search",
-    "artist": "SinWin",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
-    "page": "https://commons.wikimedia.org/wiki/File:Fjell_festning_S446_and_R633.jpg",
-    "w": 960,
-    "h": 720
-  },
-  "glesvaer": {
-    "file": "1_Handelstaden_Glesvær.jpg",
-    "article": "no:Glesvær",
-    "artist": "Bentefosse",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "page": "https://commons.wikimedia.org/wiki/File:1_Handelstaden_Glesv%C3%A6r.jpg",
-    "w": 960,
-    "h": 639
-  },
-  "korsfjord_ring": {
-    "file": "Fjell Lille Sotra Knarrvika IMG 3757.JPG",
-    "article": "commons-search",
-    "artist": "Bjoertvedt",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Fjell_Lille_Sotra_Knarrvika_IMG_3757.JPG",
-    "w": 960,
-    "h": 720
-  },
-  "knarvik_salhus": {
-    "file": "Nordre_Salhus.JPG",
-    "article": "no:Salhus",
-    "artist": "Peter Forras",
-    "license": "Public domain",
-    "licenseUrl": "",
-    "page": "https://commons.wikimedia.org/wiki/File:Nordre_Salhus.JPG",
-    "w": 960,
-    "h": 720
-  },
-  "osteroy": {
-    "file": "Osteroy_Bridge_2009.JPG",
-    "article": "no:Osterøybrua",
-    "artist": "User:Sveter (Please credit as \"Petr Šmerkl, Wikipedia\" in case you use this outs",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Osteroy_Bridge_2009.JPG",
-    "w": 960,
-    "h": 638
-  },
-  "radoy": {
-    "file": "Manger_kirke.jpg",
-    "article": "no:Manger kyrkje",
-    "artist": "B Ystebo",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Manger_kirke.jpg",
-    "w": 960,
-    "h": 1444
-  },
-  "samnanger": {
-    "file": "Samnangerfjorden.JPG",
-    "article": "no:Samnangerfjorden",
-    "artist": "Frokor",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Samnangerfjorden.JPG",
-    "w": 960,
-    "h": 714
-  },
-  "dale_vaksdal": {
-    "file": "Dale frå Beitelen.jpg",
-    "article": "commons-search",
-    "artist": "Frank Breistein",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Dale_fr%C3%A5_Beitelen.jpg",
-    "w": 960,
-    "h": 539
-  },
-  "sonnen": {
-    "file": "Bryggen,_Bergen3.JPG",
-    "article": "no:Bryggen",
-    "artist": "",
-    "license": "CC BY-SA 2.5",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
-    "page": "https://commons.wikimedia.org/wiki/File:Bryggen,_Bergen3.JPG",
-    "w": 960,
-    "h": 640
-  },
-  "lysekloster": {
-    "file": "Lysekloster.JPG",
-    "article": "no:Lyse kloster",
-    "artist": "Nelson50 at English Wikipedia",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
-    "page": "https://commons.wikimedia.org/wiki/File:Lysekloster.JPG",
-    "w": 960,
-    "h": 720
-  },
-  "hardanger": {
-    "file": "Steinsdalsfossen.jpg",
-    "article": "no:Steinsdalsfossen",
-    "artist": "Andreas Sandberg",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
-    "page": "https://commons.wikimedia.org/wiki/File:Steinsdalsfossen.jpg",
-    "w": 960,
-    "h": 1280
-  },
-  "tysnes": {
-    "file": "Utsyn_mot_nord_frå_Gjøvågsvarden.JPG",
-    "article": "no:Tysnes",
-    "artist": "Christoffer H. Støle",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Utsyn_mot_nord_fr%C3%A5_Gj%C3%B8v%C3%A5gsvarden.JPG",
-    "w": 960,
-    "h": 720
-  },
-  "fjord_dreieck": {
-    "file": "Lysøy in Bjørnafjorden april 2023.jpg",
-    "article": "commons-search",
-    "artist": "Marius Vassnes",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Lys%C3%B8y_in_Bj%C3%B8rnafjorden_april_2023.jpg",
-    "w": 960,
-    "h": 720
-  },
-  "rosendal": {
-    "file": "Baroniet_Rosendal,_Kvinnherad_kommune,_Hordaland.jpg",
-    "article": "no:Baroniet Rosendal",
-    "artist": "Bohuslen",
-    "license": "CC BY-SA 3.0 no",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/no/deed.en",
-    "page": "https://commons.wikimedia.org/wiki/File:Baroniet_Rosendal,_Kvinnherad_kommune,_Hordaland.jpg",
-    "w": 960,
-    "h": 720
-  },
-  "varaldsoy": {
-    "file": "Varaldsøy.JPG",
-    "article": "no:Varaldsøy",
-    "artist": "Øystein H. Brekke",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Varalds%C3%B8y.JPG",
-    "w": 1000,
-    "h": 561
-  },
-  "fusa_samnanger": {
-    "file": "Samnangerfjorden.JPG",
-    "article": "no:Samnangerfjorden",
-    "artist": "Frokor",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Samnangerfjorden.JPG",
-    "w": 1000,
-    "h": 744
-  },
-  "norheimsund_740": {
-    "file": "Norheimsund.jpg",
-    "article": "no:Norheimsund",
-    "artist": "Leo Utskot",
-    "license": "CC BY-SA 2.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Norheimsund.jpg",
-    "w": 1000,
-    "h": 750
-  },
-  "fusa_express": {
-    "file": "Gjona_Lake,_Norway_1.jpg",
-    "article": "no:Fusa",
-    "artist": "Eirik Newth",
-    "license": "CC BY 2.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Gjona_Lake,_Norway_1.jpg",
-    "w": 1000,
-    "h": 667
-  },
-  "holdhus": {
-    "file": "Holdhus_kirke.JPG",
-    "article": "no:Holdhus kirke",
-    "artist": "Frokor",
-    "license": "Public domain",
-    "licenseUrl": "",
-    "page": "https://commons.wikimedia.org/wiki/File:Holdhus_kirke.JPG",
-    "w": 800,
-    "h": 533
-  },
-  "hardanger_kreuzung": {
-    "file": "Rosendal.jpg",
-    "article": "no:Kvinnherad",
-    "artist": "Magne Klementsen",
-    "license": "CC BY 1.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/1.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Rosendal.jpg",
-    "w": 800,
-    "h": 600
-  },
-  "fusa_direkt": {
-    "file": "Gjona_Lake,_Norway_1.jpg",
-    "article": "no:Fusa",
-    "artist": "Eirik Newth",
-    "license": "CC BY 2.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Gjona_Lake,_Norway_1.jpg",
-    "w": 1000,
-    "h": 667
-  },
-  "tysnes_lukksund": {
-    "file": "Lukksund bru 31. mars 2026.jpg",
-    "article": "no:Lukksund bru",
-    "artist": "Christoffer Hjeltnes Støle",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Lukksund_bru_31._mars_2026.jpg",
-    "w": 1000,
-    "h": 667
-  },
-  "odda_express": {
-    "creator": "Jarle Vines",
-    "license": "CC BY-SA 3.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Odda_2010.JPG",
-    "title": "odda_express"
-  },
-  "hardanger_voss": {
-    "creator": "kronja",
-    "artist": "kronja",
-    "license": "CC0",
-    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/",
-    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/",
-    "source": "https://commons.wikimedia.org/wiki/File:Hardangerbrua_(15028061131).png",
-    "page": "https://commons.wikimedia.org/wiki/File:Hardangerbrua_(15028061131).png",
-    "title": "hardanger_voss"
-  },
-  "utne_ring": {
-    "file": "Fergeavgang i Utne, Ullensvang.JPG",
-    "artist": "Jeblad",
-    "creator": "Jeblad",
-    "license": "CC BY-SA 3.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Fergeavgang_i_Utne,_Ullensvang.JPG",
-    "page": "https://commons.wikimedia.org/wiki/File:Fergeavgang_i_Utne,_Ullensvang.JPG",
-    "title": "utne_ring"
-  },
-  "fedje": {
-    "file": "Fedje_Hordaland_Norway_tunliweb_03.jpg",
-    "article": "commons:Fedje_Hordaland_Norway_tunliweb_03.jpg",
-    "artist": "Svein-Magne Tunli - tunliweb.no",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Fedje_Hordaland_Norway_tunliweb_03.jpg",
-    "w": 800,
-    "h": 450
-  },
-  "bekkjarvik_stolmen": {
-    "file": "Stolmabrua01-edit.JPG",
-    "article": "commons:Stolmabrua01-edit.JPG",
-    "artist": "Mathro0202",
-    "license": "CC BY-SA 2.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Stolmabrua01-edit.JPG",
-    "w": 800,
-    "h": 450
-  },
-  "hellesoy": {
-    "file": "Hellesøy_-_Øygarden_-_Norway.jpg",
-    "article": "commons:Hellesøy_-_Øygarden_-_Norway.jpg",
-    "artist": "RoaldAtleFurre",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Helles%C3%B8y_-_%C3%98ygarden_-_Norway.jpg",
-    "w": 800,
-    "h": 450
-  },
-  "modalen_eksingedalen": {
-    "file": "Mo_2.jpg",
-    "article": "commons:Mo_2.jpg",
-    "artist": "Tor-Egil Farestveit",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
-    "page": "https://commons.wikimedia.org/wiki/File:Mo_2.jpg",
-    "w": 800,
-    "h": 450
-  },
-  "ulvik_siderstien": {
-    "file": "Ulvik_med_tilliggande_herligheiter_II.jpg",
-    "article": "commons:Ulvik_med_tilliggande_herligheiter_II.jpg",
-    "artist": "Paul Skeie from Vossavangen, Norway",
-    "license": "CC BY 2.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Ulvik_med_tilliggande_herligheiter_II.jpg",
-    "w": 800,
-    "h": 450
-  },
-  "eidfjord": {
-    "file": "P1000532Eidfjord.JPG",
-    "article": "commons:P1000532Eidfjord.JPG",
-    "artist": "G.Lanting",
-    "license": "CC BY 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
-    "page": "https://commons.wikimedia.org/wiki/File:P1000532Eidfjord.JPG",
-    "w": 800,
-    "h": 450
-  },
-  "sunnhordland_leirvik": {
-    "file": "Leirvik_Sentrum_(Stord,_Norway_2013,_cropped).jpg",
-    "article": "commons:Leirvik_Sentrum_(Stord,_Norway_2013,_cropped).jpg",
-    "artist": "Alundy95",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Leirvik_Sentrum_(Stord,_Norway_2013,_cropped).jpg",
-    "w": 800,
-    "h": 450
-  },
-  "lygra": {
-    "file": "Lyngheisenteret_på_Lygra.jpg",
-    "article": "commons:Lyngheisenteret_på_Lygra.jpg",
-    "artist": "Olav Bjørn Lygre",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Lyngheisenteret_p%C3%A5_Lygra.jpg",
-    "w": 800,
-    "h": 450
-  },
-  "gudvangen": {
-    "file": "Gudvangen-2005-06-30.jpg",
-    "article": "commons:Gudvangen-2005-06-30.jpg",
-    "artist": "No machine-readable author provided. Gunnarbu~commonswiki assumed (based on copy",
-    "license": "Public domain",
-    "licenseUrl": "",
-    "page": "https://commons.wikimedia.org/wiki/File:Gudvangen-2005-06-30.jpg",
-    "w": 800,
-    "h": 450
-  },
-  "flamsbana": {
-    "file": "Flåmsbana_train_at_Flåm_Station.jpg",
-    "article": "commons:Flåmsbana_train_at_Flåm_Station.jpg",
-    "artist": "Alasdair McLellan",
-    "license": "Public domain",
-    "licenseUrl": "",
-    "page": "https://commons.wikimedia.org/wiki/File:Fl%C3%A5msbana_train_at_Fl%C3%A5m_Station.jpg",
-    "w": 800,
-    "h": 450
-  },
-  "hausdalen_gullfjellet": {
-    "file": "Redningshytten.jpg",
-    "article": "commons:Redningshytten.jpg",
-    "artist": "Smtunli, Svein-Magne Tunli - http://www.tunliweb.no/SM/English/sm_eng.htm",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Redningshytten.jpg",
-    "w": 800,
-    "h": 450
-  },
-  "gullbotn": {
-    "file": "Langavatnet_Gullbotn.JPG",
-    "article": "commons:Langavatnet_Gullbotn.JPG",
-    "artist": "Svein Harkestad",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
-    "page": "https://commons.wikimedia.org/wiki/File:Langavatnet_Gullbotn.JPG",
-    "w": 800,
-    "h": 450
-  },
-  "strono_ervikane": {
-    "file": "Ervikane.jpg",
-    "article": "commons:Ervikane.jpg",
-    "artist": "Jakobgtvedt06",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Ervikane.jpg",
-    "w": 800,
-    "h": 450
-  },
-  "masfjorden_matre": {
-    "file": "Matrefjorden,_2025.jpg",
-    "article": "commons:Matrefjorden,_2025.jpg",
-    "artist": "Krib",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
-    "page": "https://commons.wikimedia.org/wiki/File:Matrefjorden,_2025.jpg",
-    "w": 800,
-    "h": 450
-  }
+ "troldhaugen": {
+  "file": "Troldhaugen_in_Bergen.jpg",
+  "article": "no:Troldhaugen",
+  "artist": "Andreas Sandberg",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "page": "https://commons.wikimedia.org/wiki/File:Troldhaugen_in_Bergen.jpg",
+  "w": 960,
+  "h": 1280
+ },
+ "hjellestad": {
+  "file": "Bjelkarøy_ferjekai.jpg",
+  "article": "no:Bjelkarøyna",
+  "artist": "Huldraspelet4",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Bjelkar%C3%B8y_ferjekai.jpg",
+  "w": 960,
+  "h": 720
+ },
+ "fana_krokeide": {
+  "file": "HPIM1072.jpg",
+  "article": "no:Fana kirke",
+  "artist": "No machine-readable author provided. Landmo~commonswiki assumed (based on copyri",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "page": "https://commons.wikimedia.org/wiki/File:HPIM1072.jpg",
+  "w": 960,
+  "h": 1273
+ },
+ "milde": {
+  "file": "ArboretumMilde13.JPG",
+  "article": "commons-search",
+  "artist": "Frode Inge Helland",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:ArboretumMilde13.JPG",
+  "w": 960,
+  "h": 720
+ },
+ "alvoen": {
+  "file": "Hovedbygningen på Alvøen.jpg",
+  "article": "commons-search",
+  "artist": "Vibekeseldal",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Hovedbygningen_p%C3%A5_Alv%C3%B8en.jpg",
+  "w": 960,
+  "h": 640
+ },
+ "askoy": {
+  "file": "Strusshamn.jpg",
+  "article": "no:Strusshamn",
+  "artist": "Marviks",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "page": "https://commons.wikimedia.org/wiki/File:Strusshamn.jpg",
+  "w": 960,
+  "h": 720
+ },
+ "herdla": {
+  "file": "Herdla-2019.jpg",
+  "article": "no:Herdla",
+  "artist": "Bjørn Christian Tørrissen",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Herdla-2019.jpg",
+  "w": 960,
+  "h": 640
+ },
+ "nordhordland": {
+  "file": "Nordhordalandsbrua_towards_north.jpg",
+  "article": "no:Nordhordlandsbrua",
+  "artist": "Nordhordalandsbrua_4.JPG: Ovesen derivative work: Arsenikk (talk)",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Nordhordalandsbrua_towards_north.jpg",
+  "w": 960,
+  "h": 861
+ },
+ "sotra": {
+  "file": "Fjell festning S446 and R633.jpg",
+  "article": "commons-search",
+  "artist": "SinWin",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "page": "https://commons.wikimedia.org/wiki/File:Fjell_festning_S446_and_R633.jpg",
+  "w": 960,
+  "h": 720
+ },
+ "glesvaer": {
+  "file": "1_Handelstaden_Glesvær.jpg",
+  "article": "no:Glesvær",
+  "artist": "Bentefosse",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:1_Handelstaden_Glesv%C3%A6r.jpg",
+  "w": 960,
+  "h": 639
+ },
+ "korsfjord_ring": {
+  "file": "Fjell Lille Sotra Knarrvika IMG 3757.JPG",
+  "article": "commons-search",
+  "artist": "Bjoertvedt",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Fjell_Lille_Sotra_Knarrvika_IMG_3757.JPG",
+  "w": 960,
+  "h": 720
+ },
+ "knarvik_salhus": {
+  "file": "Nordre_Salhus.JPG",
+  "article": "no:Salhus",
+  "artist": "Peter Forras",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "page": "https://commons.wikimedia.org/wiki/File:Nordre_Salhus.JPG",
+  "w": 960,
+  "h": 720
+ },
+ "osteroy": {
+  "file": "Osteroy_Bridge_2009.JPG",
+  "article": "no:Osterøybrua",
+  "artist": "User:Sveter (Please credit as \"Petr Šmerkl, Wikipedia\" in case you use this outs",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Osteroy_Bridge_2009.JPG",
+  "w": 960,
+  "h": 638
+ },
+ "radoy": {
+  "file": "Manger_kirke.jpg",
+  "article": "no:Manger kyrkje",
+  "artist": "B Ystebo",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Manger_kirke.jpg",
+  "w": 960,
+  "h": 1444
+ },
+ "samnanger": {
+  "file": "Samnangerfjorden.JPG",
+  "article": "no:Samnangerfjorden",
+  "artist": "Frokor",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Samnangerfjorden.JPG",
+  "w": 960,
+  "h": 714
+ },
+ "dale_vaksdal": {
+  "file": "Dale frå Beitelen.jpg",
+  "article": "commons-search",
+  "artist": "Frank Breistein",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Dale_fr%C3%A5_Beitelen.jpg",
+  "w": 960,
+  "h": 539
+ },
+ "sonnen": {
+  "file": "Bryggen,_Bergen3.JPG",
+  "article": "no:Bryggen",
+  "artist": "",
+  "license": "CC BY-SA 2.5",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+  "page": "https://commons.wikimedia.org/wiki/File:Bryggen,_Bergen3.JPG",
+  "w": 960,
+  "h": 640
+ },
+ "lysekloster": {
+  "file": "Lysekloster.JPG",
+  "article": "no:Lyse kloster",
+  "artist": "Nelson50 at English Wikipedia",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "page": "https://commons.wikimedia.org/wiki/File:Lysekloster.JPG",
+  "w": 960,
+  "h": 720
+ },
+ "hardanger": {
+  "file": "Steinsdalsfossen.jpg",
+  "article": "no:Steinsdalsfossen",
+  "artist": "Andreas Sandberg",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "page": "https://commons.wikimedia.org/wiki/File:Steinsdalsfossen.jpg",
+  "w": 960,
+  "h": 1280
+ },
+ "tysnes": {
+  "file": "Utsyn_mot_nord_frå_Gjøvågsvarden.JPG",
+  "article": "no:Tysnes",
+  "artist": "Christoffer H. Støle",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Utsyn_mot_nord_fr%C3%A5_Gj%C3%B8v%C3%A5gsvarden.JPG",
+  "w": 960,
+  "h": 720
+ },
+ "fjord_dreieck": {
+  "file": "Lysøy in Bjørnafjorden april 2023.jpg",
+  "article": "commons-search",
+  "artist": "Marius Vassnes",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Lys%C3%B8y_in_Bj%C3%B8rnafjorden_april_2023.jpg",
+  "w": 960,
+  "h": 720
+ },
+ "rosendal": {
+  "file": "Baroniet_Rosendal,_Kvinnherad_kommune,_Hordaland.jpg",
+  "article": "no:Baroniet Rosendal",
+  "artist": "Bohuslen",
+  "license": "CC BY-SA 3.0 no",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/no/deed.en",
+  "page": "https://commons.wikimedia.org/wiki/File:Baroniet_Rosendal,_Kvinnherad_kommune,_Hordaland.jpg",
+  "w": 960,
+  "h": 720
+ },
+ "varaldsoy": {
+  "file": "Varaldsøy.JPG",
+  "article": "no:Varaldsøy",
+  "artist": "Øystein H. Brekke",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Varalds%C3%B8y.JPG",
+  "w": 1000,
+  "h": 561
+ },
+ "fusa_samnanger": {
+  "file": "Samnangerfjorden.JPG",
+  "article": "no:Samnangerfjorden",
+  "artist": "Frokor",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Samnangerfjorden.JPG",
+  "w": 1000,
+  "h": 744
+ },
+ "norheimsund_740": {
+  "file": "Norheimsund.jpg",
+  "article": "no:Norheimsund",
+  "artist": "Leo Utskot",
+  "license": "CC BY-SA 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Norheimsund.jpg",
+  "w": 1000,
+  "h": 750
+ },
+ "fusa_express": {
+  "file": "Gjona_Lake,_Norway_1.jpg",
+  "article": "no:Fusa",
+  "artist": "Eirik Newth",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Gjona_Lake,_Norway_1.jpg",
+  "w": 1000,
+  "h": 667
+ },
+ "holdhus": {
+  "file": "Holdhus_kirke.JPG",
+  "article": "no:Holdhus kirke",
+  "artist": "Frokor",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "page": "https://commons.wikimedia.org/wiki/File:Holdhus_kirke.JPG",
+  "w": 800,
+  "h": 533
+ },
+ "hardanger_kreuzung": {
+  "file": "Rosendal.jpg",
+  "article": "no:Kvinnherad",
+  "artist": "Magne Klementsen",
+  "license": "CC BY 1.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/1.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Rosendal.jpg",
+  "w": 800,
+  "h": 600
+ },
+ "fusa_direkt": {
+  "file": "Gjona_Lake,_Norway_1.jpg",
+  "article": "no:Fusa",
+  "artist": "Eirik Newth",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Gjona_Lake,_Norway_1.jpg",
+  "w": 1000,
+  "h": 667
+ },
+ "tysnes_lukksund": {
+  "file": "Lukksund bru 31. mars 2026.jpg",
+  "article": "no:Lukksund bru",
+  "artist": "Christoffer Hjeltnes Støle",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Lukksund_bru_31._mars_2026.jpg",
+  "w": 1000,
+  "h": 667
+ },
+ "odda_express": {
+  "creator": "Jarle Vines",
+  "license": "CC BY-SA 3.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Odda_2010.JPG",
+  "title": "odda_express"
+ },
+ "hardanger_voss": {
+  "creator": "kronja",
+  "artist": "kronja",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/",
+  "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/",
+  "source": "https://commons.wikimedia.org/wiki/File:Hardangerbrua_(15028061131).png",
+  "page": "https://commons.wikimedia.org/wiki/File:Hardangerbrua_(15028061131).png",
+  "title": "hardanger_voss"
+ },
+ "utne_ring": {
+  "file": "Fergeavgang i Utne, Ullensvang.JPG",
+  "artist": "Jeblad",
+  "creator": "Jeblad",
+  "license": "CC BY-SA 3.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Fergeavgang_i_Utne,_Ullensvang.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Fergeavgang_i_Utne,_Ullensvang.JPG",
+  "title": "utne_ring"
+ },
+ "fedje": {
+  "file": "Fedje_Hordaland_Norway_tunliweb_03.jpg",
+  "article": "commons:Fedje_Hordaland_Norway_tunliweb_03.jpg",
+  "artist": "Svein-Magne Tunli - tunliweb.no",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Fedje_Hordaland_Norway_tunliweb_03.jpg",
+  "w": 800,
+  "h": 450
+ },
+ "bekkjarvik_stolmen": {
+  "file": "Stolmabrua01-edit.JPG",
+  "article": "commons:Stolmabrua01-edit.JPG",
+  "artist": "Mathro0202",
+  "license": "CC BY-SA 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Stolmabrua01-edit.JPG",
+  "w": 800,
+  "h": 450
+ },
+ "hellesoy": {
+  "file": "Hellesøy_-_Øygarden_-_Norway.jpg",
+  "article": "commons:Hellesøy_-_Øygarden_-_Norway.jpg",
+  "artist": "RoaldAtleFurre",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Helles%C3%B8y_-_%C3%98ygarden_-_Norway.jpg",
+  "w": 800,
+  "h": 450
+ },
+ "modalen_eksingedalen": {
+  "file": "Mo_2.jpg",
+  "article": "commons:Mo_2.jpg",
+  "artist": "Tor-Egil Farestveit",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "page": "https://commons.wikimedia.org/wiki/File:Mo_2.jpg",
+  "w": 800,
+  "h": 450
+ },
+ "ulvik_siderstien": {
+  "file": "Ulvik_med_tilliggande_herligheiter_II.jpg",
+  "article": "commons:Ulvik_med_tilliggande_herligheiter_II.jpg",
+  "artist": "Paul Skeie from Vossavangen, Norway",
+  "license": "CC BY 2.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Ulvik_med_tilliggande_herligheiter_II.jpg",
+  "w": 800,
+  "h": 450
+ },
+ "eidfjord": {
+  "file": "P1000532Eidfjord.JPG",
+  "article": "commons:P1000532Eidfjord.JPG",
+  "artist": "G.Lanting",
+  "license": "CC BY 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:P1000532Eidfjord.JPG",
+  "w": 800,
+  "h": 450
+ },
+ "sunnhordland_leirvik": {
+  "file": "Leirvik_Sentrum_(Stord,_Norway_2013,_cropped).jpg",
+  "article": "commons:Leirvik_Sentrum_(Stord,_Norway_2013,_cropped).jpg",
+  "artist": "Alundy95",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Leirvik_Sentrum_(Stord,_Norway_2013,_cropped).jpg",
+  "w": 800,
+  "h": 450
+ },
+ "lygra": {
+  "file": "Lyngheisenteret_på_Lygra.jpg",
+  "article": "commons:Lyngheisenteret_på_Lygra.jpg",
+  "artist": "Olav Bjørn Lygre",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Lyngheisenteret_p%C3%A5_Lygra.jpg",
+  "w": 800,
+  "h": 450
+ },
+ "gudvangen": {
+  "file": "Gudvangen-2005-06-30.jpg",
+  "article": "commons:Gudvangen-2005-06-30.jpg",
+  "artist": "No machine-readable author provided. Gunnarbu~commonswiki assumed (based on copy",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "page": "https://commons.wikimedia.org/wiki/File:Gudvangen-2005-06-30.jpg",
+  "w": 800,
+  "h": 450
+ },
+ "flamsbana": {
+  "file": "Flåmsbana_train_at_Flåm_Station.jpg",
+  "article": "commons:Flåmsbana_train_at_Flåm_Station.jpg",
+  "artist": "Alasdair McLellan",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "page": "https://commons.wikimedia.org/wiki/File:Fl%C3%A5msbana_train_at_Fl%C3%A5m_Station.jpg",
+  "w": 800,
+  "h": 450
+ },
+ "hausdalen_gullfjellet": {
+  "file": "Redningshytten.jpg",
+  "article": "commons:Redningshytten.jpg",
+  "artist": "Smtunli, Svein-Magne Tunli - http://www.tunliweb.no/SM/English/sm_eng.htm",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Redningshytten.jpg",
+  "w": 800,
+  "h": 450
+ },
+ "gullbotn": {
+  "file": "Langavatnet_Gullbotn.JPG",
+  "article": "commons:Langavatnet_Gullbotn.JPG",
+  "artist": "Svein Harkestad",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "page": "https://commons.wikimedia.org/wiki/File:Langavatnet_Gullbotn.JPG",
+  "w": 800,
+  "h": 450
+ },
+ "strono_ervikane": {
+  "file": "Ervikane.jpg",
+  "article": "commons:Ervikane.jpg",
+  "artist": "Jakobgtvedt06",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Ervikane.jpg",
+  "w": 800,
+  "h": 450
+ },
+ "masfjorden_matre": {
+  "file": "Matrefjorden,_2025.jpg",
+  "article": "commons:Matrefjorden,_2025.jpg",
+  "artist": "Krib",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Matrefjorden,_2025.jpg",
+  "w": 800,
+  "h": 450
+ },
+ "fyllingsdalen_bones": {
+  "file": "154_Frozen_Nordasvatnet.JPG",
+  "article": "no:Nordåsvannet",
+  "artist": "The original uploader was Saty at French Wikipedia.",
+  "license": "CC BY-SA 2.5 pl",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/pl/deed.en",
+  "page": "https://commons.wikimedia.org/wiki/File:154_Frozen_Nordasvatnet.JPG",
+  "w": 960,
+  "h": 723
+ },
+ "fyllingsdalen_loddefjord": {
+  "file": "Damsgaard.hoved.jpg",
+  "article": "no:Damsgård hovedgård",
+  "artist": "Nina Aldin Thune",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "page": "https://commons.wikimedia.org/wiki/File:Damsgaard.hoved.jpg",
+  "w": 960,
+  "h": 640
+ },
+ "lovstakken_ring": {
+  "file": "SolheimLøvstakken.jpg",
+  "article": "no:Løvstakken",
+  "artist": "Aqwis",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:SolheimL%C3%B8vstakken.jpg",
+  "w": 960,
+  "h": 642
+ },
+ "olsvik_godvik_ring": {
+  "file": "Bergen-_View_from_Fløyen_on_a_rainy_day.jpeg",
+  "article": "no:Puddefjorden",
+  "artist": "",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "page": "https://commons.wikimedia.org/wiki/File:Bergen-_View_from_Fl%C3%B8yen_on_a_rainy_day.jpeg",
+  "w": 960,
+  "h": 720
+ },
+ "helldalsasen_fyllingsdalen": {
+  "file": "Stadsporten.jpg",
+  "article": "no:Stadsporten",
+  "artist": "David40226543",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Stadsporten.jpg",
+  "w": 960,
+  "h": 1280
+ },
+ "arna_asane_fyllingsdalen": {
+  "file": "Ytre_Arna_1.JPG",
+  "article": "no:Ytre Arna",
+  "artist": "Svein Harkestad, Norway",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "page": "https://commons.wikimedia.org/wiki/File:Ytre_Arna_1.JPG",
+  "w": 960,
+  "h": 719
+ },
+ "sotra_straume_express": {
+  "file": "Nye_Sotrabrua.jpg",
+  "article": "no:Sotrabrua",
+  "artist": "Ingvar1027",
+  "license": "CC0",
+  "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "page": "https://commons.wikimedia.org/wiki/File:Nye_Sotrabrua.jpg",
+  "w": 960,
+  "h": 553
+ },
+ "bjoroy_fyllingsdalen": {
+  "file": "Bjorøytunnelen_ved_Håkonshella..JPG",
+  "article": "no:Bjorøytunnelen",
+  "artist": "Huldraspelet4",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Bjor%C3%B8ytunnelen_ved_H%C3%A5konshella..JPG",
+  "w": 960,
+  "h": 643
+ },
+ "kokstad_soreide_ring": {
+  "file": "Birkeland_kirke,_Hordaland_-_Riksantikvaren-T260_01_0137.jpg",
+  "article": "no:Birkeland kirke",
+  "artist": "Christian Christensen Thomhav",
+  "license": "Public domain",
+  "licenseUrl": "",
+  "page": "https://commons.wikimedia.org/wiki/File:Birkeland_kirke,_Hordaland_-_Riksantikvaren-T260_01_0137.jpg",
+  "w": 960,
+  "h": 716
+ }
 }

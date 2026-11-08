@@ -95,6 +95,15 @@ a{color:var(--accent)}
 .pill{flex:none;border:1px solid var(--border);background:var(--surface);color:var(--text-2);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer;white-space:nowrap;transition:all .15s}
 .pill[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .pill:active{transform:scale(.96)}
+.cat-pills{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.cat-pills::-webkit-scrollbar{display:none}
+.cat-pill{flex:none;display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);border-radius:10px;padding:6px 11px;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .15s}
+.cat-pill i{width:9px;height:9px;border-radius:3px;display:inline-block;flex:none}
+.cat-pill small{font-weight:500;color:var(--muted);font-size:11.5px}
+.cat-pill[aria-pressed="true"]{background:var(--cc,var(--accent));border-color:var(--cc,var(--accent));color:#fff;box-shadow:var(--shadow)}
+.cat-pill[aria-pressed="true"] i{background:#fff!important}
+.cat-pill[aria-pressed="true"] small{color:rgba(255,255,255,.88)}
+.cat-pill:active{transform:scale(.96)}
 .seg{display:inline-flex;background:var(--surface-2);border-radius:10px;padding:3px;gap:2px}
 .seg button{border:0;background:transparent;padding:5px 11px;border-radius:8px;font-size:13px;color:var(--text-2);cursor:pointer}
 .seg button[aria-pressed="true"]{background:var(--surface);color:var(--text);box-shadow:var(--shadow);font-weight:600}
@@ -140,7 +149,12 @@ a{color:var(--accent)}
 .map-tools .icon-btn.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .map-status{position:absolute;left:10px;right:62px;bottom:10px;z-index:800;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px 10px;font-size:13px;box-shadow:var(--shadow);display:none}
 .map-status.show{display:block;animation:fadeUp .25s ease}
-.map-mode{position:absolute;left:10px;top:10px;z-index:800;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:5px 10px;font-size:12px;font-weight:600;box-shadow:var(--shadow);max-width:60%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.map-mode{position:absolute;left:10px;top:10px;z-index:800;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:5px 10px;font-size:12px;font-weight:600;box-shadow:var(--shadow);max-width:calc(100% - 68px);white-space:nowrap;overflow-x:auto;scrollbar-width:none;display:flex;align-items:center;gap:5px}
+.map-mode::-webkit-scrollbar{display:none}
+.map-cat-btn{border:1px solid var(--border);background:var(--surface-2);color:var(--text-2);border-radius:7px;padding:3px 8px;font-size:11.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:5px;flex:none;transition:all .15s}
+.map-cat-btn i{width:8px;height:8px;border-radius:2px;display:inline-block}
+.map-cat-btn[aria-pressed="true"]{background:var(--cc,var(--accent));border-color:var(--cc,var(--accent));color:#fff}
+.map-cat-btn[aria-pressed="true"] i{background:#fff!important}
 .layer-menu{position:absolute;right:58px;top:10px;z-index:900;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:6px;display:none;min-width:210px}
 .layer-menu.show{display:block;animation:fadeUp .2s ease}
 .layer-menu button{display:flex;width:100%;align-items:center;gap:8px;border:0;background:none;padding:8px 10px;border-radius:9px;cursor:pointer;text-align:left;font-size:14px}
@@ -161,8 +175,10 @@ a{color:var(--accent)}
 .stat{flex:none;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:6px 12px;font-size:12px;color:var(--muted)}
 .stat b{display:block;font-size:17px;color:var(--text)}
 /* cards */
-.cat-h{display:flex;align-items:center;gap:8px;margin:18px 2px 8px;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.cat-h{display:flex;align-items:center;gap:8px;margin:18px 2px 8px;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);flex-wrap:wrap}
 .cat-h i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.cat-h .cat-filter-btn{margin-left:auto;border:1px solid var(--border);background:var(--surface);color:var(--text-2);border-radius:8px;padding:3px 9px;font-size:11.5px;font-weight:600;letter-spacing:0;text-transform:none;cursor:pointer;transition:all .15s}
+.cat-h .cat-filter-btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 14px 12px;margin:0 0 10px;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s ease,box-shadow .2s;animation:fadeUp .3s ease both;overflow:hidden}
 .card:active{transform:scale(.985)}
 .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--cc)}
@@ -278,6 +294,7 @@ a{color:var(--accent)}
         <input id="q" type="search" placeholder="Ort suchen: Askøy, Osterøy, Milde …" autocomplete="off">
         <button class="clear" id="qClear" aria-label="Suche löschen">×</button>
       </label>
+      <div class="cat-pills" id="catPills" role="group" aria-label="Kategorie-Schnellfilter"></div>
       <div class="pills" id="pills"></div>
       <div class="row-between">
         <div class="seg" id="daySeg" role="group" aria-label="Wochentag"></div>
@@ -372,9 +389,9 @@ const HOME_PRESETS = [
   {name: "Osøyro Terminal", lat: 60.1832, lon: 5.4674}
 ];
 const CATS = {
-  express:{label:"Kurze Express-Runden", sub:"Ziel 1,5–2,5 Std.", color:"var(--c-express)"},
-  maritim:{label:"Maritime Schären & Brücken", sub:"Ziel 2,5–4 Std.", color:"var(--c-maritim)"},
-  natur:{label:"Natur- & Panoramatouren", sub:"Tagesausflüge", color:"var(--c-natur)"}
+  express:{label:"Kurze Express- & Busrunden", sub:"1,5–3,5 Std. (Bergen)", color:"var(--c-express)"},
+  maritim:{label:"Maritime Schären & Brücken", sub:"2,5–6 Std. (Inseln & Küste)", color:"var(--c-maritim)"},
+  natur:{label:"Natur- & Panoramatouren", sub:"Tagesausflüge (Fjorde & Berge)", color:"var(--c-natur)"}
 };
 const MODE = {
   bus:{icon:"🚌", label:"Bus", col:"--bus"}, coach:{icon:"🚌", label:"Bus", col:"--coach"},
@@ -384,7 +401,7 @@ const MODE = {
 const DAYS = [["wd","Mo–Fr"],["sa","Sa"],["so","So"]];
 const DAYLONG = {wd:"Werktag (Mo–Fr)", sa:"Samstag", so:"Sonntag"};
 const FILTERS = [
-  ["short","⚡ < 2,5 Std."],["ferry","⛴️ Mit Boot/Fähre"],["bus","🚌 100 % Bus"],
+  ["cityring","🏙️ Stadt-Busrunden"],["short","⚡ < 2,5 Std."],["ferry","⛴️ Mit Boot/Fähre"],["bus","🚌 100 % Bus"],
   ["bridge","🌉 Brücken-Highlights"],["home","🏠 Ab Haustür"],["ring","🔄 Rundkurs"]
 ];
 const LAYERS = {
@@ -697,6 +714,51 @@ const I18N_TOURS_EN = {
     title: "Masfjorden & Matre: Fjord Gorge & Stølsheimen Gateway",
     subtitle: "Express bus NW431 along the dramatic northern fjords to Matre – gateway to the mountains of Stølsheimen",
     tariff: "Skyss Zones A + E / Nor-Way Expressbus"
+  },
+  fyllingsdalen_bones: {
+    title: "Fyllingsdalen, Straume Bridge & Bønes Panorama Ring",
+    subtitle: "Around Nordåsvannet: Bus 22 across Straume Bridge to Fyllingsdalen, return on Bus 14 over scenic Bønes & Kråkenes",
+    tariff: "Skyss Zone A (100% included in monthly pass!)"
+  },
+  fyllingsdalen_loddefjord: {
+    title: "Grand West Bus Circuit: Fyllingsdalen, Loddefjord & Laksevåg",
+    subtitle: "Nearly 100% bus through Western Bergen: Via Straume Bridge to Fyllingsdalen, Bus 24 to Loddefjord, Bus 20 via Laksevåg & Fantoft back",
+    tariff: "Skyss Zone A (100% included in monthly pass!)"
+  },
+  lovstakken_ring: {
+    title: "Mount Løvstakken Circuit: Bus 20, Bybanen 2 & Fyllingsdalen",
+    subtitle: "Around & through Løvstakken: Bus 20 via Landås to Haukeland, Bybanen 2 through the mountain to Fyllingsdalen, Bus 22 back",
+    tariff: "Skyss Zone A (100% included in monthly pass!)"
+  },
+  olsvik_godvik_ring: {
+    title: "Laksevåg, Storavatnet & Olsvik Heights Circuit",
+    subtitle: "Two scenic western routes: Bus 20 along Puddefjorden to Storavatnet, return on Bus 40 over the panoramic cliffs of Godvik & Olsvik",
+    tariff: "Skyss Zone A (100% included in monthly pass!)"
+  },
+  kokstad_soreide_ring: {
+    title: "Ytrebygda, Kokstad, Søreide & Fyllingsdalen Circuit",
+    subtitle: "South-West bus loop: Bus 51 from Birkelandsskiftet via Kokstad, Søreide & Kråkenes, on to Fyllingsdalen and back via Bus 22",
+    tariff: "Skyss Zone A (100% included in monthly pass!)"
+  },
+  helldalsasen_fyllingsdalen: {
+    title: "East-West Panorama Ring: Helldalsåsen, Sædal, Bryggen & Fyllingsdalen",
+    subtitle: "From the eastern hillside villages (Bus 16E) down to Bryggen harbor, Bus 4 to Fyllingsdalen, and Bus 22 via Straume Bridge back",
+    tariff: "Skyss Zone A (100% included in monthly pass!)"
+  },
+  arna_asane_fyllingsdalen: {
+    title: "Grand 4-Borough Bus Circuit: Arna, Åsane, Bryggen & Fyllingsdalen",
+    subtitle: "Full circle through four boroughs: Bus 29 to Arna, Bus 28 along Sørfjorden to Åsane, Bus 4 via Sandviken & Bryggen to Fyllingsdalen, Bus 22 back",
+    tariff: "Skyss Zone A (100% included in monthly pass!)"
+  },
+  sotra_straume_express: {
+    title: "Compact Sotra Bridge Ring: Laksevåg, Sotrabrua & Straume",
+    subtitle: "Express bridge circuit without hiking: Cross-town Bus 20 via Laksevåg to Storavatnet, Bus 450/460 over Sotra Bridge to Straume and back",
+    tariff: "Skyss Zone A (100% included in monthly pass!)"
+  },
+  bjoroy_fyllingsdalen: {
+    title: "Bjorøy Island & Fyllingsdalen Ring: Subsea Tunnel & West Coast",
+    subtitle: "Bus 20 to Loddefjord, island bus 43 through the 88m-deep subsea Bjorøy Tunnel to Bjorøyna, returning via Fyllingsdalen & Straume Bridge",
+    tariff: "Skyss Zone A (100% included in monthly pass!)"
   }
 };
 
@@ -729,7 +791,11 @@ const I18N = {
     colorScheme: "Farbschema wechseln",
     langToggle: "Switch to English",
     allPill: "Alle",
+    catAll: "Alle Kategorien",
+    catMapOnly: "🗺️ Nur auf Karte",
+    catMapAll: "✓ Auf Karte aktiv (alle zeigen)",
     filters: {
+      cityring: "🏙️ Stadt-Busrunden",
       short: "⚡ < 2,5 Std.",
       ferry: "⛴️ Mit Boot/Fähre",
       bus: "🚌 100 % Bus",
@@ -741,9 +807,9 @@ const I18N = {
     dayLong: {wd:"Werktag (Mo–Fr)", sa:"Samstag", so:"Sonntag"},
     dayHint: d => `Zeiten für ${d}`,
     cats: {
-      express: {label:"Kurze Express-Runden", sub:"Ziel 1,5–2,5 Std."},
-      maritim: {label:"Maritime Schären & Brücken", sub:"Ziel 2,5–4 Std."},
-      natur: {label:"Natur- & Panoramatouren", sub:"Tagesausflüge"}
+      express: {label:"Kurze Express- & Busrunden", short:"Kurze Runden (Bergen)", sub:"1,5–3,5 Std."},
+      maritim: {label:"Maritime Schären & Brücken", short:"Maritim & Brücken", sub:"2,5–6 Std."},
+      natur: {label:"Natur- & Panoramatouren", short:"Natur & Fjorde", sub:"Tagesausflüge"}
     },
     stats: (vis, ferries, bridges, homes, rings) => `
       <div class="stat"><b>${vis}</b>Touren</div>
@@ -869,9 +935,13 @@ const I18N = {
     colorScheme: "Toggle color theme",
     langToggle: "Auf Deutsch wechseln",
     allPill: "All",
+    catAll: "All Categories",
+    catMapOnly: "🗺️ Map only",
+    catMapAll: "✓ Active on map (show all)",
     filters: {
+      cityring: "🏙️ City Bus Loops",
       short: "⚡ < 2.5 hrs",
-      ferry: "⛴️ Boat/Ferry",
+      ferry: "⛴️ Boat/Fähre",
       bus: "🚌 100% Bus",
       bridge: "🌉 Bridge Highlights",
       home: "🏠 From Doorstep",
@@ -881,9 +951,9 @@ const I18N = {
     dayLong: {wd:"Weekday (Mon–Fri)", sa:"Saturday", so:"Sunday"},
     dayHint: d => `Times for ${d}`,
     cats: {
-      express: {label:"Short Express Circuits", sub:"Target 1.5–2.5 hrs"},
-      maritim: {label:"Maritime Islands & Bridges", sub:"Target 2.5–4 hrs"},
-      natur: {label:"Nature & Panoramic Tours", sub:"Day trips"}
+      express: {label:"Short Express & Bus Circuits", short:"Short Tours (Bergen)", sub:"1.5–3.5 hrs"},
+      maritim: {label:"Maritime Islands & Bridges", short:"Maritime & Bridges", sub:"2.5–6 hrs"},
+      natur: {label:"Nature & Panoramic Tours", short:"Nature & Fjords", sub:"Day trips"}
     },
     stats: (vis, ferries, bridges, homes, rings) => `
       <div class="stat"><b>${vis}</b>Tours</div>
@@ -994,6 +1064,7 @@ function todayKey(){ const g = new Date().getDay(); return g===0 ? "so" : g===6 
 const state = {
   lang: store.get("lang", "de"),
   day: todayKey(),
+  cat: store.get("cat", "all"),
   filters: new Set(store.get("filters", [])),
   q: "",
   sel: null,
@@ -1098,7 +1169,9 @@ function anyMetrics(t){ for(const [d] of DAYS){ const s = planOf(t, d); if(s) re
 function matches(t){
   const info = tourInfo(t); const m = info.m || anyMetrics(t);
   if(!m) return false;
+  if(state.cat && state.cat !== "all" && t.cat !== state.cat) return false;
   for(const f of state.filters){
+    if(f === "cityring" && !(t.cat === "express" && t.ring && !m.ferry)) return false;
     if(f === "short" && !(m.dur < 150)) return false;
     if(f === "ferry" && !m.ferry) return false;
     if(f === "bus" && !m.busOnly) return false;
@@ -1395,15 +1468,66 @@ function toggleGPS(){
 $("#gpsBtn").addEventListener("click", toggleGPS);
 
 /* ---------- list ---------- */
+function renderCatPills(){
+  const tDict = T();
+  const cur = state.cat || "all";
+  const allCnt = TOURS.length;
+  let h = `<button class="cat-pill" data-cat="all" aria-pressed="${cur==="all"}">${tDict.catAll} <small>(${allCnt})</small></button>`;
+  for(const [ck, c] of Object.entries(CATS)){
+    const ci = tDict.cats[ck] || c;
+    const n = TOURS.filter(t => t.cat === ck).length;
+    h += `<button class="cat-pill" data-cat="${ck}" style="--cc:${c.color}" aria-pressed="${cur===ck}"><i style="background:${c.color}"></i>${ci.short || ci.label} <small>(${n})</small></button>`;
+  }
+  const el = $("#catPills");
+  if(el) el.innerHTML = h;
+}
+function renderMapMode(){
+  const el = $("#mapMode");
+  if(!el) return;
+  const tDict = T();
+  if(state.sel){
+    el.innerHTML = esc(tDict.mapModeSingle(tourTitle(BY_ID[state.sel])));
+    return;
+  }
+  const cur = state.cat || "all";
+  let h = `<button class="map-cat-btn" data-cat="all" aria-pressed="${cur==="all"}">${tDict.allPill} (${TOURS.length})</button>`;
+  for(const [ck, c] of Object.entries(CATS)){
+    const ci = tDict.cats[ck] || c;
+    const n = TOURS.filter(t => t.cat === ck).length;
+    h += `<button class="map-cat-btn" data-cat="${ck}" style="--cc:${c.color}" aria-pressed="${cur===ck}"><i style="background:${c.color}"></i>${ci.short || ci.label} (${n})</button>`;
+  }
+  el.innerHTML = h;
+}
+function setCat(cat, scrollToMap){
+  state.cat = (cat === state.cat && cat !== "all") ? "all" : cat;
+  store.set("cat", state.cat);
+  renderCatPills(); renderMapMode(); renderList(); drawOverview();
+  if(!state.sel) fitCurrent();
+  if(scrollToMap && state.cat !== "all"){
+    $("#mapWrap").classList.remove("mini");
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+}
+$("#catPills")?.addEventListener("click", e => {
+  const b = e.target.closest("[data-cat]"); if(!b) return;
+  setCat(b.dataset.cat, false);
+});
+$("#mapMode")?.addEventListener("click", e => {
+  const b = e.target.closest("[data-cat]"); if(!b) return;
+  L.DomEvent?.stopPropagation?.(e);
+  setCat(b.dataset.cat, false);
+});
 function renderPills(){
   const tDict = T();
-  $("#pills").innerHTML = `<button class="pill" data-f="all" aria-pressed="${state.filters.size===0}">${tDict.allPill}</button>` +
+  const isAll = state.filters.size===0 && (!state.cat || state.cat==="all");
+  $("#pills").innerHTML = `<button class="pill" data-f="all" aria-pressed="${isAll}">${tDict.allPill}</button>` +
     FILTERS.map(([k]) => `<button class="pill" data-f="${k}" aria-pressed="${state.filters.has(k)}">${tDict.filters[k] || k}</button>`).join("");
 }
 $("#pills").addEventListener("click", e => {
   const b = e.target.closest(".pill"); if(!b) return;
   const f = b.dataset.f;
-  if(f === "all") state.filters.clear(); else state.filters.has(f) ? state.filters.delete(f) : state.filters.add(f);
+  if(f === "all"){ state.filters.clear(); state.cat = "all"; store.set("cat", "all"); renderCatPills(); renderMapMode(); }
+  else state.filters.has(f) ? state.filters.delete(f) : state.filters.add(f);
   store.set("filters", [...state.filters]);
   renderPills(); renderList(); drawOverview(); if(!state.sel) fitCurrent();
 });
@@ -1464,15 +1588,18 @@ function renderList(){
     const catInfo = tDict.cats[ck] || c;
     const ts = vis.filter(t => t.cat === ck).sort((a,b) => ((tourInfo(a).m||{dur:999}).dur) - ((tourInfo(b).m||{dur:999}).dur));
     if(!ts.length) continue;
-    html += `<div class="cat-h"><i style="background:${c.color}"></i>${catInfo.label} <span style="font-weight:500;text-transform:none;letter-spacing:0">· ${catInfo.sub}</span></div>`;
+    const isAct = state.cat === ck;
+    html += `<div class="cat-h"><i style="background:${c.color}"></i>${catInfo.label} <span style="font-weight:500;text-transform:none;letter-spacing:0">· ${catInfo.sub}</span><button class="cat-filter-btn" data-cat-only="${ck}" aria-pressed="${isAct}">${isAct ? tDict.catMapAll : tDict.catMapOnly}</button></div>`;
     html += ts.map(t => cardHTML(t, i++)).join("");
   }
   const dateStr = esc(DATA.generated.slice(0,10).split("-").reverse().join("."));
   html += `<p class="foot">${tDict.listFoot(dateStr)}</p>`;
   $("#list").innerHTML = html;
-  const r = $("#resetF"); if(r) r.onclick = () => { state.filters.clear(); state.q = ""; $("#q").value = ""; store.set("filters", []); renderPills(); renderList(); drawOverview(); };
+  const r = $("#resetF"); if(r) r.onclick = () => { state.filters.clear(); state.cat = "all"; state.q = ""; $("#q").value = ""; store.set("filters", []); store.set("cat", "all"); renderCatPills(); renderMapMode(); renderPills(); renderList(); drawOverview(); fitCurrent(); };
 }
 $("#list").addEventListener("click", e => {
+  const catBtn = e.target.closest("[data-cat-only]");
+  if(catBtn){ setCat(catBtn.dataset.catOnly, true); return; }
   const card = e.target.closest(".card"); if(!card) return;
   const act = e.target.closest("[data-act]");
   openTour(card.dataset.id, act && act.dataset.act === "map");
@@ -1511,7 +1638,7 @@ function freqBox(segs){
     const k = `${s.from.qid}|${s.lineId}`; if(seen.has(k)) return; seen.add(k);
     const f = DATA.freq[k]; if(!f) return;
     const cell = d => { const x = f[d]; if(!x) return "–"; const strong = d === state.day ? "b" : "span";
-      return `<${strong}>${esc(x.text)}</${strong}>` + (x.times && x.times.length && x.times.length <= 30 ? `<details><summary>${tDict.freqDepartures}</summary><div class="times">${x.times.join(" · ")}</div></details>` : ""); };
+      return `<${strong}>${esc(x.text)}</${strong}>` + (x.times && x.times.length && x.times.length <= 250 ? `<details><summary>${tDict.freqDepartures}</summary><div class="times">${x.times.join(" · ")}</div></details>` : ""); };
     rows.push(`<tr><td><span class="lb" style="--mc:${modeColor(s.mode)}">${(MODE[s.mode]||MODE.bus).icon} ${esc(s.line)}</span><div class="times">${tDict.freqFrom} ${esc(s.from.name)}${s.from.quay ? " · "+tDict.platform+" "+esc(s.from.quay) : ""}</div></td><td>${cell("wd")}</td><td>${cell("sa")}</td><td>${cell("so")}</td></tr>`);
   });
   return `<div class="box">${tDict.freqHead}<table class="freq"><tr><th>${tDict.freqThLine}</th><th>${tDict.freqThWd}</th><th>${tDict.freqThSa}</th><th>${tDict.freqThSo}</th></tr>${rows.join("")}</table></div>`;
@@ -1568,7 +1695,7 @@ function departuresBox(t, p){
   }).join("");
   return `<div class="box">${tDict.depTitle(alts.length)}
     <p class="note" style="margin:0 0 6px">${tDict.depSub}</p>
-    <table class="freq"><tr><th>${tDict.depThDep}</th><th>${tDict.depThDur}</th><th>${tDict.depThRides}</th><th></th></tr>${rows}</table></div>`;
+    <div style="${alts.length > 10 ? "max-height:340px;overflow-y:auto;border:1px solid var(--line);border-radius:8px" : ""}"><table class="freq"><tr><th>${tDict.depThDep}</th><th>${tDict.depThDur}</th><th>${tDict.depThRides}</th><th></th></tr>${rows}</table></div></div>`;
 }
 function renderDetail(t){
   const tDict = T();
@@ -2068,7 +2195,7 @@ function closeTour(){
   $("#brandTitle").textContent = tDict.brandTitle;
   updateHomeUI();
   $("#listControls").style.display = "";
-  $("#mapMode").textContent = tDict.mapModeAll;
+  renderMapMode();
   single.clearLayers(); segLayers = [];
   drawOverview(); renderList(); updateTopH();
   setTimeout(() => { map.invalidateSize(); fitCurrent(); }, 60);
@@ -2124,6 +2251,7 @@ function applyLang(){
   const mapJumpTxt = $("#mapJumpTxt");
   if(mapJumpTxt) mapJumpTxt.textContent = tDict.mapJump;
   
+  renderCatPills();
   renderPills();
   renderDays();
   renderLayerMenu();
@@ -2133,11 +2261,11 @@ function applyLang(){
   if(state.sel){
     const t = BY_ID[state.sel];
     $("#brandTitle").textContent = tourTitle(t);
-    $("#mapMode").textContent = tDict.mapModeSingle(tourTitle(t));
+    renderMapMode();
     renderDetail(t);
   } else {
     $("#brandTitle").textContent = tDict.brandTitle;
-    $("#mapMode").textContent = tDict.mapModeAll;
+    renderMapMode();
     renderList();
   }
   updateTopH();
